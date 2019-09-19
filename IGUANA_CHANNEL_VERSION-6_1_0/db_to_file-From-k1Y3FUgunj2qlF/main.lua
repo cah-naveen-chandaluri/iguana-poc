@@ -23,7 +23,6 @@ function main()
       
       live = true}
     print(R)
-	  X = queue.push(R)
-     
+	  X = queue.push(R)    
     
 end
