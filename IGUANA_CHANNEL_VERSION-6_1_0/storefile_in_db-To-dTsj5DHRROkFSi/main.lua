@@ -34,6 +34,5 @@ function main()
    Conn:execute{sql = SqlInsert,live=true}
   -- Conn:query('SELECT * FROM menu1')
 F:close()
-   
-   
+  
    end
