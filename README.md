@@ -43,3 +43,7 @@ References:
 
 7)Lua Reference Book
   https://www.lua.org/manual/5.1/index.html#index
+  
+8) Lua Programming reference
+ https://www.lua.org/pil/contents.html
+ http://lua-users.org/wiki/SampleCode
