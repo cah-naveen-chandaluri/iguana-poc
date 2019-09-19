@@ -1,14 +1,22 @@
 
 POC's:
 
-1] xml to db		
-2] file to database		
+1] xml to db
+
+2] file to database	
+
 3] modules files to database		
+
 4] https_to_file[soap(xml)]		
+
 5] Soap ui to file to db		
+
 6] http_to_db[postman(json)]		
+
 7] file_to_file		
+
 8] webapitofile		
+
 9] database to file
 
 
