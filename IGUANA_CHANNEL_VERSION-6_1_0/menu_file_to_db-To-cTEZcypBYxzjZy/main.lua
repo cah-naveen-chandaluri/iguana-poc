@@ -35,8 +35,6 @@ function main(Data)
    '\n   )'
    
 
-
-
     
       Conn:execute{sql=SqlInsert, live=true}
    
