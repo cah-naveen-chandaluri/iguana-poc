@@ -1,0 +1,24 @@
+<channel
+   name="3pl task1 channel2"
+   guid="5EC448CE0F14014AF21B31BA5B715461"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="3pl_task1_channel2-To-1ntPwSWscp1HWq"
+      commit_id="19826578e1dd3191c9e81d6fab43c29544960044"
+      commit_comment="good">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="1C5C6A1D838256E39773631B118223D7"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_mapper
+      guid="3pl_task1_channel2-From-Cyzp5g1tEToMmD"
+      commit_id="cacda45d9e7ffedfe80e5c29b44b233c300b5030"
+      commit_comment="good"
+      poll_time="10000">
+   </from_mapper>
+</channel>
