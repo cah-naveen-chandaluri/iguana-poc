@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3pl_task3-To-zfWxf15Dzk80cN"
-      commit_id="bc5163a5f85da3bc3981652687cdf98b56411d08"
-      commit_comment="good">
+      commit_id="bdb8ef3b860bdb77194d91c5325feb3897a079ef"
+      commit_comment="Import Translators: commit">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,7 +17,7 @@
    </to_mapper>
    <from_mapper
       guid="3pl_task3-From-jYWul8vI2lGVCR"
-      commit_id="138c75de462b963cc752199be65a5ecf8c2b13a2"
+      commit_id="b777565c58657b0266da42812113f0d6dab57c41"
       commit_comment="good"
       poll_time="10000">
    </from_mapper>

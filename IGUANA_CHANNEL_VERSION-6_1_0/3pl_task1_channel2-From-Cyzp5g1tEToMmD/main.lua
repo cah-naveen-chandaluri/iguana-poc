@@ -23,15 +23,33 @@ function main()
                            SizeOfPackages,Strength,SupplierItemNumber HAVING count(*) = 1 ]]
                           )
       
-						  local A=#   
+						  local C=#X   
    
-   x=select * from emp
-   for i in1,10 
-   do
-      select * from dummy_emp where id=X[i]
-      soap ui	
+   A=Conn:query([[select * from orders]])
+   B=Conn:Query('select * from ordersummary')
+   
+   for i=1,10 do
+   for j=1,10 do
+   
+    A[i]==Conn:query('select * from dummyorder where id=X[j]')
+    B[i]==Conn:query('select * from dummyorder_summary where id=Y[j]')
+     
+         --rest api
 		end				  
-				
+		end		
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    local Y=Conn:query(
@@ -45,13 +63,13 @@ function main()
                            SizeOfPackages,Strength,SupplierItemNumber HAVING count(*) = 1 ]]
                           )
       
-						  local B=#Y
+						  local D=#Y
         
 		  --the above comparision query will be done for two times if we use the xml data as two different tables
 		  
 		  -- the sum of size of two different tables will be stored in 
 		
-		               local Z=A+B
+		               local Z=C+D
           --Z will store the sum of two databases and if the sum is equal to zero then it will call the rest api
       
                      if (Z==0) then

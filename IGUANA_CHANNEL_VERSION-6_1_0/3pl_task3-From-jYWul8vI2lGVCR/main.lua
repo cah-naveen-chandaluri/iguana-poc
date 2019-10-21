@@ -29,12 +29,20 @@ function main()
                local conn = db.connect
                {
                      api = db.MY_SQL,
-                     name = 'test',
+                     name = 'mydatabase@sripad:3306',
                      user = 'root',
-                     password = '',
+                     password = 'dSrip@d2489',
                      use_unicode=true,
                      live = true
+         
                }
+      
+     -- conn:execute{sql='SELECT * FROM orders', live=true} 
+      
+      
+      
+      
+      
      
             --Inserting data into the orders table
       
