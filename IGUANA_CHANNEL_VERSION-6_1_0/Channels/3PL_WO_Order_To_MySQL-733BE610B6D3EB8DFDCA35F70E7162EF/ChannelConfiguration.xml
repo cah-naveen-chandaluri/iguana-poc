@@ -1,0 +1,39 @@
+<channel
+   name="3PL_WO_Order_To_MySQL"
+   guid="733BE610B6D3EB8DFDCA35F70E7162EF"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="3PL_WO_Order_To_MySQL-To-pECms2kkvopTbo"
+      commit_id="748606fbdc4bbd2ef81f7fceb6d05ed81ab2ef0a"
+      commit_comment="Initial Channel to read the order XML files and store them in the database.">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="F3C3CBA2D3F1C7AA566BCEACADBF9013"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_file
+      file_type="HL7"
+      prepend_file_info="false"
+      eof_char=""
+      poll_time="10000"
+      max_message_size="15728640"
+      source_dir="C:/3PL_WO/OrderFiles/"
+      source_file_extension="xml"
+      archive_processed_files="true"
+      processed_dir="C:/3PL_WO/ProcessedFiles/"
+      error_dir="C:/3PL_WO/ErrorFiles/"
+      ignored_segments=""
+      segment_delimiter="0x0D"
+      message_delimiter="0x0A"
+      minimum_file_age="0"
+      escape_8bit="false"
+      escape_char=" "
+      ftp_username="admin"
+      ftp_password="bT43P7STAmWbVDn7tw6xaHCddofI0q+fVy3UdSQhPzE="
+      sftp_authentication_method="user_password"
+      use_ftp="false"/>
+</channel>
