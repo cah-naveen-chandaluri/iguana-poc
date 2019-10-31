@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Order_To_MySQL-To-pECms2kkvopTbo"
-      commit_id="748606fbdc4bbd2ef81f7fceb6d05ed81ab2ef0a"
-      commit_comment="Initial Channel to read the order XML files and store them in the database.">
+      commit_id="eb39fef4b94525182a9e1147ebcd740aac4ca2bf"
+      commit_comment="good">
       <dequeue_list>
          <dequeue
             source_name="self"

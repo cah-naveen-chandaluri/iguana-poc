@@ -1,8 +1,10 @@
 {
     "LocalDependencies": [],
-    "LuaDependencies": [],
+    "LuaDependencies": [
+        "mymaths"
+    ],
     "OtherDependencies": [],
-    "timestamp": "1572446139",
+    "timestamp": "1572527622",
     "version_info": {
         "build": 0,
         "major": 6,
