@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="2d55183f89bd20595fed8e2f172aa4edf6900138"
-      commit_comment="The database connection is done. Read the XML and created the structure to store data in SQL."
+      commit_id="66bd900aed95f10988f054d0f834015dc4284d26"
+      commit_comment="Updated the comments"
       poll_time="10000">
    </from_mapper>
 </channel>

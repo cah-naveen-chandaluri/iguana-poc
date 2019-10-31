@@ -21,7 +21,7 @@ function main()
   
      dbConnection.connectdb()
       
-     -- For two SQL Statement insert the data in the csos_order_header and csos_order_details.
+     -- Complete two SQL insert statements for csos_order_header and csos_order_details below.
      -- Task 1 : Read the values from the 'order_data' which has data from the xml and **validate the each value based on the column type
      -- Task 2 : Add the column names which attched in the excel sheet.  
      -- Task 3 : After validation insert the data into sql
@@ -45,6 +45,7 @@ function main()
    VALUES
    (
    ]]..
+      
    "'"..Msg.breakfast_menu:child("food", i)["name"][1].."',"..
    "\n   '"..Msg.breakfast_menu:child("food", i)["price"][1].."',"..
    "\n   '"..Msg.breakfast_menu:child("food", i)["description"][1].."',"..
@@ -69,15 +70,12 @@ local sql_csos_order_details =
    '\n   )'
    
 
-    -- Execute the sql statements
-      
+    -- Execute the sql statements   
     conn:execute{sql=sql_csos_order_header, live=true}
     conn:execute{sql=sql_csos_order_details, live=true}
     
       -- for testing select statement 
     cursor = conn:query([[ SELECT * FROM role_ref; ]])
-   
-   
    
    else
       print('File is not in the XML Format')
