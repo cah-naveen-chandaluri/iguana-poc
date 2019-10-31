@@ -19,6 +19,6 @@
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
       commit_id="66bd900aed95f10988f054d0f834015dc4284d26"
       commit_comment="Updated the comments"
-      poll_time="10000">
+      poll_time="300000">
    </from_mapper>
 </channel>
