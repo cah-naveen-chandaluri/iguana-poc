@@ -4,21 +4,21 @@ function main()
    dbConnection = require("DBConnection")
    
    -- Read the XML file from the Directory
-   local url =iguana.project.root()..'other/XMLdata.xml'
+   local other_folder =iguana.project.root()..'other/XMLdata.xml'
    --local url="C:\\3PL\\XMLdata.xml"
    c="NO"
    
-   if(GetFileExtension(url) == '.xml') then
+   if(GetFileExtension(other_folder) == '.xml') then
    
      -- Open order file
-     local open_order_file = io.open(url, "r")
+     local open_order_file = io.open(other_folder, "r")
      -- Read order file
      local read_order_file =  open_order_file:read('*a')
      -- Close the file
      open_order_file:close()
      
      local order_data = xml.parse(read_order_file)  
-print(order_data)
+  print(order_data)
   print(os.time(),os.ts.time(),os.date(),os.date('%X'))
     
       dbConnection.connectdb()
@@ -59,7 +59,7 @@ print(order_data)
        "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber:nodeText().."',"..
        "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber:nodeText().."',"..
        "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber:nodeText().."',"..
-       "\n   '"..c.."',"..
+       "\n   '"..ACTIVE_FLG.."',"..
        "\n   '"..os.date('%X').."',"..
        "\n   '"..os.date('%X').."',"..
        "\n   '"..os.date('%X').."',"..
@@ -98,7 +98,7 @@ local sql_csos_order_details =
       "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SizeOfPackages:nodeText().."',"..
       "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Strength:nodeText().."',"..
       "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SupplierItemNumber:nodeText().."',"..
-      "\n   '"..c.."',"..
+      "\n   '"..ACTIVE_FLG.."',"..
       "\n   '"..os.date('%X').."',"..
       "\n   '"..os.date('%X').."',"..
       "\n   '"..os.date('%X').."',"..  
@@ -121,6 +121,6 @@ end
 
 
 -- Validating the file extenstion format
-function GetFileExtension(url)
-     return url:match("^.+(%..+)$")
+function GetFileExtension(other_folder)
+     return other_folder:match("^.+(%..+)$")
 end

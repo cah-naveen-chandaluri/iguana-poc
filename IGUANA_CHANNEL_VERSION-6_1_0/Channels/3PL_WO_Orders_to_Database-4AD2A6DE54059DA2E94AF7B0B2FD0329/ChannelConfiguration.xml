@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="1ea73848eaae7f62dd230bcf49357c0b557a3845"
-      commit_comment="added xml file in the other folder and no need to pass the path"
+      commit_id="aaca32704e6c60851167f2d08c99fc8443153f21"
+      commit_comment="good"
       poll_time="300000">
    </from_mapper>
 </channel>
