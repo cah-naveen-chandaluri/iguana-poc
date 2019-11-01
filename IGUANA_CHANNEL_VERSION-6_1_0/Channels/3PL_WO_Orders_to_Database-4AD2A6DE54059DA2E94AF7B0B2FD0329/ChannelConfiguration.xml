@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Orders_to_Database-To-fE7mBViHDTx8At"
-      commit_id="78a4b6909cb22689f92d9a9dbd8a4daafb06cf61"
-      commit_comment="Import Translators: import">
+      commit_id="53b45c7153930f61556f7ae7603f3220cb29b186"
+      commit_comment="Import Translators: importing for practice">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="b309ee1cdd66d1e5fce55e58e915c6e9c09e6411"
-      commit_comment="good"
+      commit_id="1ea73848eaae7f62dd230bcf49357c0b557a3845"
+      commit_comment="added xml file in the other folder and no need to pass the path"
       poll_time="300000">
    </from_mapper>
 </channel>

@@ -11,7 +11,7 @@ function main()
    if(GetFileExtension(url) == '.xml') then
    
      -- Open order file
-     local open_order_file = io.open(iguana.project.root()..'other/XMLdata.xml', "r")
+     local open_order_file = io.open(url, "r")
      -- Read order file
      local read_order_file =  open_order_file:read('*a')
      -- Close the file
