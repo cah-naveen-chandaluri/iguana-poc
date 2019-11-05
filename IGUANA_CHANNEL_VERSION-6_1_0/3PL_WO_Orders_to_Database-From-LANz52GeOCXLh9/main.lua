@@ -30,7 +30,7 @@ function main()
      open_order_file:close()
      
      local order_data = xml.parse(read_order_file)  
-  
+     print(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit:nodeText())
      dbConnection.connectdb()
       
      -- Complete two SQL insert statements for csos_order_header and csos_order_details below.
@@ -107,12 +107,20 @@ local sql_csos_order_details =
     
          
     -- Execute the sql statements   
-    conn_dev:execute{sql=sql_csos_order_header, live=true}
-    conn_dev:execute{sql=sql_csos_order_details, live=true}
-    
+    sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true}
+    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true}
+  
     -- for testing select statement 
     -- cursor = conn_dev:query([[ SELECT * FROM ; ]])
+    if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
+    then
+             os.rename(input_directory_path..filename, output_archived_path..filename)
+    else
+             os.rename(input_directory_path..filename, output_error_path..filename)            
+    end
+      
    else
+      os.rename(input_directory_path..filename, output_error_path..filename)          
       print('File is not in the XML Format')
    end -- end for if condition
    end -- end for for loop   
