@@ -3,6 +3,8 @@
 function main()
    dbConnection = require("DBConnection")
    properties = require("properties")
+    Validation = require("Validation")
+   
    
    properties.directory_path()
    -- Read the XML file from the Directory
@@ -30,7 +32,97 @@ function main()
      open_order_file:close()
      
      local order_data = xml.parse(read_order_file)  
-     print(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit:nodeText())
+     print(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText())
+         
+         --validation for csos_order_details
+         
+         result_BuyerItemNumber=Validation.BuyerItemNumber(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.BuyerItemNumber:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.BuyerItemNumber:nodeText())
+     print(result_BuyerItemNumber)    
+         
+          result_Form=Validation.Form(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText())
+      print(result_Form)
+         
+          result_LineNumber=Validation.LineNumber(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.LineNumber:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.LineNumber:nodeText())
+      print(result_LineNumber) 
+                
+         result_NameOfItem=Validation.NameOfItem(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NameOfItem:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NameOfItem:nodeText())
+      print(result_NameOfItem)
+         
+
+         result_NationalDrugCode=Validation.NationalDrugCode(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NationalDrugCode:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NationalDrugCode:nodeText())
+      print(result_NationalDrugCode)
+             
+         result_QuantityOrdered=Validation.QuantityOrdered(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.QuantityOrdered:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.QuantityOrdered:nodeText())
+      print(result_QuantityOrdered)
+         
+         
+         result_Schedule=Validation.Schedule(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Schedule:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Schedule:nodeText())
+      print(result_Schedule)
+         
+  
+         result_SizeOfPackages=Validation.SizeOfPackages(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SizeOfPackages:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SizeOfPackages:nodeText())
+      print(result_SizeOfPackages)
+
+         result_Strength=Validation.Strength(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Strength:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Strength:nodeText())
+      print(result_Strength)
+         
+
+         result_SupplierItemNumber=Validation.SupplierItemNumber(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SupplierItemNumber:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SupplierItemNumber:nodeText())
+      print(result_SupplierItemNumber)
+         
+
+         --validation for csos_order_header
+         
+         
+         result_BusinessUnit=Validation.BusinessUnit(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit:nodeText())
+      print(result_BusinessUnit)
+         
+         result_NoOfLines=Validation.NoOfLines(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText())
+      print(result_NoOfLines)
+         
+         result_OrderChannel=Validation.OrderChannel(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel:nodeText())
+      print(result_OrderChannel)
+         
+         result_PODate=Validation.PODate(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate:nodeText())
+      print(result_PODate)
+         
+         result_PONumber=Validation.PONumber(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber:nodeText())
+      print(result_PONumber)
+         
+         result_ShipToNumber=Validation.ShipToNumber(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber:nodeText())
+      print(result_ShipToNumber)
+         
+         result_UniqueTransactionNumber=Validation.UniqueTransactionNumber(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber:nodeText(),#order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber:nodeText())
+      print(result_UniqueTransactionNumber)
+         
+    
+         
+         
+         if(result_BuyerItemNumber==true and result_Form==true  and result_LineNumber==true and result_NameOfItem==true and result_NationalDrugCode==true and result_QuantityOrdered==true and result_Schedule==true and result_SizeOfPackages==true and result_Strength==true and result_SupplierItemNumber==true and result_BusinessUnit and  result_NoOfLines and result_OrderChannel and result_PODate and result_PONumber and result_ShipToNumber and result_UniqueTransactionNumber ) then
+         
+       
+            
+            
+            
+       --[[     result_ArchivedDirectory_Status=os.fs.access('C:\\3PL_WO\\ArchivedFiles\\')
+            result_ErrorDirectory_Status=os.fs.access('C:\\3PL_WO\\ErrorFiles\\')
+            
+            
+            
+            if(result_ArchivedDirectory_Status==true and result_ErrorDirectory_Status==true)   then
+                  --return true 
+
+                 else
+                    os.fs.mkdir('C:\\3PL_WO\\ArchivedFiles\\')
+                    os.fs.mkdir('C:\\3PL_WO\\ErrorFiles\\')
+                 end
+            
+            ]]--
+            
+            
+            
+               
+            
      dbConnection.connectdb()
       
      -- Complete two SQL insert statements for csos_order_header and csos_order_details below.
@@ -86,7 +178,7 @@ local sql_csos_order_details =
    (
    ]]..
       --"'"..CSOS_ORD_DTL_NUM.."',"..
-      "'"..CSOS_ORD_HDR_NUM.."',".. 
+      "'"..CSOS_ORD_HDR_NUM_UPDATE.."',".. 
       "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.BuyerItemNumber:nodeText().."',"..
       "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText().."',"..
       "\n   '"..order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.LineNumber:nodeText().."',"..
@@ -105,25 +197,98 @@ local sql_csos_order_details =
       '\n   )'
    
     
-         
+        -- Execute the sql statements   
+    sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true};
+    CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql='select max(CSOS_ORD_HDR_NUM) from csos_order_header', live=true};
+            
+    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};     
+     
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+       conn_dev:execute{sql=  [[ CREATE PROCEDURE GetExecuteQueries
+AS 
+BEGIN
     -- Execute the sql statements   
-    sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true}
-    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true}
+    sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true};
+             CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql='select max(CSOS_ORD_HDR_NUM) from csos_order_header', live=true};
+            
+    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};
   
-    -- for testing select statement 
-    -- cursor = conn_dev:query([[ SELECT * FROM ; ]])
-    if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
-    then
-             os.rename(input_directory_path..filename, output_archived_path..filename)
-    else
-             os.rename(input_directory_path..filename, output_error_path..filename)            
-    end
+END 
+              ]],live=true
+               
+            }
+
+              Sql = "CALL GetExecuteQueries"
+   trace(Sql)
+   conn:execute{sql=Sql, live=true}
+            
+            
+         
+       
+            
+
+            
+            result_ArchivedDirectory_Status=os.fs.access('C:\\3PL_WO\\ArchivedFiles\\')     --checking directory exist status
+            result_ErrorDirectory_Status=os.fs.access('C:\\3PL_WO\\ErrorFiles\\')        --checking directory exist status
       
-   else
-      os.rename(input_directory_path..filename, output_error_path..filename)          
-      print('File is not in the XML Format')
-   end -- end for if condition
-   end -- end for for loop   
+            if(result_ArchivedDirectory_Status==true and result_ErrorDirectory_Status==true)   then   -- checking for directory exist or not
+               
+               
+              
+            else                    --If the directory doesnot exist then it will create new directories
+                    os.fs.mkdir('C:\\3PL_WO\\ArchivedFiles\\')
+                    os.fs.mkdir('C:\\3PL_WO\\ErrorFiles\\')
+            
+            end
+         
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+                        if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
+                             then
+                                 os.rename(input_directory_path..filename, output_archived_path..filename)
+                        else
+                                 os.rename(input_directory_path..filename, output_error_path..filename)            
+                        end
+      
+               
+    else
+         os.rename(input_directory_path..filename, output_error_path..filename)          
+         print('File is not in the XML Format')
+      end -- end for if condition checking whether file is xml or not
+
+           
+   end -- end for for loop 
+      end --end for if condition for validation
 end -- end for main function
 
 -- Validating the file extenstion format
