@@ -3,6 +3,32 @@ local Validation =  {}
 
 --validation for csos_order_details
 
+function Validation.String(t)
+
+      print(#t)
+
+    
+      d=type(t)
+      c=#t
+      print(c)
+      ref_type='string'
+      ref_size=45
+       if(d==ref_type and c<=ref_size) then
+      return true
+      end
+     
+end
+
+
+
+
+
+
+
+
+
+
+
 function Validation.BuyerItemNumber(BuyerItemNumber,SizeOf_BuyerItemNumber)
        type_BuyerItemNumber=type(BuyerItemNumber)
    print(type_BuyerItemNumber,SizeOf_BuyerItemNumber)

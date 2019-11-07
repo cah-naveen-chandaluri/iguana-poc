@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="b2cedd702c6fc86b859d8e3a18f46a6a924699dc"
-      commit_comment="Updating the validation and adding stored procedure and adding the directory path"
+      commit_id="4489f394fddd109cc2e57f0660e2e3a37e5ba51e"
+      commit_comment="COMMIT"
       poll_time="60000">
    </from_mapper>
 </channel>

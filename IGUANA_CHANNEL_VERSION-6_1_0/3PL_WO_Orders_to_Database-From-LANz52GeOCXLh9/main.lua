@@ -4,6 +4,7 @@ function main()
    dbConnection = require("DBConnection")
    properties = require("properties")
     Validation = require("Validation")
+   --Insertion=require("Insertion")
    
    
    properties.directory_path()
@@ -20,8 +21,21 @@ function main()
       ROW_ADD_USER_ID="SYSTEM"
       ROW_UPDATE_USER_ID="SYSTEM"
       CSOS_ORD_HDR_NUM=1
-   
-   
+
+    --[[    newFile = io.open( "C:\\3PL_WO\\LogFiles\\Logfile.txt", "w+" )
+	    newFile:write("fiel created on:-",os.date())
+        newFile:write(iguana.logInfo(os.date()))
+            
+      
+       
+        newFile:close()
+      ]]--
+      
+    
+      
+      
+  
+ 
    if(GetFileExtension(order_file) == '.xml') then
    
      -- Open order file
@@ -33,6 +47,28 @@ function main()
      
      local order_data = xml.parse(read_order_file)  
      print(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText())
+         
+         
+         
+         
+         t={order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.BuyerItemNumber:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.LineNumber:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NameOfItem:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NationalDrugCode:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.QuantityOrdered:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Schedule:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SizeOfPackages:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Strength:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SupplierItemNumber:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber:nodeText(),
+order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber:nodeText(),order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber:nodeText()
+            }
+      for i=1,#t do
+      result_String=Validation.String(t[i])
+            print(result_String)
+         i=i+1 
+      end
+          print(result_String)
+      
+       --OR
+         
          
          --validation for csos_order_details
          
@@ -100,30 +136,31 @@ function main()
          
          if(result_BuyerItemNumber==true and result_Form==true  and result_LineNumber==true and result_NameOfItem==true and result_NationalDrugCode==true and result_QuantityOrdered==true and result_Schedule==true and result_SizeOfPackages==true and result_Strength==true and result_SupplierItemNumber==true and result_BusinessUnit and  result_NoOfLines and result_OrderChannel and result_PODate and result_PONumber and result_ShipToNumber and result_UniqueTransactionNumber ) then
          
-       
+     --  if(result_String==true and result_BusinessUnit==true) then
             
             
             
        --[[     result_ArchivedDirectory_Status=os.fs.access('C:\\3PL_WO\\ArchivedFiles\\')
             result_ErrorDirectory_Status=os.fs.access('C:\\3PL_WO\\ErrorFiles\\')
+             result_LogDirectory_Status=os.fs.access('C:\\3PL_WO\\LogFiles\\')
             
             
             
-            if(result_ArchivedDirectory_Status==true and result_ErrorDirectory_Status==true)   then
-                  --return true 
-
+            if(result_ArchivedDirectory_Status==true and result_ErrorDirectory_Status==true and result_LogDirectory_Status==true)   then
+                
+                   
+            
                  else
                     os.fs.mkdir('C:\\3PL_WO\\ArchivedFiles\\')
                     os.fs.mkdir('C:\\3PL_WO\\ErrorFiles\\')
+                     os.fs.mkdir('C:\\3PL_WO\\LogFiles\\')
+      
                  end
-            
+
             ]]--
+             
             
-            
-            
-               
-            
-     dbConnection.connectdb()
+     dbConnection.connectdb() 
       
      -- Complete two SQL insert statements for csos_order_header and csos_order_details below.
      -- Task 1 : Read the values from the 'order_data' which has data from the xml and **validate the each value based on the column type
@@ -196,28 +233,9 @@ local sql_csos_order_details =
       "\n   '"..ROW_UPDATE_USER_ID.."'".. 
       '\n   )'
    
-    
-        -- Execute the sql statements   
-    sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true};
-    CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql='select max(CSOS_ORD_HDR_NUM) from csos_order_header', live=true};
+
             
-    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};     
-     
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-       conn_dev:execute{sql=  [[ CREATE PROCEDURE GetExecuteQueries
+       conn_dev:execute{sql=  [[ CREATE PROCEDURE ExecuteQueries
 AS 
 BEGIN
     -- Execute the sql statements   
@@ -231,48 +249,13 @@ END
                
             }
 
-              Sql = "CALL GetExecuteQueries"
+              Sql = "CALL ExecuteQueries"
    trace(Sql)
    conn:execute{sql=Sql, live=true}
             
             
          
        
-            
-
-            
-            result_ArchivedDirectory_Status=os.fs.access('C:\\3PL_WO\\ArchivedFiles\\')     --checking directory exist status
-            result_ErrorDirectory_Status=os.fs.access('C:\\3PL_WO\\ErrorFiles\\')        --checking directory exist status
-      
-            if(result_ArchivedDirectory_Status==true and result_ErrorDirectory_Status==true)   then   -- checking for directory exist or not
-               
-               
-              
-            else                    --If the directory doesnot exist then it will create new directories
-                    os.fs.mkdir('C:\\3PL_WO\\ArchivedFiles\\')
-                    os.fs.mkdir('C:\\3PL_WO\\ErrorFiles\\')
-            
-            end
-         
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
                         if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
                              then
                                  os.rename(input_directory_path..filename, output_archived_path..filename)
@@ -293,5 +276,7 @@ end -- end for main function
 
 -- Validating the file extenstion format
 function GetFileExtension(url)
-     return url:match("^.+(%..+)$")
+     return url:match("^.+(%..+)$")    
+      
+
 end
