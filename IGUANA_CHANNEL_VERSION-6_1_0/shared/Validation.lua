@@ -3,7 +3,7 @@ local Validation =  {}
 
 --validation for csos_order_details
 
-function Validation.String(t)
+--[[function Validation.String(t)
 
       print(#t)
 
@@ -19,14 +19,25 @@ function Validation.String(t)
      
 end
 
+]]--
+
+
+
+function Validation.validate_value(xml_column,ref_SizeOf_xml_column)
+       type_xml_column=type(xml_column)
+   print(xml_column,#xml_column)
+   SizeOf_xml_column=#xml_column
+   print(type_xml_column,SizeOf_xml_column)
+   ref_type_xml_column='string'
+  if(type_xml_column==ref_type_xml_column and SizeOf_xml_column<=ref_SizeOf_xml_column) then
+      return true
+      end
+end
 
 
 
 
-
-
-
-
+--[[
 
 
 function Validation.BuyerItemNumber(BuyerItemNumber,SizeOf_BuyerItemNumber)
@@ -232,6 +243,6 @@ function Validation.UniqueTransactionNumber(UniqueTransactionNumber,SizeOf_Uniqu
 end
 
 
-
+]]--
 
 return Validation

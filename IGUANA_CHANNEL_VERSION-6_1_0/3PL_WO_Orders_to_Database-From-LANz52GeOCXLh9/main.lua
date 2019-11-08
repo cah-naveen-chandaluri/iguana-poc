@@ -8,6 +8,7 @@ function main()
    
    properties.directory_path()
    constants.csos_order_header_size()
+   constants.csos_order_details_size()
    
    --Validating the directories of ArchivedFiles and ErrorFiles
    result_ArchivedDirectory_Status=os.fs.access(output_archived_path)     --checking directory exist status
@@ -16,14 +17,34 @@ function main()
    if(result_ArchivedDirectory_Status==false and result_ErrorDirectory_Status==false)   then   -- checking for directory exist or not
       os.fs.mkdir(output_archived_path)
       os.fs.mkdir(output_error_path)
+      
+                  c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X')) --checking
    end
+   
+   
+   c=io.open(iguana.project.root()..'other/Log/Logfile.txt','r+')
+      d=c:read('*a')
+      c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X'))
+   
+   
+   
    
    -- Read the XML file from the Directory
       file_directory =io.popen([[dir "]]..input_directory_path..[[" /b]])
- 
+   
+   
+   
+
+   
     for filename in file_directory:lines() do
     local order_file=input_directory_path..filename
-  
+      
+      c=io.open(iguana.project.root()..'other/Log/Logfile.txt','r+')
+      d=c:read('*a')
+      c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X'))
+      
+                                                    c=io.open("C:\\3PL_WO\\LogFiles\\Logfile.txt",'r+')   --log file creation
+                                                    d=c:read('*a')
    -- This is the default value of the column ACTIVE_FLAG in the database   
     ACTIVE_FLG="NO"
     ROW_ADD_USER_ID="SYSTEM"
@@ -31,7 +52,11 @@ function main()
     CSOS_ORD_HDR_NUM=1
     CSOS_ORD_HDR_NUM_UPDATE=''
     if(GetFileExtension(order_file) == '.xml') then
-   
+         
+         
+                     c:write("The given file is xml file tested on :"..os.date('%x').."at :"..os.date('%X'))  --checking
+         
+         
      -- Open order file
      local open_order_file = io.open(order_file, "r")
      -- Read order file
@@ -111,15 +136,21 @@ function main()
     sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true};
     CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql='select max(CSOS_ORD_HDR_NUM) from csos_order_header', live=true}; 
             print(CSOS_ORD_HDR_NUM_UPDATE)
---    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};     
-     
+    sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};     
+    
+            
+            
+                 c:write("Insertion is done on :"..os.date('%x').."at :"..os.date('%X'))   --checking
+            
+            
+            
             
     -- conn_dev:execute{sql=  [[ CREATE PROCEDURE GetExecuteQueries
     -- AS 
     -- BEGIN
     -- Execute the sql statements   
     -- sql_csos_order_status,sql_csos_order_error = conn_dev:execute{sql=sql_csos_order_header, live=true};
-             CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql='select max(CSOS_ORD_HDR_NUM) from csos_order_header', live=true};
+    -- CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql='select max(CSOS_ORD_HDR_NUM) from csos_order_header', live=true};
             
     --sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};
     -- END 
@@ -156,13 +187,33 @@ function validationForOrderData(order_data)
    local validateion_status = false
    
    -- Task 1 : Write all the columns of csos_order_header and csos_order_details in the if condition
-   if(Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit,BUSINESS_UNIT)
-      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines,NO_OF_LINES)
-      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel,ORDER_CHANNEL)) then
+   if(Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit:nodeText(),BUSINESS_UNIT)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText(),NO_OF_LINES)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel:nodeText(),ORDER_CHANNEL)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate:nodeText(),PO_DATE)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber:nodeText(),PO_NUMBER)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber:nodeText(),SHIPTO_NUM)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber:nodeText(),UNIQUE_TRANS_NUM)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.BuyerItemNumber:nodeText(),BUYER_ITEM_NUM)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Form:nodeText(),FORM)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.LineNumber:nodeText(),LINE_NUM)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NameOfItem:nodeText(),NAME_OF_ITEM)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.NationalDrugCode:nodeText(),NATIONAL_DRUG_CDE)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.QuantityOrdered:nodeText(),QUANTITY)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Schedule:nodeText(),DEA_SCHEDULE)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SizeOfPackages:nodeText(),SIZE_OF_PACKAGE)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.Strength:nodeText(),STRENGTH)
+      and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SupplierItemNumber:nodeText(),SUPPLIER_ITEM_NUM))
+  then
       validateion_status = true
+                  c:write("datatype Validation success on :"..os.date('%x').."at :"..os.date('%X'))   --checking
      else
       validateion_status = false
+      
+                  c:write("datatype Validation failed on :"..os.date('%x').."at :"..os.date('%X'))   --checking
+      
    end -- if condition end
    
    return validateion_status
+ 
 end
