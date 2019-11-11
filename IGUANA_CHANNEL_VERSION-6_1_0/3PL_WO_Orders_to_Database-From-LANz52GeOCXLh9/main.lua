@@ -1,6 +1,7 @@
 -- This channel read the order files and store in the database
 -- Version 1.0
 function main()
+   
    dbConnection = require("DBConnection")
    properties = require("properties")
    Validation = require("Validation")
@@ -11,6 +12,7 @@ function main()
    constants.csos_order_details_size()
    
    --Validating the directories of ArchivedFiles and ErrorFiles
+   
    result_ArchivedDirectory_Status=os.fs.access(output_archived_path)     --checking directory exist status
    result_ErrorDirectory_Status=os.fs.access(output_error_path)        --checking directory exist status
       
@@ -18,33 +20,24 @@ function main()
       os.fs.mkdir(output_archived_path)
       os.fs.mkdir(output_error_path)
       
-                  c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X')) --checking
+                  c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X'),"\n") --checking
    end
    
-   
-   c=io.open(iguana.project.root()..'other/Log/Logfile.txt','r+')
-      d=c:read('*a')
-      c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X'))
-   
-   
-   
-   
    -- Read the XML file from the Directory
+   
       file_directory =io.popen([[dir "]]..input_directory_path..[[" /b]])
+    
    
-   
-   
-
    
     for filename in file_directory:lines() do
     local order_file=input_directory_path..filename
       
-      c=io.open(iguana.project.root()..'other/Log/Logfile.txt','r+')
+      c=io.open(iguana.project.root()..'other/Log/Logfile_aaa.xml.txt','a+')
       d=c:read('*a')
-      c:write("Archive and error direcories are created on :"..os.date('%x').."at :"..os.date('%X'))
+
       
-                                                    c=io.open("C:\\3PL_WO\\LogFiles\\Logfile.txt",'r+')   --log file creation
-                                                    d=c:read('*a')
+      -- c=io.open("C:\\3PL_WO\\LogFiles\\Logfile.txt",'r+')   --log file creation
+      -- d=c:read('*a')
    -- This is the default value of the column ACTIVE_FLAG in the database   
     ACTIVE_FLG="NO"
     ROW_ADD_USER_ID="SYSTEM"
@@ -54,7 +47,8 @@ function main()
     if(GetFileExtension(order_file) == '.xml') then
          
          
-                     c:write("The given file is xml file tested on :"..os.date('%x').."at :"..os.date('%X'))  --checking
+                     c:write("The given file is xml file tested on :"..os.date('%x').."at :"..os.date('%X'),"\n")  --checking
+         
          
          
      -- Open order file
@@ -140,7 +134,7 @@ function main()
     
             
             
-                 c:write("Insertion is done on :"..os.date('%x').."at :"..os.date('%X'))   --checking
+                 c:write("Insertion is done on :"..os.date('%x').."at :"..os.date('%X'),"\n")   --checking
             
             
             
@@ -160,19 +154,26 @@ function main()
      --Sql = "CALL GetExecuteQueries"
     --trace(Sql)
     --conn:execute{sql=Sql, live=true}
-                      
-     if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
+         
+          if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
      then
          os.rename(input_directory_path..filename, output_archived_path..filename)
+               c:write("The given file is moved to archive folder on :"..os.date('%x').."at :"..os.date('%X'),"\n")  --checking
      else
-         os.rename(input_directory_path..filename, output_error_path..filename)            
-     end     
+         os.rename(input_directory_path..filename, output_error_path..filename)     
+               c:write("The given file is moved to error folder on :"..os.date('%x').."at :"..os.date('%X'),"\n")  --checking
+     end 
+         
+       
+           end -- end for validation  
+              
     else
          os.rename(input_directory_path..filename, output_error_path..filename)          
          print('File is not in the XML Format')
+         c:write("The given file is not xml file on :"..os.date('%x').."at :"..os.date('%X'),"\n")  --checking
       end -- end for if condition checking whether file is xml or not      
-     end -- end for for loop 
-   end --end for if condition for validation
+    
+   end --end for for loop
 end -- end for main function
 
 -- Validating the file extenstion format
@@ -206,14 +207,14 @@ function validationForOrderData(order_data)
       and Validation.validate_value(order_data.root.CSOSOrderRequest.CSOSOrder.Order.OrderItem.SupplierItemNumber:nodeText(),SUPPLIER_ITEM_NUM))
   then
       validateion_status = true
-                  c:write("datatype Validation success on :"..os.date('%x').."at :"..os.date('%X'))   --checking
+                  c:write("datatype Validation success on :"..os.date('%x').."at :"..os.date('%X'),"\n")   --checking
      else
       validateion_status = false
       
-                  c:write("datatype Validation failed on :"..os.date('%x').."at :"..os.date('%X'))   --checking
+                  c:write("datatype Validation failed on :"..os.date('%x').."at :"..os.date('%X'),"\n")   --checking
       
    end -- if condition end
    
    return validateion_status
- 
+
 end

@@ -7,7 +7,7 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Orders_to_Database-To-fE7mBViHDTx8At"
-      commit_id="1f64ef48fdff65c74c18f03d104d12fb951160f4"
+      commit_id="afcb05547aa675ae0e532dcd585ee1669b31e94c"
       commit_comment="Import Translators: commit">
       <dequeue_list>
          <dequeue
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="4ff8a755b35755b3d0e0561b0995d82607f5fd44"
-      commit_comment="commit"
+      commit_id="47db29ed48d94b43e7b3724658433eb3d9202112"
+      commit_comment="good"
       poll_time="60000">
    </from_mapper>
 </channel>

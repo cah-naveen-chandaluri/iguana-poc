@@ -36,119 +36,139 @@ end
 
 
 
-
 --[[
 
+--validation for csos_order_details
 
-function Validation.BuyerItemNumber(BuyerItemNumber,SizeOf_BuyerItemNumber)
-       type_BuyerItemNumber=type(BuyerItemNumber)
-   print(type_BuyerItemNumber,SizeOf_BuyerItemNumber)
-   ref_BuyerItemNumber='string'
-   ref_SizeOfBuyerItemNumber=45
-  if(type_BuyerItemNumber==ref_BuyerItemNumber and SizeOf_BuyerItemNumber<=ref_SizeOfBuyerItemNumber) then
-      return true
-      end
-end
-
-
-function Validation.Form(Form,SizeOf_Form)
-       type_Form=type(Form)
-   print(type_Form,SizeOf_Form)
-   ref_Form='string'
-   ref_SizeOfForm=45
-  if(type_Form==ref_Form and SizeOf_Form<=ref_SizeOfForm) then
-      return true
-      end
-end
-
-function Validation.LineNumber(LineNumber,SizeOf_LineNumber)
-       type_LineNumber=type(LineNumber)
-   print(type_LineNumber,SizeOf_LineNumber)
-   ref_LineNumber='string'
-   ref_SizeOfLineNumber=45
-  if(type_LineNumber==ref_LineNumber and SizeOf_LineNumber<=ref_SizeOfLineNumber) then
-      return true
-      end
-end
-
-
-function Validation.NameOfItem(NameOfItem,SizeOf_NameOfItem)
-       type_NameOfItem=type(NameOfItem)
-   print(type_NameOfItem,SizeOf_NameOfItem)
-   ref_NameOfItem='string'
-   ref_SizeOfNameOfItem=45
-  if(type_NameOfItem==ref_NameOfItem and SizeOf_NameOfItem<=ref_SizeOfNameOfItem) then
+function Validation.validate_BuyerItemNumber(xml_BuyerItemNumber,ref_SizeOf_xml_BuyerItemNumber)
+       type_xml_BuyerItemNumber=type(xml_BuyerItemNumber)
+ 
+   SizeOf_xml_BuyerItemNumber=#xml_BuyerItemNumber
+   print(type_xml_BuyerItemNumber,SizeOf_xml_BuyerItemNumber)
+   ref_type_xml_BuyerItemNumber='string'
+  if(type_xml_BuyerItemNumber==ref_type_xml_BuyerItemNumber and SizeOf_xml_BuyerItemNumber<=ref_SizeOf_xml_BuyerItemNumber) then
       return true
       end
 end
 
 
 
-function Validation.NationalDrugCode(NationalDrugCode,SizeOf_NationalDrugCode)
-       type_NationalDrugCode=type(NationalDrugCode)
-   print(type_NationalDrugCode,SizeOf_NationalDrugCode)
-   ref_NationalDrugCode='string'
-   ref_SizeOfNationalDrugCode=45
-  if(type_NationalDrugCode==ref_NationalDrugCode and SizeOf_NationalDrugCode<=ref_SizeOfNationalDrugCode) then
+function Validation.validate_Form(xml_Form,ref_SizeOf_xml_Form)
+       type_xml_Form=type(xml_Form)
+   print(xml_Form,#xml_Form)
+   SizeOf_xml_Form=#xml_Form
+   print(type_xml_Form,SizeOf_xml_Form)
+   ref_type_xml_Form='string'
+  if(type_xml_Form==ref_type_xml_Form and SizeOf_xml_Form<=ref_SizeOf_xml_Form) then
       return true
       end
 end
 
 
-function Validation.QuantityOrdered(QuantityOrdered,SizeOf_QuantityOrdered)
-       type_QuantityOrdered=type(QuantityOrdered)
-   print(type_QuantityOrdered,SizeOf_QuantityOrdered)
-   ref_QuantityOrdered='string'
-   ref_SizeOfQuantityOrdered=45
-  if(type_QuantityOrdered==ref_QuantityOrdered and SizeOf_QuantityOrdered<=ref_SizeOfQuantityOrdered) then
+
+function Validation.validate_LineNumber(xml_LineNumber,ref_SizeOf_xml_LineNumber)
+       type_xml_LineNumber=type(xml_LineNumber)
+   print(xml_LineNumber,#xml_LineNumber)
+   SizeOf_xml_LineNumber=#xml_LineNumber
+   print(type_xml_LineNumber,SizeOf_xml_LineNumber)
+   ref_type_xml_LineNumber='string'
+  if(type_xml_LineNumber==ref_type_xml_LineNumber and SizeOf_xml_LineNumber<=ref_SizeOf_xml_LineNumber) then
       return true
       end
 end
 
 
-function Validation.Schedule(Schedule,SizeOf_Schedule)
-       type_Schedule=type(Schedule)
-   print(type_Schedule,SizeOf_Schedule)
-   ref_Schedule='string'
-   ref_SizeOfSchedule=45
-  if(type_Schedule==ref_Schedule and SizeOf_Schedule<=ref_SizeOfSchedule) then
+
+
+function Validation.validate_NameOfItem(xml_NameOfItem,ref_SizeOf_xml_NameOfItem)
+       type_xml_NameOfItem=type(xml_NameOfItem)
+   print(xml_NameOfItem,#xml_NameOfItem)
+   SizeOf_xml_NameOfItem=#xml_NameOfItem
+   print(type_xml_NameOfItem,SizeOf_xml_NameOfItem)
+   ref_type_xml_NameOfItem='string'
+  if(type_xml_NameOfItem==ref_type_xml_NameOfItem and SizeOf_xml_NameOfItem<=ref_SizeOf_xml_NameOfItem) then
       return true
       end
 end
 
 
-function Validation.SizeOfPackages(SizeOfPackages,SizeOf_SizeOfPackages)
-       type_SizeOfPackages=type(SizeOfPackages)
-   print(type_SizeOfPackages,SizeOf_SizeOfPackages)
-   ref_SizeOfPackages='string'
-   ref_SizeOfSizeOfPackages=45
-  if(type_SizeOfPackages==ref_SizeOfPackages and SizeOf_SizeOfPackages<=ref_SizeOfSizeOfPackages) then
+
+
+function Validation.validate_NationalDrugCode(xml_NationalDrugCode,ref_SizeOf_xml_NationalDrugCode)
+       type_xmlNationalDrugCode_column=type(xml_NationalDrugCode)
+   print(xml_NationalDrugCode,#xml_NationalDrugCode)
+   SizeOf_xml_NationalDrugCode=#xml_NationalDrugCode
+   print(type_xml_NationalDrugCode,SizeOf_xml_NationalDrugCode)
+   ref_type_xml_NationalDrugCode='string'
+  if(type_xml_NationalDrugCode==ref_type_xml_NationalDrugCode and SizeOf_xml_NationalDrugCode<=ref_SizeOf_xml_NationalDrugCode) then
       return true
       end
 end
 
 
-function Validation.Strength(Strength,SizeOf_Strength)
-       type_Strength=type(Strength)
-   print(type_Strength,SizeOf_Strength)
-   ref_Strength='string'
-   ref_SizeOfStrength=45
-  if(type_Strength==ref_Strength and SizeOf_Strength<=ref_SizeOfStrength) then
+
+
+function Validation.validate_QuantityOrdered(xml_QuantityOrdered,ref_SizeOf_xml_QuantityOrdered)
+       type_xml_QuantityOrdered=type(xml_QuantityOrdered)
+   print(xml_QuantityOrdered,#xml_QuantityOrdered)
+   SizeOf_xml_QuantityOrdered=#xml_QuantityOrdered
+   print(type_xml_QuantityOrdered,SizeOf_xml_QuantityOrdered)
+   ref_type_xml_QuantityOrdered='string'
+  if(type_xml_QuantityOrdered==ref_type_xml_QuantityOrdered and SizeOf_xml_QuantityOrdered<=ref_SizeOf_xml_QuantityOrdered) then
       return true
       end
 end
 
 
-function Validation.SupplierItemNumber(SupplierItemNumber,SizeOf_SupplierItemNumber)
-       type_SupplierItemNumber=type(SupplierItemNumber)
-   print(type_SupplierItemNumber,SizeOf_SupplierItemNumber)
-   ref_SupplierItemNumber='string'
-   ref_SizeOfSupplierItemNumber=45
-  if(type_SupplierItemNumber==ref_SupplierItemNumber and SizeOf_SupplierItemNumber<=ref_SizeOfSupplierItemNumber) then
+
+function Validation.validate_Schedule(xml_Schedule,ref_SizeOf_xml_Schedule)
+       type_xml_Schedule=type(xml_Schedule)
+   print(xml_Schedule,#xml_Schedule)
+   SizeOf_xml_Schedule=#xml_Schedule
+   print(type_xml_Schedule,SizeOf_xml_Schedule)
+   ref_type_xml_Schedule='string'
+  if(type_xml_Schedule==ref_type_xml_Schedule and SizeOf_xml_Schedule<=ref_SizeOf_xml_Schedule) then
       return true
       end
 end
 
+
+function Validation.validate_SizeOfPackages(xml_SizeOfPackages,ref_SizeOf_xml_SizeOfPackages)
+       type_xml_SizeOfPackages=type(xml_SizeOfPackages)
+   print(xml_SizeOfPackages,#xml_SizeOfPackages)
+   SizeOf_xml_SizeOfPackages=#xml_SizeOfPackages
+   print(type_xml_SizeOfPackages,SizeOf_xml_SizeOfPackages)
+   ref_type_xml_SizeOfPackages='string'
+  if(type_xml_SizeOfPackages==ref_type_xml_SizeOfPackages and SizeOf_xml_SizeOfPackages<=ref_SizeOf_xml_SizeOfPackages) then
+      return true
+      end
+end
+
+
+
+function Validation.validate_Strength(xml_Strength,ref_SizeOf_xml_Strength)
+       type_xml_Strength=type(xml_Strength)
+   print(xml_Strength,#xml_Strength)
+   SizeOf_xml_Strength=#xml_Strength
+   print(type_xml_Strength,SizeOf_xml_Strength)
+   ref_type_xml_Strength='string'
+  if(type_xml_Strength==ref_type_xml_Strength and SizeOf_xml_Strength<=ref_SizeOf_xml_Strength) then
+      return true
+      end
+end
+
+
+
+function Validation.validate_SupplierItemNumber(xml_SupplierItemNumber,ref_SizeOf_xml_SupplierItemNumber)
+       type_xml_SupplierItemNumber=type(xml_SupplierItemNumber)
+   print(xml_SupplierItemNumber,#xml_SupplierItemNumber)
+   SizeOf_xml_SupplierItemNumber=#xml_SupplierItemNumber
+   print(type_xml_SupplierItemNumber,SizeOf_xml_SupplierItemNumber)
+   ref_type_xml_SupplierItemNumber='string'
+  if(type_xml_SupplierItemNumber==ref_type_xml_SupplierItemNumber and SizeOf_xml_SupplierItemNumber<=ref_SizeOf_xml_SupplierItemNumber) then
+      return true
+      end
+end
 
 
 
@@ -158,71 +178,67 @@ end
 --validation for csos_order_header
 
 
-function Validation.BusinessUnit(BusinessUnit,SizeOf_BusinessUnit)
-       type_BusinessUnit=type(BusinessUnit)
-   print(type_BusinessUnit,SizeOf_BusinessUnit)
-   ref_BusinessUnit='string'
-   ref_SizeOfBusinessUnit=255
-  if(type_BusinessUnit==ref_BusinessUnit and SizeOf_BusinessUnit<=ref_SizeOfBusinessUnit) then
-      return true
-      end
-end
 
 
-function Validation.NoOfLines(NoOfLines,SizeOf_NoOfLines)
-       type_NoOfLines=type(NoOfLines)
-   print(type_NoOfLines,SizeOf_NoOfLines)
-   ref_NoOfLines='string'
-   ref_SizeOfNoOfLines=45
-  if(type_NoOfLines==ref_NoOfLines and SizeOf_NoOfLines<=ref_SizeOfNoOfLines) then
-      return true
-      end
-end
-
-
-function Validation.OrderChannel(OrderChannel,SizeOf_OrderChannel)
-       type_OrderChannel=type(OrderChannel)
-   print(type_OrderChannel,SizeOf_OrderChannel)
-   ref_OrderChannel='string'
-   ref_SizeOfOrderChannel=45
-  if(type_OrderChannel==ref_OrderChannel and SizeOf_OrderChannel<=ref_SizeOfOrderChannel) then
-      return true
-      end
-end
-
-
-function Validation.PODate(PODate,SizeOf_PODate)
-       type_PODate=type(PODate)
-   print(type_PODate,SizeOf_PODate)
-   ref_PODate='string'
-   ref_SizeOfPODate=45
-  if(type_PODate==ref_PODate and SizeOf_PODate<=ref_SizeOfPODate) then
-      return true
-      end
-end
-
-
-function Validation.PONumber(PONumber,SizeOf_PONumber)
-       type_PONumber=type(PONumber)
-   print(type_PONumber,SizeOf_PONumber)
-   ref_PONumber='string'
-   ref_SizeOfPONumber=45
-  if(type_PONumber==ref_PONumber and SizeOf_PONumber<=ref_SizeOfPONumber) then
+function Validation.validate_BusinessUnit(xml_BusinessUnit,ref_SizeOf_xml_BusinessUnit)
+       type_xml_BusinessUnit=type(xml_BusinessUnit)
+   print(xml_BusinessUnit,#xml_BusinessUnit)
+   SizeOf_xml_BusinessUnit=#xml_BusinessUnit
+   print(type_xml_BusinessUnit,SizeOf_xml_BusinessUnit)
+   ref_type_xml_BusinessUnit='string'
+  if(type_xml_BusinessUnit==ref_type_xml_BusinessUnit and SizeOf_xml_BusinessUnit<=ref_SizeOf_xml_BusinessUnit) then
       return true
       end
 end
 
 
 
+function Validation.validate_NoOfLines(xml_NoOfLines,ref_SizeOf_xml_NoOfLines)
+       type_xml_NoOfLines=type(xml_NoOfLines)
+   print(xml_NoOfLinesn,#xml_NoOfLines)
+   SizeOf_xml_NoOfLines=#xml_NoOfLines
+   print(type_xml_NoOfLines,SizeOf_xml_NoOfLines)
+   ref_type_xml_NoOfLines='string'
+  if(type_xml_NoOfLines==ref_type_xml_NoOfLines and SizeOf_xml_NoOfLines<=ref_SizeOf_xml_NoOfLines) then
+      return true
+      end
+end
 
 
 
-function Validation.ShipToNumber(ShipToNumber,SizeOf_ShipToNumber)
-       type_ShipToNumber=type(ShipToNumber)
-   print(type_ShipToNumber,SizeOf_ShipToNumber)
-   ref_ShipToNumber='string'
-   ref_SizeOfShipToNumber=45
-  if(type_ShipToNumber==ref_ShipToNumber and SizeOf_ShipToNumber<=ref_SizeOfShipToNumber) then
+function Validation.validate_OrderChannel(xml_OrderChannel,ref_SizeOf_xml_OrderChannel)
+       type_xml_OrderChannel=type(xml_OrderChannel)
+   print(xml_OrderChannel,#xml_OrderChannel)
+   SizeOf_xmlOrderChannel=#xml_OrderChannel
+   print(type_xml_OrderChannel,SizeOf_xml_OrderChannel)
+   ref_type_xml_OrderChannel='string'
+  if(type_xml_OrderChannel==ref_type_xml_OrderChannel and SizeOf_xml_OrderChannel<=ref_SizeOf_xml_OrderChannel) then
+      return true
+      end
+end
+
+
+
+function Validation.validate_PODate(xml_PODate,ref_SizeOf_xml_PODate)
+       type_xml_PODate=type(xml_PODate)
+   print(xml_PODate,#xml_PODate)
+   SizeOf_xml_PODate=#xml_PODate
+   print(type_xml_PODate,SizeOf_xml_PODate)
+   ref_type_xml_PODate='string'
+  if(type_xml_PODate==ref_type_xml_PODate and SizeOf_xml_PODate<=ref_SizeOf_xml_PODate) then
+      return true
+      end
+end
+
+
+
+function Validation.validate_PONumber(xml_PONumber,ref_SizeOf_xml_PONumber)
+       type_xml_PONumber=type(xml_PONumber)
+   print(xml_PONumber,#xml_PONumber)
+   SizeOf_xml_PONumber=#xml_PONumber
+   print(type_xml_PONumber,SizeOf_xml_PONumber)
+   ref_type_xml_PONumber='string'
+  if(type_xml_PONumber==ref_type_xml_PONumber and SizeOf_xml_PONumber<=ref_SizeOf_xml_PONumber) then
       return true
       end
 end
@@ -232,17 +248,34 @@ end
 
 
 
-function Validation.UniqueTransactionNumber(UniqueTransactionNumber,SizeOf_UniqueTransactionNumber)
-       type_UniqueTransactionNumber=type(UniqueTransactionNumber)
-   print(type_UniqueTransactionNumber,SizeOf_UniqueTransactionNumber)
-   ref_UniqueTransactionNumber='string'
-   ref_SizeOfUniqueTransactionNumber=45
-  if(type_UniqueTransactionNumber==ref_UniqueTransactionNumber and SizeOf_UniqueTransactionNumber<=ref_SizeOfUniqueTransactionNumber) then
+function Validation.validate_ShipToNumber(xml_ShipToNumber,ref_SizeOf_xml_ShipToNumber)
+       type_xml_ShipToNumber=type(xml_ShipToNumber)
+   print(xml_ShipToNumber,#xml_ShipToNumber)
+   SizeOf_xml_ShipToNumber=#xml_ShipToNumber
+   print(type_xml_ShipToNumber,SizeOf_xml_ShipToNumber)
+   ref_type_xml_ShipToNumber='string'
+  if(type_xml_ShipToNumber==ref_type_xml_ShipToNumber and SizeOf_xml_ShipToNumber<=ref_SizeOf_xml_ShipToNumber) then
       return true
       end
 end
 
+
+
+
+
+
+function Validation.validate_UniqueTransactionNumber(xml_UniqueTransactionNumber,ref_SizeOf_xml_UniqueTransactionNumber)
+       type_xml_UniqueTransactionNumber=type(xml_UniqueTransactionNumber)
+   print(xml_UniqueTransactionNumber,#xml_UniqueTransactionNumber)
+   SizeOf_xml_UniqueTransactionNumber=#xml_UniqueTransactionNumber
+   print(type_xml_UniqueTransactionNumber,SizeOf_xml_UniqueTransactionNumber)
+   ref_type_xml_UniqueTransactionNumber='string'
+  if(type_xml_v==ref_type_xml_PONumber and SizeOf_xml_UniqueTransactionNumber<=ref_SizeOf_xml_UniqueTransactionNumber) then
+      return true
+      end
+end
 
 ]]--
+
 
 return Validation
