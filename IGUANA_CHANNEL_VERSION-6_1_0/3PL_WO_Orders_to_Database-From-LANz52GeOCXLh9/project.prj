@@ -2,6 +2,7 @@
     "LocalDependencies": [],
     "LuaDependencies": [
         "Constants",
+        "CreateProcedure",
         "DBConnection",
         "Validation",
         "properties"
@@ -10,7 +11,7 @@
         "Log/Logfile_aaa.xml.txt",
         "XMLdata.xml"
     ],
-    "timestamp": "1573641814",
+    "timestamp": "1573672209",
     "version_info": {
         "build": 0,
         "major": 6,
