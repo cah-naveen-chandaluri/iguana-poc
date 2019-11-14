@@ -11,7 +11,7 @@ function main()
    constants.csos_order_header_size()
    constants.csos_order_details_size()
    
-    c=io.open(iguana.project.root()..'other/Log/Logfile_aaa.xml.txt','a+')
+    c=io.open(iguana.project.root()..'other/Log/Logfile_multiorders.txt','a+')
       d=c:read('*a')
    
       -- c=io.open("C:\\3PL_WO\\LogFiles\\Logfile.txt",'r+')   --log file creation
@@ -57,7 +57,8 @@ function main()
      open_order_file:close()
      
      local order_data = xml.parse(read_order_file)  
-         Size_Of_NoOfLines=#order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
+         Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
+         print(Size_Of_NoOfLines)
      -- Validation
      local order_data_validation_status = validationForOrderData(order_data)
          
@@ -118,14 +119,14 @@ DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
        conn_dev:quote(ROW_UPDATE_USER_ID)..
    ")"
    
-   sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true}; conn_dev:execute{sql=sql_csos_order_details, live=true}  
+   sql_csos_detail_status,sql_csos_detail_error = conn_dev:execute{sql=sql_csos_order_details, live=true};  
             
 
  end      
      
      c:write("Insertion is done on :"..os.date('%x').." at :"..os.date('%X'),"\n")   --checking
-            
-         if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
+        
+            if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
      then
          os.rename(input_directory_path..filename, output_archived_path..filename)
                c:write("The given file is moved to archive folder on :"..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
@@ -133,7 +134,7 @@ DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
          os.rename(input_directory_path..filename, output_error_path..filename)     
                c:write("The given file is moved to error folder on :"..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
      end      
-            
+           
    
        end -- end for validation       
     else
