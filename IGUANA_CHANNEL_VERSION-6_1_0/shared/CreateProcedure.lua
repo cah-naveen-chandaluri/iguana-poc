@@ -24,7 +24,7 @@ function CreateProcedure.createProcedure()
    END]],
       live=true
    
-conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrder',live=true}
+conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrderdetails',live=true}
    conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSOrderdetails( 
 	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN BUYER_ITEM_NUM varchar(45) ,

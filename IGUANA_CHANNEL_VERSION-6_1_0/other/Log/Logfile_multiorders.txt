@@ -1,0 +1,171 @@
+The given file is xml file tested on :11/14/19 at :16:49:54
+datatype Validation success on :11/14/19 at :16:49:54
+datatype Validation success on :11/14/19 at :16:49:54
+Insertion is done on :11/14/19 at :16:49:54
+The given file is moved to archive folder on :11/14/19 at :16:49:54
+The given file is xml file tested on :11/14/19 at :16:49:54
+datatype Validation success on :11/14/19 at :16:49:54
+datatype Validation success on :11/14/19 at :16:49:54
+datatype Validation success on :11/14/19 at :16:49:54
+Insertion is done on :11/14/19 at :16:49:55
+The given file is moved to archive folder on :11/14/19 at :16:49:55
+The given file is xml file tested on :11/14/19 at :16:49:55
+datatype Validation success on :11/14/19 at :16:49:55
+datatype Validation success on :11/14/19 at :16:49:55
+Insertion is done on :11/14/19 at :16:49:55
+The given file is moved to archive folder on :11/14/19 at :16:49:55
+The given file is xml file tested on :11/14/19 at :16:54:02
+datatype Validation success on :11/14/19 at :16:54:02
+datatype Validation success on :11/14/19 at :16:54:02
+Insertion is done on :11/14/19 at :16:54:03
+The given file is xml file tested on :11/14/19 at :16:58:25
+datatype Validation success on :11/14/19 at :16:58:25
+datatype Validation success on :11/14/19 at :16:58:25
+Insertion is done on :11/14/19 at :16:58:25
+The given file is moved to archive folder on :11/14/19 at :16:58:25
+The given file is xml file tested on :11/14/19 at :17:55:34
+datatype Validation success on :11/14/19 at :17:55:34
+datatype Validation success on :11/14/19 at :17:55:34
+Insertion is done on :11/14/19 at :17:55:35
+The given file is moved to archive folder on :11/14/19 at :17:55:35
+The given file is xml file tested on :11/14/19 at :17:56:56
+datatype Validation success on :11/14/19 at :17:56:56
+datatype Validation success on :11/14/19 at :17:56:56
+Insertion is done on :11/14/19 at :17:56:57
+The given file is xml file tested on :11/14/19 at :17:58:22
+datatype Validation success on :11/14/19 at :17:58:22
+datatype Validation success on :11/14/19 at :17:58:22
+Insertion is done on :11/14/19 at :17:58:22
+The given file is xml file tested on :11/14/19 at :18:00:42
+datatype Validation success on :11/14/19 at :18:00:42
+datatype Validation success on :11/14/19 at :18:00:42
+Insertion is done on :11/14/19 at :18:00:42
+The given file is xml file tested on :11/14/19 at :18:01:00
+datatype Validation success on :11/14/19 at :18:01:00
+datatype Validation success on :11/14/19 at :18:01:00
+Insertion is done on :11/14/19 at :18:01:00
+The given file is xml file tested on :11/14/19 at :18:01:13
+datatype Validation success on :11/14/19 at :18:01:13
+datatype Validation success on :11/14/19 at :18:01:13
+Insertion is done on :11/14/19 at :18:01:14
+The given file is xml file tested on :11/14/19 at :18:03:53
+datatype Validation success on :11/14/19 at :18:03:53
+datatype Validation success on :11/14/19 at :18:03:53
+Insertion is done on :11/14/19 at :18:03:53
+The given file is xml file tested on :11/14/19 at :18:04:43
+datatype Validation success on :11/14/19 at :18:04:43
+datatype Validation success on :11/14/19 at :18:04:43
+Insertion is done on :11/14/19 at :18:04:43
+The given file is xml file tested on :11/14/19 at :18:08:06
+datatype Validation success on :11/14/19 at :18:08:06
+datatype Validation success on :11/14/19 at :18:08:06
+Insertion is done on :11/14/19 at :18:08:06
+The given file is xml file tested on :11/14/19 at :18:09:14
+datatype Validation success on :11/14/19 at :18:09:14
+datatype Validation success on :11/14/19 at :18:09:14
+Insertion is done on :11/14/19 at :18:09:14
+The given file is xml file tested on :11/14/19 at :18:17:15
+datatype Validation success on :11/14/19 at :18:17:15
+datatype Validation success on :11/14/19 at :18:17:15
+Insertion is done on :11/14/19 at :18:17:15
+The given file is moved to archive folder on :11/14/19 at :18:17:15
+The given file is not xml file on :11/14/19 at :18:44:23
+datatype Validation failed on :11/14/19 at :18:44:23
+Insertion is not done on :11/14/19 at :18:44:23
+The given file is moved to error folder on :11/14/19 at :18:44:23
+The given file is not xml file on :11/14/19 at :18:44:23
+datatype Validation failed on :11/14/19 at :18:44:23
+Insertion is not done on :11/14/19 at :18:44:23
+The given file is moved to error folder on :11/14/19 at :18:44:23
+The given file is xml file tested on :11/14/19 at :18:44:23
+datatype Validation success on :11/14/19 at :18:44:23
+datatype Validation success on :11/14/19 at :18:44:23
+Insertion is done on :11/14/19 at :18:44:24
+The given file is moved to archive folder on :11/14/19 at :18:44:24
+The given file is xml file tested on :11/14/19 at :18:44:24
+datatype Validation success on :11/14/19 at :18:44:24
+datatype Validation success on :11/14/19 at :18:44:24
+datatype Validation success on :11/14/19 at :18:44:24
+Insertion is done on :11/14/19 at :18:44:24
+The given file is moved to archive folder on :11/14/19 at :18:44:24
+The given file is xml file tested on :11/14/19 at :18:44:24
+datatype Validation success on :11/14/19 at :18:44:24
+datatype Validation success on :11/14/19 at :18:44:24
+Insertion is done on :11/14/19 at :18:44:25
+The given file is moved to archive folder on :11/14/19 at :18:44:25
+The given file is not xml file on :11/14/19 at :18:46:08
+datatype Validation failed on :11/14/19 at :18:46:08
+Insertion is not done on :11/14/19 at :18:46:08
+The given file is moved to error folder on :11/14/19 at :18:46:08
+The given file is not xml file on :11/14/19 at :18:46:08
+datatype Validation failed on :11/14/19 at :18:46:08
+Insertion is not done on :11/14/19 at :18:46:08
+The given file is moved to error folder on :11/14/19 at :18:46:08
+The given file is xml file tested on :11/14/19 at :18:46:08
+datatype Validation success on :11/14/19 at :18:46:08
+datatype Validation success on :11/14/19 at :18:46:08
+Insertion is done on :11/14/19 at :18:46:09
+The given file is moved to archive folder on :11/14/19 at :18:46:09
+The given file is xml file tested on :11/14/19 at :18:46:09
+datatype Validation success on :11/14/19 at :18:46:09
+datatype Validation success on :11/14/19 at :18:46:09
+datatype Validation success on :11/14/19 at :18:46:09
+Insertion is done on :11/14/19 at :18:46:09
+The given file is moved to archive folder on :11/14/19 at :18:46:09
+The given file is xml file tested on :11/14/19 at :18:46:09
+datatype Validation success on :11/14/19 at :18:46:09
+datatype Validation success on :11/14/19 at :18:46:09
+Insertion is done on :11/14/19 at :18:46:09
+The given file is moved to archive folder on :11/14/19 at :18:46:09
+Error directory is missing on :11/14/19 at :18:50:54
+Error directory is created on :11/14/19 at :18:50:54
+The given file is not xml file on :11/14/19 at :18:50:54
+datatype Validation failed on :11/14/19 at :18:50:54
+Insertion is not done on :11/14/19 at :18:50:54
+The given file is moved to error folder on :11/14/19 at :18:50:54
+The given file is not xml file on :11/14/19 at :18:50:54
+datatype Validation failed on :11/14/19 at :18:50:54
+Insertion is not done on :11/14/19 at :18:50:54
+The given file is moved to error folder on :11/14/19 at :18:50:54
+The given file is xml file tested on :11/14/19 at :18:50:54
+datatype Validation success on :11/14/19 at :18:50:54
+datatype Validation success on :11/14/19 at :18:50:54
+Insertion is done on :11/14/19 at :18:50:55
+The given file is moved to archive folder on :11/14/19 at :18:50:55
+The given file is xml file tested on :11/14/19 at :18:50:55
+datatype Validation success on :11/14/19 at :18:50:55
+datatype Validation success on :11/14/19 at :18:50:55
+datatype Validation success on :11/14/19 at :18:50:55
+Insertion is done on :11/14/19 at :18:50:55
+The given file is moved to archive folder on :11/14/19 at :18:50:55
+The given file is xml file tested on :11/14/19 at :18:50:55
+datatype Validation success on :11/14/19 at :18:50:55
+datatype Validation success on :11/14/19 at :18:50:55
+Insertion is done on :11/14/19 at :18:50:56
+The given file is moved to archive folder on :11/14/19 at :18:50:56
+Error directory is missing on :11/14/19 at :18:50:15
+Error directory is created on :11/14/19 at :18:50:15
+The given file is not xml file on :11/14/19 at :18:50:15
+datatype Validation failed on :11/14/19 at :18:50:15
+Insertion is not done on :11/14/19 at :18:50:15
+The given file is moved to error folder on :11/14/19 at :18:50:15
+The given file is not xml file on :11/14/19 at :18:50:15
+datatype Validation failed on :11/14/19 at :18:50:15
+Insertion is not done on :11/14/19 at :18:50:15
+The given file is moved to error folder on :11/14/19 at :18:50:15
+The given file is xml file tested on :11/14/19 at :18:50:15
+datatype Validation success on :11/14/19 at :18:50:15
+datatype Validation success on :11/14/19 at :18:50:15
+Insertion is done on :11/14/19 at :18:50:15
+The given file is moved to archive folder on :11/14/19 at :18:50:15
+The given file is xml file tested on :11/14/19 at :18:50:15
+datatype Validation success on :11/14/19 at :18:50:15
+datatype Validation success on :11/14/19 at :18:50:15
+datatype Validation success on :11/14/19 at :18:50:15
+Insertion is done on :11/14/19 at :18:50:16
+The given file is moved to archive folder on :11/14/19 at :18:50:16
+The given file is xml file tested on :11/14/19 at :18:50:16
+datatype Validation success on :11/14/19 at :18:50:16
+datatype Validation success on :11/14/19 at :18:50:16
+Insertion is done on :11/14/19 at :18:50:16
+The given file is moved to archive folder on :11/14/19 at :18:50:16

@@ -27,7 +27,8 @@ function main()
       os.fs.mkdir(output_archived_path)                    
       c:write("Archive directory is created on :"..os.date('%x').." at :"..os.date('%X'),"\n") --checking
    end
-   
+
+
    if(result_ErrorDirectory_Status==false)   then   -- checking for directory exist or not
       c:write("Error directory is missing on :"..os.date('%x').." at :"..os.date('%X'),"\n") --checking      
       os.fs.mkdir(output_error_path)
@@ -35,11 +36,12 @@ function main()
    end
    -- Read the XML file from the Directory
    
-   file_directory =io.popen([[dir "]]..input_directory_path..[[" /b]])
-   
+   file_directory =io.popen([[dir "]]..input_directory_path..[[" /b]])  
+
    for filename in file_directory:lines() do
     local order_file=input_directory_path..filename  
-   -- This is the default value of the column ACTIVE_FLAG in the database   
+   -- This is the default value of the column ACTIVE_FLAG in the database 
+
     ACTIVE_FLG="YES"
     ROW_ADD_USER_ID="IGUANA USER"
     ROW_UPDATE_USER_ID="IGUANA USER"
@@ -68,8 +70,8 @@ function main()
           table=order_data.CSOSOrderRequest.CSOSOrder.Order
             print(table[1].BuyerItemNumber:nodeText())
          
-        ts=os.time()
-DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
+    ts=os.time()
+    DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
     print(type(DATE_VALUE),DATE_VALUE)
             
              -- DATE_VALUE=tostring(os.date())   
@@ -125,8 +127,8 @@ DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
  end      
      
      c:write("Insertion is done on :"..os.date('%x').." at :"..os.date('%X'),"\n")   --checking
-        
-            if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
+              
+          if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
      then
          os.rename(input_directory_path..filename, output_archived_path..filename)
                c:write("The given file is moved to archive folder on :"..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
@@ -134,9 +136,9 @@ DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
          os.rename(input_directory_path..filename, output_error_path..filename)     
                c:write("The given file is moved to error folder on :"..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
      end      
-           
-   
-       end -- end for validation       
+            
+       end -- end for validation  
+         
     else
          c:write("The given file is not xml file on :"..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
          os.rename(input_directory_path..filename, output_error_path..filename)   
@@ -144,9 +146,12 @@ DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
          c:write("Insertion is not done on :"..os.date('%x').." at :"..os.date('%X'),"\n")   --checking
          c:write("The given file is moved to error folder on :"..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
       end -- end for if condition checking whether file is xml or not      
-    
+      
    end --end for for loop
+
 end -- end for main function
+
+
 
 -- Validating the file extenstion format
 function GetFileExtension(url)
@@ -189,8 +194,7 @@ function validationForOrderData(order_data)
       validateion_status = true
                   c:write("datatype Validation success on :"..os.date('%x').." at :"..os.date('%X'),"\n")   --checking
           end
-
-          
+    
      end
             
      else
