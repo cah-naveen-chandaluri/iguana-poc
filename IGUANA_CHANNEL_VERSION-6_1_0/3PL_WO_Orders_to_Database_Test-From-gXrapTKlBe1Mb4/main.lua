@@ -65,15 +65,8 @@ function main()
           Size_Of_OrderItem=order_data.CSOSOrderRequest.CSOSOrder.Order:childCount("OrderItem")
          print(Size_Of_OrderItem)
             --calling validationForTagStatus
-            ORDER_DATA_TAG_STATUS = validationForTagStatus(order_data)
-            -- Validation
-            if(ORDER_DATA_TAG_STATUS==true) then --if 4 checking for tag availability
-
-                os.rename(input_directory_path..filename, output_archived_path..filename)
-                c:write(ERR_DIR_MOV..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
-                order_data=''
-
-            else
+         
+       
  
                 --calling validationForOrderData
                 order_data_validation_status = validationForOrderData(order_data)
@@ -151,7 +144,7 @@ if(sql_csos_order_status == nil and sql_csos_detail_status == nil)
      end  
                   
                 end -- end if 5 checking for validation status
-            end --end for if 4 checking for tag availability
+           
         else
             c:write(XML_FILE_TEST_FAIL..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
             os.rename(input_directory_path..filename, output_error_path..filename)
@@ -170,48 +163,8 @@ function GetFileExtension(url)
     return url:match("^.+(%..+)$")
 end
 
--- Validating for tags availability
 
-function validationForTagStatus(order_data)
-    local validateion_Tag_Status = false
 
-    tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
-    tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
-  
-    if(order_data.CSOSOrderRequest~=nil or order_data.CSOSOrderRequest.CSOSOrder~=nil or tag_OrderSummary~=nil  --if 7
-        or tag_OrderSummary.PODate~=nil or tag_OrderSummary.PODate:nodeText()~=nil
-        or tag_OrderSummary.ShipToNumber~=nil   or tag_OrderSummary.ShipToNumber:nodeText()~= nil
-        or tag_OrderSummary.PONumber~=nil  or tag_OrderSummary.PONumber:nodeText()~=nil
-        or  tag_OrderSummary.BusinessUnit~=nil or tag_OrderSummary.BusinessUnit:nodeText()~=nil
-        or tag_OrderSummary.OrderChannel~=nil or tag_OrderSummary.OrderChannel:nodeText()~=nil
-        or tag_OrderSummary.UniqueTransactionNumber~=nil or tag_OrderSummary.UniqueTransactionNumber:nodeText()~=nil 
-        or tag_OrderSummary.NoOfLines:nodeText()~=nil or tag_order~=nil)
-    then
-        for i=1,Size_Of_OrderItem do  --for 3
-        if(tag_order[i].LineNumber~=nil or tag_order[i].LineNumber:nodeText()==nil  --if 8
-                or tag_order[i].NameOfItem~=nil or tag_order[i].NameOfItem:nodeText()~=nil
-                or tag_order[i].NationalDrugCode~=nil or tag_order[i].NationalDrugCode:nodeText()~=nil
-                or  tag_order[i].SizeOfPackages~=nil  or  tag_order[i].SizeOfPackages:nodeText()~=nil
-                or tag_order[i].QuantityOrdered~=nil or tag_order[i].QuantityOrdered:nodeText()~=nil
-                or tag_order[i].Strength~=nil or tag_order[i].Strength:nodeText()~=nil
-                or tag_order[i].Form~=nil or tag_order[i].Form:nodeText()~=nil
-                or tag_order[i].Schedule~=nil or tag_order[i].Schedule:nodeText()~=nil
-                or tag_order[i].SupplierItemNumber~=nil or tag_order[i].SupplierItemNumber:nodeText()~=nil
-                or tag_order[i].BuyerItemNumber~=nil or tag_order[i].BuyerItemNumber:nodeText()~=nil)
-        then
-            validateion_Tag_Status = true
-
-            c:write(TAGS_AVAILABLE..os.date('%x').." at :"..os.date('%X'),"\n")   --checking
-        end  --end for if 8
-
-        end  --end for for3
-    else
-        validateion_Tag_Status = false
-
-        c:write(TAG_MISS..os.date('%x').." at :"..os.date('%X'),"\n")   --checking
-    end -- end for if 7
-    return validateion_Tag_Status
-end --end for validationForTagStatus
 
 
 -- Validating the order data
