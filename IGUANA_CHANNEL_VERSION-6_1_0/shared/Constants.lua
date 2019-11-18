@@ -54,6 +54,8 @@ function Constants.log_statements()
     ARC_DIR_CREATE="Archive directory is created on :"
     ERR_DIR_MISS="Error directory is missing on :"
     ERR_DIR_CREATE="Error directory is created on :"
+    ORD_DIR_MISS="Order files directory is not existes :"
+    ORD_DIR_CREATE="Order files directory is created on :"
     ERR_DIR_MOV="The given file is moved to error folder on :"
     XML_FILE_TEST_SUCCESS="The given file is xml file tested on :"
     XML_FILE_TEST_FAIL="The given file is not xml file on :"
@@ -64,6 +66,7 @@ function Constants.log_statements()
     TAG_MISS="tag is missing in xml: "
     TAGS_AVAILABLE="all tags are available in xml: "
    ARC_DIR_MOV="The given file is moved to archive folder on :"
+   UNABLE_OPEN_FILE="No able to open file .."
 end
 
 
