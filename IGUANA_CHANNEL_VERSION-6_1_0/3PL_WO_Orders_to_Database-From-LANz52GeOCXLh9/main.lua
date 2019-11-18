@@ -185,27 +185,27 @@ function validationForOrderData(order_data)
     local validateion_status = false
 
     -- Task 1 : Write all the columns of csos_order_header and csos_order_details in the if condition
-    if(Validation.validate_value(tag_OrderSummary.PODate:nodeText(),PO_DATE)   --if 11
-        and Validation.validate_value(tag_OrderSummary.PONumber:nodeText(),PO_NUMBER)
-        and Validation.validate_value(tag_OrderSummary.ShipToNumber:nodeText(),SHIPTO_NUM)
-        and Validation.validate_value(tag_OrderSummary.BusinessUnit:nodeText(),BUSINESS_UNIT)
-        and Validation.validate_value(tag_OrderSummary.OrderChannel:nodeText(), ORDER_CHANNEL)
-        and Validation.validate_value(tag_OrderSummary.UniqueTransactionNumber:nodeText(),UNIQUE_TRANS_NUM)
-        and Validation.validate_value(tag_OrderSummary.NoOfLines:nodeText(),NO_OF_LINES))
+    if(Validation.validate_value(tag_OrderSummary.PODate,PO_DATE)   --if 11
+        and Validation.validate_value(tag_OrderSummary.PONumber,PO_NUMBER)
+        and Validation.validate_value(tag_OrderSummary.ShipToNumber,SHIPTO_NUM)
+        and Validation.validate_value(tag_OrderSummary.BusinessUnit,BUSINESS_UNIT)
+        and Validation.validate_value(tag_OrderSummary.OrderChannel, ORDER_CHANNEL)
+        and Validation.validate_value(tag_OrderSummary.UniqueTransactionNumber,UNIQUE_TRANS_NUM)
+        and Validation.validate_value(tag_OrderSummary.NoOfLines,NO_OF_LINES))
     then
 
         for i=1,Size_Of_NoOfLines do  --for 3
 
-            if(Validation.validate_value(tag_order[i].LineNumber:nodeText(),LINE_NUM)   --if 12
-                and Validation.validate_value(tag_order[i].NameOfItem:nodeText(),NAME_OF_ITEM)
-                and Validation.validate_value(tag_order[i].NationalDrugCode:nodeText(),NATIONAL_DRUG_CDE)
-                and Validation.validate_value(tag_order[i].SizeOfPackages:nodeText(),SIZE_OF_PACKAGE)
-                and Validation.validate_value(tag_order[i].QuantityOrdered:nodeText(),QUANTITY)
-                and Validation.validate_value(tag_order[i].Strength:nodeText(),STRENGTH)
-                and Validation.validate_value(tag_order[i].Form:nodeText(),FORM)
-                and Validation.validate_value(tag_order[i].Schedule:nodeText(),DEA_SCHEDULE)
-                and Validation.validate_value(tag_order[i].SupplierItemNumber:nodeText(),SUPPLIER_ITEM_NUM)
-                and Validation.validate_value(tag_order[i].BuyerItemNumber:nodeText(),BUYER_ITEM_NUM))
+            if(Validation.validate_value(tag_order[i].LineNumber,LINE_NUM)   --if 12
+                and Validation.validate_value(tag_order[i].NameOfItem,NAME_OF_ITEM)
+                and Validation.validate_value(tag_order[i].NationalDrugCode,NATIONAL_DRUG_CDE)
+                and Validation.validate_value(tag_order[i].SizeOfPackages,SIZE_OF_PACKAGE)
+                and Validation.validate_value(tag_order[i].QuantityOrdered,QUANTITY)
+                and Validation.validate_value(tag_order[i].Strength,STRENGTH)
+                and Validation.validate_value(tag_order[i].Form,FORM)
+                and Validation.validate_value(tag_order[i].Schedule,DEA_SCHEDULE)
+                and Validation.validate_value(tag_order[i].SupplierItemNumber,SUPPLIER_ITEM_NUM)
+                and Validation.validate_value(tag_order[i].BuyerItemNumber,BUYER_ITEM_NUM))
         then
 
             validateion_status = true
