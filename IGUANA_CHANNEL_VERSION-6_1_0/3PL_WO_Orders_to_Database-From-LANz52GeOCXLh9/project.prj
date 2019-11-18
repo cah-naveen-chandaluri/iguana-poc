@@ -8,10 +8,10 @@
         "properties"
     ],
     "OtherDependencies": [
-        "Log/Logfile_aaa.xml.txt",
+        "Log/logs_dev.txt",
         "XMLdata.xml"
     ],
-    "timestamp": "1573672209",
+    "timestamp": "1574052780",
     "version_info": {
         "build": 0,
         "major": 6,
