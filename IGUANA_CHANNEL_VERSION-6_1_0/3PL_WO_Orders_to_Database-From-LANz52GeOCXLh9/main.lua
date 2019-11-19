@@ -43,7 +43,7 @@ function main()
                     open_order_file:close()
 
                     local order_data = xml.parse(read_order_file)
-                    Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
+                    --Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
 
                     -- Validation
                     local order_data_validation_status = validationForOrderData(order_data)
@@ -179,33 +179,33 @@ end  --end getLogFile function()
 -- Validating the order data
 
 function validationForOrderData(order_data)
-    tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
-    tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
     -- Validation for csos_order_header
     local validateion_status = false
 
     -- Task 1 : Write all the columns of csos_order_header and csos_order_details in the if condition
-    if(Validation.validate_value(tag_OrderSummary.PODate,PO_DATE)   --if 11
-        and Validation.validate_value(tag_OrderSummary.PONumber,PO_NUMBER)
-        and Validation.validate_value(tag_OrderSummary.ShipToNumber,SHIPTO_NUM)
-        and Validation.validate_value(tag_OrderSummary.BusinessUnit,BUSINESS_UNIT)
-        and Validation.validate_value(tag_OrderSummary.OrderChannel, ORDER_CHANNEL)
-        and Validation.validate_value(tag_OrderSummary.UniqueTransactionNumber,UNIQUE_TRANS_NUM)
-        and Validation.validate_value(tag_OrderSummary.NoOfLines,NO_OF_LINES))
+    if(Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate,PO_DATE)   --if 11
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber,PO_NUMBER)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber,SHIPTO_NUM)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit,BUSINESS_UNIT)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel, ORDER_CHANNEL)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber,UNIQUE_TRANS_NUM)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines,NO_OF_LINES))
     then
 
+      Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
+      
         for i=1,Size_Of_NoOfLines do  --for 3
 
-            if(Validation.validate_value(tag_order[i].LineNumber,LINE_NUM)   --if 12
-                and Validation.validate_value(tag_order[i].NameOfItem,NAME_OF_ITEM)
-                and Validation.validate_value(tag_order[i].NationalDrugCode,NATIONAL_DRUG_CDE)
-                and Validation.validate_value(tag_order[i].SizeOfPackages,SIZE_OF_PACKAGE)
-                and Validation.validate_value(tag_order[i].QuantityOrdered,QUANTITY)
-                and Validation.validate_value(tag_order[i].Strength,STRENGTH)
-                and Validation.validate_value(tag_order[i].Form,FORM)
-                and Validation.validate_value(tag_order[i].Schedule,DEA_SCHEDULE)
-                and Validation.validate_value(tag_order[i].SupplierItemNumber,SUPPLIER_ITEM_NUM)
-                and Validation.validate_value(tag_order[i].BuyerItemNumber,BUYER_ITEM_NUM))
+            if(Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].LineNumber,LINE_NUM)   --if 12
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].NameOfItem,NAME_OF_ITEM)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].NationalDrugCode,NATIONAL_DRUG_CDE)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].SizeOfPackages,SIZE_OF_PACKAGE)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].QuantityOrdered,QUANTITY)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].Strength,STRENGTH)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].Form,FORM)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].Schedule,DEA_SCHEDULE)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].SupplierItemNumber,SUPPLIER_ITEM_NUM)
+                and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].BuyerItemNumber,BUYER_ITEM_NUM))
         then
 
             validateion_status = true
