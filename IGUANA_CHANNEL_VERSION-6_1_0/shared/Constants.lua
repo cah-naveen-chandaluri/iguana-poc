@@ -50,25 +50,24 @@ function Constants.frequently_constants()
 end
 
 function Constants.log_statements()
-
-    ARC_DIR_MISS="Archive directory is missing on :"
-    ARC_DIR_CREATE="Archive directory is created on :"
-    ERR_DIR_MISS="Error directory is missing on :"
-    ERR_DIR_CREATE="Error directory is created on :"
-    ORD_DIR_MISS="Order files directory is not existes :"
-    ORD_DIR_CREATE="Order files directory is created on :"
-    ERR_DIR_MOV="The given file is moved to error folder on :"
-    XML_FILE_TEST_SUCCESS="The given file is xml file tested on :"
-    XML_FILE_TEST_FAIL="The given file is not xml file on :"
-    INSERT_SUCCESS="Insertion is done on :"
-    INSERT_FAIL="Insertion is not done on :"
-    DATA_VALIDATION_FAIL="datatype Validation failed on :"
-    DATA_VALIDATION_SUCCESS="datatype Validation success on :"
-    TAG_MISS="tag is missing in xml: "
-    TAGS_AVAILABLE="all tags are available in xml: "
-   ARC_DIR_MOV="The given file is moved to archive folder on :"
-   UNABLE_OPEN_FILE="No able to open file .."
+    TIME_STAMP=os.date('%x').." "..os.date('%X').."-"
+    ARC_DIR_MISS="Archive directory is missing"
+    ARC_DIR_CREATE="Archive directory is created"
+    ERR_DIR_MISS="Error directory is missing"
+    ERR_DIR_CREATE="Error directory is created"
+    ORD_DIR_MISS="Order files directory is not existes"
+    ORD_DIR_CREATE="Order files directory is created"
+    ERR_DIR_MOV="The given file is moved to error folder"
+    XML_FILE_TEST_SUCCESS="The given file is xml file tested"
+    XML_FILE_TEST_FAIL="The given file is not xml file"
+    INSERT_SUCCESS="Insertion is done"
+    INSERT_FAIL="Insertion is not done"
+    DATA_VALIDATION_FAIL="datatype Validation failed"
+    DATA_VALIDATION_SUCCESS="datatype Validation success"
+    TAG_MISS="tag is missing in xml"
+    TAGS_AVAILABLE="all tags are available in xml"
+   ARC_DIR_MOV="The given file is moved to archive folder"
+   UNABLE_OPEN_FILE="No able to open file"
 end
-
 
 return Constants
