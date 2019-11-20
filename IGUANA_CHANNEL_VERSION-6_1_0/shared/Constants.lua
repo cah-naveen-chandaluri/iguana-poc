@@ -40,7 +40,8 @@ function Constants.csos_order_details_size()
 end
 
 function Constants.query_constants()
-    sel_head='select max(CSOS_ORD_HDR_NUM) from csos_order_header'
+    SEL_HEAD_MAX='select max(CSOS_ORD_HDR_NUM) from csos_order_header'
+   SEL_DETAILS_MAX='select max(CSOS_ORD_HDR_NUM) from csos_order_details'
 end
 
 function Constants.frequently_constants()

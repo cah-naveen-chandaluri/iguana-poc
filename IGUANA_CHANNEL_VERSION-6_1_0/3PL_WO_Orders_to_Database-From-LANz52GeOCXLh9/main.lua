@@ -34,35 +34,34 @@ function main()
             if(GetFileExtension(order_file) == '.xml') then  --if 2
                 log_file:write(XML_FILE_TEST_SUCCESS..os.date('%x').." at :"..os.date('%X'),"\n")  --checking
                 -- Open order file
-                local open_order_file = io.open(order_file, "r")
+                 open_order_file = io.open(order_file, "r")
 
                 if not open_order_file then log_file:write(UNABLE_OPEN_FILE..order_file.."\n") else  --if 3
                     -- Read order file
-                    local read_order_file =  open_order_file:read('*a')
+                     read_order_file =  open_order_file:read('*a')
                     -- Close the file
                     open_order_file:close()
 
-                    local order_data = xml.parse(read_order_file)
+                     order_data = xml.parse(read_order_file)
                     --Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
 
                     -- Validation
-                    local order_data_validation_status = validationForOrderData(order_data)
-
+                     order_data_validation_status = validationForOrderData(order_data)
+                    print(order_data_validation_status )
                     if(order_data_validation_status==true) then  --if 4
-                         tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
-                    tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
+                       
                         ts=os.time()
                         DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
 
                         dbConnection.connectdb()
                         local sql_csos_order_header = "CALL AddCSOSOrder ("..
-                        conn_dev:quote(tag_OrderSummary.BusinessUnit:nodeText())..", "..
-                        conn_dev:quote(tag_OrderSummary.NoOfLines:nodeText())..", "..
-                        conn_dev:quote(tag_OrderSummary.OrderChannel:nodeText())..", "..
-                        conn_dev:quote(tag_OrderSummary.PODate:nodeText())..", "..
-                        conn_dev:quote(tag_OrderSummary.PONumber:nodeText())..", "..
-                        conn_dev:quote(tag_OrderSummary.ShipToNumber:nodeText())..", "..
-                        conn_dev:quote(tag_OrderSummary.UniqueTransactionNumber:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.OrderChannel:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber:nodeText())..", "..
+                        conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.UniqueTransactionNumber:nodeText())..", "..
                         conn_dev:quote(ACTIVE_FLG)..", "..
                         conn_dev:quote( DATE_VALUE)..", "..
                         conn_dev:quote(ROW_ADD_USER_ID)..", "..
@@ -71,25 +70,25 @@ function main()
                         ")"
                     sql_csos_order_status,sql_csos_order_error =conn_dev:execute{sql=sql_csos_order_header, live=true};
 
-                    local CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql=sel_head, live=true};
+                    local CSOS_ORD_HDR_NUM_UPDATE=conn_dev:query{sql=SEL_HEAD_MAX, live=true};
 
                     CSOS_ORD_HDR_NUM_UPDATE_VAL=tostring(CSOS_ORD_HDR_NUM_UPDATE[1]["max(CSOS_ORD_HDR_NUM)"])
-
+ print("hh")
 
                     for i=1,Size_Of_NoOfLines do  --for 2
-
+ print("hh")
                         local sql_csos_order_details = "CALL AddCSOSOrderdetails ("..
                             conn_dev:quote(CSOS_ORD_HDR_NUM_UPDATE_VAL)..", "..
-                            conn_dev:quote(tag_order[i].BuyerItemNumber:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].Form:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].LineNumber:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].NameOfItem:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].NationalDrugCode:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].QuantityOrdered:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].Schedule:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].SizeOfPackages:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].Strength:nodeText())..", "..
-                            conn_dev:quote(tag_order[i].SupplierItemNumber:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].BuyerItemNumber:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].Form:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].LineNumber:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].NameOfItem:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].NationalDrugCode:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].QuantityOrdered:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].Schedule:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].SizeOfPackages:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].Strength:nodeText())..", "..
+                            conn_dev:quote(order_data.CSOSOrderRequest.CSOSOrder.Order[i].SupplierItemNumber:nodeText())..", "..
                             conn_dev:quote(ACTIVE_FLG)..", "..
                             conn_dev:quote( DATE_VALUE)..", "..
                             conn_dev:quote(ROW_ADD_USER_ID)..", "..
@@ -183,7 +182,9 @@ function validationForOrderData(order_data)
     local validateion_status = false
 
     -- Task 1 : Write all the columns of csos_order_header and csos_order_details in the if condition
-    if(Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate,PO_DATE)   --if 11
+    if(order_data~=nil and order_data.CSOSOrderRequest~=nil and order_data.CSOSOrderRequest.CSOSOrder~=nil and
+        order_data.CSOSOrderRequest.CSOSOrder.OrderSummary~=nil and
+         Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PODate,PO_DATE)   --if 11
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.PONumber,PO_NUMBER)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.ShipToNumber,SHIPTO_NUM)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.BusinessUnit,BUSINESS_UNIT)
@@ -192,11 +193,21 @@ function validationForOrderData(order_data)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines,NO_OF_LINES))
     then
 
-      Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
-      
+        Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
+        SIZE_OF_ORDERITEM=order_data.CSOSOrderRequest.CSOSOrder.Order:childCount("OrderItem")
+        print(SIZE_OF_ORDERITEM,order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText())
+
+        if(tostring(SIZE_OF_ORDERITEM)~=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText())
+        then
+            validateion_status = false
+            return validateion_status
+        end
         for i=1,Size_Of_NoOfLines do  --for 3
 
-            if(Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].LineNumber,LINE_NUM)   --if 12
+            if(order_data.CSOSOrderRequest~=nil and order_data.CSOSOrderRequest.CSOSOrder~=nil and
+                order_data.CSOSOrderRequest.CSOSOrder.Order~=nil and order_data.CSOSOrderRequest.CSOSOrder.Order[i]~=nil and
+                order_data.CSOSOrderRequest.CSOSOrder.Order.OrderItem~=nil and
+                Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].LineNumber,LINE_NUM)   --if 12
                 and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].NameOfItem,NAME_OF_ITEM)
                 and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].NationalDrugCode,NATIONAL_DRUG_CDE)
                 and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.Order[i].SizeOfPackages,SIZE_OF_PACKAGE)

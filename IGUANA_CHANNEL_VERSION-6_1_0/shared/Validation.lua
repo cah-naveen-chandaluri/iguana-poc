@@ -1,5 +1,4 @@
 local Validation =  {}
-
 function Validation.validate_value(order_value,column_size)
       if(order_value == nil) then
 	        return false
@@ -8,8 +7,10 @@ function Validation.validate_value(order_value,column_size)
       else
          return false
       end
-end
+end 
+
 return Validation
+
 
 --validation for csos_order_details
 
