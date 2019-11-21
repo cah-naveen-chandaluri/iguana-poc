@@ -7,11 +7,8 @@
         "Validation",
         "properties"
     ],
-    "OtherDependencies": [
-        "Log/logs_dev.txt",
-        "XMLdata.xml"
-    ],
-    "timestamp": "1574283380",
+    "OtherDependencies": [],
+    "timestamp": "1574307923",
     "version_info": {
         "build": 0,
         "major": 6,
