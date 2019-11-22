@@ -1,0 +1,24 @@
+<channel
+   name="Email Generation"
+   guid="A67707637B4328E10F99A9D2166C5D0A"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="email-To-RC7MdSI9Ko0ECp"
+      commit_id="28280b745fb42998a7df1beff1463403ad9007f0"
+      commit_comment="intial commit">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="12F28EE5818879E124C2547E6DF6CFF4"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_mapper
+      guid="email-From-sFrYwfv5Ypmnfm"
+      commit_id="33b9ac20907a3348a1b90bb2dfd4295fdcde7726"
+      commit_comment="intial commit"
+      poll_time="10000">
+   </from_mapper>
+</channel>
