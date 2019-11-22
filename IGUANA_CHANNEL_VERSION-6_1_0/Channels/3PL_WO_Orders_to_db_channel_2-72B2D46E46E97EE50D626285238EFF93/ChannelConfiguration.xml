@@ -1,0 +1,24 @@
+<channel
+   name="3PL_WO_Orders_to_db_channel_2"
+   guid="72B2D46E46E97EE50D626285238EFF93"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="3PL_WO_Orders_to_db_channel_2-To-1jKeFou0pznNap"
+      commit_id="fd414bd2f2e36109cbe51930054cdfceed72231c"
+      commit_comment="good">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="51FAE5250135B5B38C3DF8F03DB70338"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_http
+      type="mapper"
+      guid="3PL_WO_Orders_to_db_channel_2-FromHTTP-3wqozcqsEL5Vh9"
+      commit_id="0fe14fe5bffa8f12b948f06f753baa3e61636217"
+      commit_comment="good"
+      mapper_url_path="https://spselitestg.cardinalhealth.net/stage_841/ws/DmsWebService"/>
+</channel>
