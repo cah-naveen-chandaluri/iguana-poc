@@ -39,6 +39,30 @@ function Constants.csos_order_details_size()
     ROW_UPDATE_USER_ID	= 255 --varchar
 end
 
+
+
+function Constants.csos_addr_details_size()
+
+CSOS_ORD_HDR_NUM =19 --bigint 
+ADDR_TYPE =45 --varchar
+ADDR1 =255 --varchar
+ADDR2 =255 --varchar
+CITY =45 --varchar(
+DEA_SCHEDULLE =45 --varchar
+DEA_NUMBER =45 --varchar
+NAME =255 --varchar
+POSTAL_CDE =45 --varchar
+STATE =45 --varchar
+ACTIVE_FLG =1 --char
+--ROW_ADD_STP timestamp 
+ROW_ADD_USER_ID =255 --varchar
+--ROW_UPDATE_STP timestamp 
+ROW_UPDATE_USER_ID =255--varchar
+
+end
+
+
+
 function Constants.query_constants()
     SEL_HEAD_MAX='select max(CSOS_ORD_HDR_NUM) from csos_order_header'
    SEL_DETAILS_MAX='select max(CSOS_ORD_HDR_NUM) from csos_order_details'
@@ -47,6 +71,8 @@ end
 function Constants.frequently_constants()
     active_flg_val="YES"
     user="IGUANA_USER"
+   supplier="SUPPLIER"
+   buyer="BUYER"
 end
 
 function Constants.log_statements()

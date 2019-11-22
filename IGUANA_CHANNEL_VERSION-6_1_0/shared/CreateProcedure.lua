@@ -50,6 +50,91 @@ BEGIN
    live=true
    
          }
+      
+      
+      
+    conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrsupplier',live=true}
+   conn_dev:execute{sql=[[CREATE PROCEDURE  AddCSOSaddrsupplier( 
+	  IN CSOS_ORD_HDR_NUM bigint(19),
+      IN ADDR_TYPE varchar(45) ,
+      IN ADDR1 varchar(45) ,
+      IN CITY varchar(45),
+      IN DEA_NUMBER varchar(45),
+      IN POSTAL_CDE varchar(45),
+     IN STATE varchar(45), 
+	 IN ACTIVE_FLG char(1),
+      IN ROW_ADD_STP	timestamp,
+      IN ROW_ADD_USER_ID varchar(255),
+      IN ROW_UPDATE_STP timestamp,
+      IN ROW_UPDATE_USER_ID varchar(255)
+   )
+BEGIN
+     
+       DECLARE errno INT;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+    SELECT errno AS MYSQL_ERROR;
+    ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    
+      INSERT INTO csos_order_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
+      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
+      VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
+      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
+   commit;
+   END]],live=true
+      
+      
+      }
+      
+      
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrbuyer',live=true}
+   conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSaddrbuyer( 
+	  IN CSOS_ORD_HDR_NUM bigint(19),
+      IN ADDR_TYPE varchar(45) ,
+      IN ADDR1 varchar(45) ,
+      IN ADDR2 varchar(45) ,
+      IN CITY varchar(45),
+      IN DEA_SCHEDULLE varchar(45),
+      IN DEA_NUMBER varchar(45),
+      IN POSTAL_CDE varchar(45),
+     IN STATE varchar(45), 
+	 IN ACTIVE_FLG char(1),
+      IN ROW_ADD_STP	timestamp,
+      IN ROW_ADD_USER_ID varchar(255),
+      IN ROW_UPDATE_STP timestamp,
+      IN ROW_UPDATE_USER_ID varchar(255)
+   )
+BEGIN
+     
+       DECLARE errno INT;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+    SELECT errno AS MYSQL_ERROR;
+    ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    
+      INSERT INTO csos_order_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY,DEA_SCHEDULLE, DEA_NUMBER,
+      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
+      VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY, DEA_SCHEDULLE, DEA_NUMBER,
+      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
+   commit;
+   END]],live=true
+      
+      
+      } 
+      
+      
 end
+   
+   
    
 return CreateProcedure

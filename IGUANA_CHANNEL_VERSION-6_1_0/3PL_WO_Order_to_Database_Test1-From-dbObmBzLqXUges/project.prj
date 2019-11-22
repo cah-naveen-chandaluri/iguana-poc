@@ -1,0 +1,17 @@
+{
+    "LocalDependencies": [],
+    "LuaDependencies": [
+        "Constants",
+        "CreateProcedure",
+        "DBConnection",
+        "Validation",
+        "properties"
+    ],
+    "OtherDependencies": [],
+    "timestamp": "1574434253",
+    "version_info": {
+        "build": 0,
+        "major": 6,
+        "minor": 0
+    }
+}
