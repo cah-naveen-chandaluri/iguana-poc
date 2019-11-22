@@ -24,7 +24,7 @@ function main()
         file_directory =io.popen([[dir "]]..input_directory_path..[[" /b]])
 
         -- Read order files
-        count,a,b,c,d,e=0,0,0,0,0,0
+        total_count,error_count,archive_count=0,0,0
         for filename in file_directory:lines() do
 
 
@@ -61,24 +61,24 @@ function main()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
                                 if pcall(Insertion) then
-                                    e=e+1
+                                    archive_count=archive_count+1  --e is archive directory
                                     log_file:write(TIME_STAMP..filename..":"..INSERT_SUCCESS,"\n")   --checking
                                     os.rename(input_directory_path..filename, output_archived_path..filename)
                                     log_file:write(TIME_STAMP..filename..":"..ARC_DIR_MOV,"\n")  --checking
                                 else
-                                    a=a+1
+                                    error_count=error_count+1  --a if insertion fails data in a
                                     os.rename(input_directory_path..filename, output_error_path..filename)
                                     log_file:write(TIME_STAMP..filename..":"..ERR_DIR_MOV,"\n")  --checking
                                     log_file:write(TIME_STAMP.."Insertion is not done on","\n")
                                 end
                             else
-                                b=b+1
+                                error_count=error_count+1 --if db connection fails data in b
                                 log_file:write(TIME_STAMP.."Database connection  is not exist","\n")
                                 os.rename(input_directory_path..filename, output_error_path..filename)
                                 log_file:write(TIME_STAMP..filename..":"..ERR_DIR_MOV,"\n")  --checking
                             end
                         else
-                            c=c+1
+                            error_count=error_count+1  
                             os.rename(input_directory_path..filename, output_error_path..filename)
                             log_file:write(TIME_STAMP..DATA_VALIDATION_FAIL..filename..":"..ERR_DIR_MOV,"\n")  --checking
                         end -- end for validation
@@ -88,15 +88,15 @@ function main()
                 end -- end for unable to open file
             else -- else for validation file extension
 
-                d=d+1
+                error_count=error_count+1
                 log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_FAIL,"\n")  --checking
                 os.rename(input_directory_path..filename, output_error_path..filename)
             end -- end for if condition checking whether file is xml or not
-            count=count+1
+            total_count=total_count+1
         end --end for for loop
-        log_file:write(TIME_STAMP.."total files moved to archive directory in a day are: "..e,"\n")
-        log_file:write(TIME_STAMP.."total files moved to error directory in a day are: "..(a+b+c+d),"\n")
-        log_file:write(TIME_STAMP.."total files read in a day are: "..count,"\n")
+        log_file:write(TIME_STAMP.."total files moved to archive directory in a day are: "..archive_count,"\n")
+        log_file:write(TIME_STAMP.."total files moved to error directory in a day are: "..error_count,"\n")
+        log_file:write(TIME_STAMP.."total files read in a day are: "..total_count,"\n")
     else
         log_file:write(TIME_STAMP.."OrderFile, ArchiveFiles and ErrorFiles folders are not exists")
     end
