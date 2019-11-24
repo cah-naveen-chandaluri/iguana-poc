@@ -47,23 +47,23 @@ function main()
 
        
 
-csos_order_header_data=conn_dev:query{sql="select * from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='1';", live=true};
-      print(csos_order_header_data,#(csos_order_header_data),csos_order_header_data[1].UNIQUE_TRANS_NUM)
+csos_order_header_data=conn_dev:query{sql="select UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='1';", live=true};
+      print(csos_order_header_data[1].UNIQUE_TRANS_NUM,csos_order_header_data[1].PO_NUMBER,csos_order_header_data[1].PO_DATE,csos_order_header_data[1].SHIPTO_NUM)
       
       
       for i=1,#csos_order_header_data do
-     order_header_data=conn_dev:query{sql="select CUSTOMER_NUM from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..csos_order_header_data[i].UNIQUE_TRANS_NUM.."';",live=true};
-print(order_header_data[1].CUSTOMER_NUM)
-        customer_billto_shipto_data=conn_dev:query{sql="select CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..order_header_data[1].CUSTOMER_NUM.."';",live=true};
+     order_header_data=conn_dev:query{sql="select CUSTOMER_NUM,CSOS_ORDER_NUM,PO_NUM,PO_DTE from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..csos_order_header_data[i].UNIQUE_TRANS_NUM.."';",live=true};
+print(order_header_data[1].CUSTOMER_NUM,order_header_data[1].PO_NUM,order_header_data[1].PO_DTE,order_header_data[1].CSOS_ORDER_NUM)
+        customer_billto_shipto_data=conn_dev:query{sql="select CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..order_header_data[i].CUSTOMER_NUM.."';",live=true};
          print(customer_billto_shipto_data[1].CUSTOMER_NUM,customer_billto_shipto_data[1].SHIPTO_NUM)
-         CURSOR4=conn_dev:query{sql="select UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,ACTIVE_FLG  from 3pl_sps_ordering.csos_order_header where UNIQUE_TRANS_NUM='"..csos_order_header_data[i].UNIQUE_TRANS_NUM.."';", live=true};
-        print(CURSOR4[1].UNIQUE_TRANS_NUM,CURSOR4[1].PO_NUMBER,CURSOR4[1].PO_DATE,CURSOR4[1].ACTIVE_FLG)
+print(csos_order_header_data[2].UNIQUE_TRANS_NUM)
 
-cursor5=conn_dev:query{sql="select * from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..CURSOR4[i].UNIQUE_TRANS_NUM.."' and PO_NUM='"..CURSOR4[i].PO_NUMBER.."' and PO_DTE='"..CURSOR4[i].PO_DATE.."';", live=true};
-   cursor6=conn_dev:query{sql="select * from csos_order_header where SHIPTO_NUM='"..customer_billto_shipto_data[i].SHIPTO_NUM.."';",live=true};
-         print(cursor5,#cursor5)
+--cursor5=conn_dev:query{sql="select * from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..csos_order_header_data[i].UNIQUE_TRANS_NUM.."' and PO_NUM='"..csos_order_header_data[i].PO_NUMBER.."' and PO_DTE='"..csos_order_header_data[i].PO_DATE.."';", live=true};
+  -- cursor6=conn_dev:query{sql="select * from csos_order_header where SHIPTO_NUM='"..customer_billto_shipto_data[i].SHIPTO_NUM.."';",live=true};
+        
          end
-      if(#cursor5 and #cursor6>0) then
+      if(csos_order_header_data[1].PO_NUMBER==order_header_data[1].PO_NUM and csos_order_header_data[1].PO_DATE==order_header_data[1].PO_DTE and 
+         csos_order_header_data[1].UNIQUE_TRANS_NUM==order_header_data[1].CSOS_ORDER_NUM and csos_order_header_data[1].SHIPTO_NUM==customer_billto_shipto_data[1].SHIPTO_NUM) then
          
          print("hello")
          
