@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Orders_to_Database-To-fE7mBViHDTx8At"
-      commit_id="739783c22c5cc4728b5da913296394269ad6afeb"
-      commit_comment="Import Translators: import latest update">
+      commit_id="4150d293082346e2606200a8c356e4b83631cb20"
+      commit_comment="Import Translators: importing channels">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="301e0834e5b32a76108727361b86f9e8cbc80bef"
-      commit_comment="Modified logs and stored procedure"
+      commit_id="6eb90c0babd959ae3ac67d2df856c35070f0f53b"
+      commit_comment="Modified all the logs and their format. Added mail funcitonality"
       poll_time="60000">
    </from_mapper>
 </channel>
