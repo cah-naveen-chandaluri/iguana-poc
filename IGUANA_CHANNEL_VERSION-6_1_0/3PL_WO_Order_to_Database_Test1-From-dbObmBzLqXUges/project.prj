@@ -5,10 +5,11 @@
         "CreateProcedure",
         "DBConnection",
         "Validation",
+        "email_authentication",
         "properties"
     ],
     "OtherDependencies": [],
-    "timestamp": "1574435172",
+    "timestamp": "1574704460",
     "version_info": {
         "build": 0,
         "major": 6,

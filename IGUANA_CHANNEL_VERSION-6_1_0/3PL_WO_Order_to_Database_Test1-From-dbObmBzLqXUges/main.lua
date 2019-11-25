@@ -5,7 +5,9 @@ function main()
     properties = require("properties")
     Validation = require("Validation")
     constants = require("Constants")
-
+    email_authentication=require("email_authentication")
+   
+    email_authentication.Email_auth()
     properties.directory_path()
     properties.db_conn()
     constants.csos_order_header_size()
@@ -60,7 +62,7 @@ function main()
                             ts=os.time()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
-                                if pcall(Insertion) then
+                                if pcall(Insertion) then  
                                     archive_count=archive_count+1  --e is archive directory
                                     log_file:write(TIME_STAMP..filename..":"..INSERT_SUCCESS,"\n")   --checking
                                     os.rename(input_directory_path..filename, output_archived_path..filename)
