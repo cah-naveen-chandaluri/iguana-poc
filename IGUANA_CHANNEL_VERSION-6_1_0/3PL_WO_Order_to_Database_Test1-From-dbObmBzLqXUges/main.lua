@@ -28,21 +28,20 @@ function main()
         -- Read order files
         total_count,error_count,archive_count=0,0,0
         for filename in file_directory:lines() do
-
-
+            log_file:write(TIME_STAMP..filename.." - *** Started processing file ***","\n") 
             order_file=input_directory_path..filename
-
+            fileName_with_timestamp = GetFileName(filename).."_"..TIME_STAMP_FOR_FILE..GetFileExtension(filename)
             -- This is the default value of the column ACTIVE_FLAG in the database
             ACTIVE_FLG=active_flg_val
             ROW_ADD_USER_ID=user
             ROW_UPDATE_USER_ID=user
 
             if(GetFileExtension(order_file) == '.xml') then -- Validation file extension
-                log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_SUCCESS,"\n")  --checking
+                log_file:write(TIME_STAMP..filename..XML_FILE_TEST_SUCCESS,"\n")  --checking
                 -- Open order file
                 open_order_file = io.open(order_file, "r")
 
-                if not open_order_file then log_file:write(TIME_STAMP..UNABLE_OPEN_FILE..order_file,"\n") else
+                if not open_order_file then log_file:write(TIME_STAMP..filename.." - "..UNABLE_OPEN_FILE..order_file,"\n") else
                     -- Read order file
                     read_order_file =  open_order_file:read('*a')
                     -- Close the file
@@ -52,10 +51,10 @@ function main()
                         local order_data = Parser()
                         local order_data_validation_status = validationForOrderData(order_data)
                         if(order_data_validation_status==true) then -- order validation if condition
+                            log_file:write(TIME_STAMP..filename.." - "..DATA_VALIDATION_SUCCESS,"\n")   --checking
                             Size_Of_NoOfLines=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines:nodeText()
                             SIZE_OF_ORDERITEM=order_data.CSOSOrderRequest.CSOSOrder.Order:childCount("OrderItem")
 
-                            print(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.DEASchedule)
                             tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
                             tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
 
@@ -64,54 +63,59 @@ function main()
                             if pcall(Verify_DBConn) then
                                 if pcall(Insertion) then  
                                     archive_count=archive_count+1  --e is archive directory
-                                    log_file:write(TIME_STAMP..filename..":"..INSERT_SUCCESS,"\n")   --checking
-                                    os.rename(input_directory_path..filename, output_archived_path..filename)
-                                    log_file:write(TIME_STAMP..filename..":"..ARC_DIR_MOV,"\n")  --checking
+                                    log_file:write(TIME_STAMP..filename.." - "..INSERT_SUCCESS,"\n")   --checking
+                                    os.rename(input_directory_path..filename, output_archived_path..fileName_with_timestamp)
+                                    log_file:write(TIME_STAMP..filename.." - "..ARC_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                                 else
                                     error_count=error_count+1  --a if insertion fails data in a
-                                    os.rename(input_directory_path..filename, output_error_path..filename)
-                                    log_file:write(TIME_STAMP..filename..":"..ERR_DIR_MOV,"\n")  --checking
-                                    log_file:write(TIME_STAMP.."Insertion is not done on","\n")
+                                    log_file:write(TIME_STAMP..filename.." - "..INSERT_FAIL,"\n")
+                                    os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                                    log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                                 end
                             else
                                 error_count=error_count+1 --if db connection fails data in b
-                                log_file:write(TIME_STAMP.."Database connection  is not exist","\n")
-                                os.rename(input_directory_path..filename, output_error_path..filename)
-                                log_file:write(TIME_STAMP..filename..":"..ERR_DIR_MOV,"\n")  --checking
+                                log_file:write(TIME_STAMP..filename.." - "..DB_CON_ERROR,"\n")
+                                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                                log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                             end
                         else
-                            error_count=error_count+1  
-                            os.rename(input_directory_path..filename, output_error_path..filename)
-                            log_file:write(TIME_STAMP..DATA_VALIDATION_FAIL..filename..":"..ERR_DIR_MOV,"\n")  --checking
+                            error_count=error_count+1
+                            log_file:write(TIME_STAMP..filename.." - "..DATA_VALIDATION_FAIL,"\n")  --checking
+                            os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                            log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")
                         end -- end for validation
                     else
-                        log_file:write(TIME_STAMP.."xml parsing is not done on","\n")
+                        log_file:write(TIME_STAMP..filename.." - ".."Unable to parse the file","\n")
                     end
                 end -- end for unable to open file
             else -- else for validation file extension
 
                 error_count=error_count+1
                 log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_FAIL,"\n")  --checking
-                os.rename(input_directory_path..filename, output_error_path..filename)
+                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
             end -- end for if condition checking whether file is xml or not
             total_count=total_count+1
         end --end for for loop
-        log_file:write(TIME_STAMP.."total files moved to archive directory in a day are: "..archive_count,"\n")
-        log_file:write(TIME_STAMP.."total files moved to error directory in a day are: "..error_count,"\n")
-        log_file:write(TIME_STAMP.."total files read in a day are: "..total_count,"\n")
+        log_file:write(TIME_STAMP.."Total files : "..total_count,"\n")
+        log_file:write(TIME_STAMP.."Total files are moved to archive directory : "..archive_count,"\n")
+        log_file:write(TIME_STAMP.."Total files are moved to error directory : "..error_count,"\n")
     else
-        log_file:write(TIME_STAMP.."OrderFile, ArchiveFiles and ErrorFiles folders are not exists")
+        log_file:write(TIME_STAMP.."Not able to create or there is no OrderFile, ArchiveFiles and ErrorFiles folders")
     end
 end -- end for main function
 
 -- Validating the file extenstion format
 
-function GetFileExtension(url)
-    return url:match("^.+(%..+)$")
+function GetFileExtension(filename)
+    return filename:match("^.+(%..+)$")
 end
 
+function GetFileName(filename)
+   return filename:match("(.+)%..+")
+end
 
 function verifyAllDirectories()
+   
     result_ArchivedDirectory_Status=os.fs.access(output_archived_path)     --checking directory exist status
     result_ErrorDirectory_Status=os.fs.access(output_error_path)        --checking directory exist status
     result_OrderFileDirectory_Status=os.fs.access(input_directory_path)     --checking directory oder file status
@@ -122,19 +126,28 @@ function verifyAllDirectories()
         log_file:write(TIME_STAMP..ARC_DIR_MISS,"\n") --checking
         os.fs.mkdir(output_archived_path)
         log_file:write(TIME_STAMP..ARC_DIR_CREATE,"\n") --checking
+        result_ArchivedDirectory_Status=os.fs.access(output_archived_path)
     end
 
     if(result_ErrorDirectory_Status==false)   then   -- checking for directory exist or not
         log_file:write(TIME_STAMP..ERR_DIR_MISS,"\n") --checking
         os.fs.mkdir(output_error_path)
         log_file:write(TIME_STAMP..ERR_DIR_CREATE,"\n") --checking
+	     result_ErrorDirectory_Status=os.fs.access(output_error_path)
     end
 
-    if(result_OrderFileDirectory_Status==false)   then   -- checking for directory exist or not
+   if(result_OrderFileDirectory_Status==false)   then   -- checking for directory exist or not
         log_file:write(TIME_STAMP..ORD_DIR_MISS,"\n") --checking
-        os.fs.mkdir(input_directory_path)
-        log_file:write(TIME_STAMP..ORD_DIR_CREATE,"\n") --checking
-    end
+       os.fs.mkdir(input_directory_path)
+       log_file:write(TIME_STAMP..ORD_DIR_CREATE,"\n") --checking
+       result_OrderFileDirectory_Status=os.fs.access(input_directory_path)
+   end
+   
+   if(result_ArchivedDirectory_Status and result_ErrorDirectory_Status and result_OrderFileDirectory_Status) then
+      return true
+   else
+      return false
+   end
 end
 
 function Parser()  --function for parsing xml
@@ -370,7 +383,6 @@ function validationForOrderData(order_data)
         end  --end
     else
         validateion_status = false
-        log_file:write(TIME_STAMP..DATA_VALIDATION_FAIL..os.date('%x'),"\n")   --checking
     end --end
     return validateion_status
 end  --end validationForOrderData() function

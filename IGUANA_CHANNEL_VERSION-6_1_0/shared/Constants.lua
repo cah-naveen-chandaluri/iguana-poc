@@ -76,24 +76,26 @@ function Constants.frequently_constants()
 end
 
 function Constants.log_statements()
-    TIME_STAMP=os.date('%x').." "..os.date('%X').."-"
+    TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
+    TIME_STAMP_FOR_FILE=os.date('%m%d%Y%H%M%S')
     ARC_DIR_MISS="Archive directory is missing"
     ARC_DIR_CREATE="Archive directory is created"
+    DB_CON_ERROR="Database connection failed"
     ERR_DIR_MISS="Error directory is missing"
     ERR_DIR_CREATE="Error directory is created"
     ORD_DIR_MISS="Order files directory is not existes"
     ORD_DIR_CREATE="Order files directory is created"
-    ERR_DIR_MOV=" Moved to error directory folder"
-    XML_FILE_TEST_SUCCESS="The given file is xml file tested"
-    XML_FILE_TEST_FAIL="The given file is not xml file"
-    INSERT_SUCCESS="Insertion is done"
-    INSERT_FAIL="Insertion is not done"
-    DATA_VALIDATION_FAIL="Validation failed for the file "
-    DATA_VALIDATION_SUCCESS="Validation success"
-    TAG_MISS="tag is missing in xml"
-    TAGS_AVAILABLE="all tags are available in xml"
-   ARC_DIR_MOV="The given file is moved to archive folder"
-   UNABLE_OPEN_FILE="No able to open file"
+    ERR_DIR_MOV="Renamed file name with timestamp and moved file into error directory folder - "
+    XML_FILE_TEST_SUCCESS=" - Verified file format"
+    XML_FILE_TEST_FAIL=" - File is not in XML format"
+    INSERT_SUCCESS="Successfully insertion data into database"
+    INSERT_FAIL="SQL insertion is failed"
+    DATA_VALIDATION_FAIL="Validation failed "
+    DATA_VALIDATION_SUCCESS="Validation is success"
+    TAG_MISS="Tag is missing in xml"
+    TAGS_AVAILABLE="All tags are available in xml"
+   ARC_DIR_MOV="Renamed file name with timestamp and moved file into archived folder - "
+   UNABLE_OPEN_FILE="Not able to open file"
 end
 
 return Constants
