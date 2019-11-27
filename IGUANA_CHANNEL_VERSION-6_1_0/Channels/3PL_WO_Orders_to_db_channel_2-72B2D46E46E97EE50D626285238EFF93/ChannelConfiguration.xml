@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Orders_to_db_channel_2-To-1jKeFou0pznNap"
-      commit_id="1a9d26d1066826e037c3f22fc38b09b3db66c470"
-      commit_comment="Import Translators: import the channel2">
+      commit_id="fd414bd2f2e36109cbe51930054cdfceed72231c"
+      commit_comment="good">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -18,7 +18,7 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Orders_to_db_channel_2-FromHTTP-3wqozcqsEL5Vh9"
-      commit_id="341ce16be98d96a7de7bc8c1199dfb375841d080"
-      commit_comment="SQL query for header using joins in comments"
+      commit_id="2841abb2b80bab5e4f610821b80105c34e8c4862"
+      commit_comment="good"
       mapper_url_path="https://spselitestg.cardinalhealth.net/stage_841/ws/DmsWebService"/>
 </channel>

@@ -77,7 +77,7 @@ end
 
 function Constants.log_statements()
     TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
-    TIME_STAMP_FOR_FILE=os.date('%m%d%Y%H%M%S')
+    TIME_STAMP_FOR_FILE=os.date('%Y-%m-%d %H%M%S')
     ARC_DIR_MISS="Archive directory is missing"
     ARC_DIR_CREATE="Archive directory is created"
     DB_CON_ERROR="Database connection failed"

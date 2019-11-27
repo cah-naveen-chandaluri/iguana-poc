@@ -4,10 +4,11 @@
         "Constants",
         "DBConnection",
         "Validation",
-        "properties"
+        "properties",
+        "soap"
     ],
     "OtherDependencies": [],
-    "timestamp": "1574814990",
+    "timestamp": "1574841428",
     "version_info": {
         "build": 0,
         "major": 6,
