@@ -44,7 +44,13 @@ function main()
     end
 
     if pcall(DBConn) then
-
+    --Join for header data
+    --select csos_o_h.CSOS_ORD_HDR_NUM,csos_o_h.UNIQUE_TRANS_NUM,csos_o_h.PO_NUMBER,csos_o_h.PO_DATE,csos_o_h.SHIPTO_NUM,csos_o_h.CSOS_ORDER_HDR_STAT,o_h.ORDER_NUM,o_h.CUSTOMER_NUM,o_h.CSOS_ORDER_NUM,o_h.PO_NUM,o_h.PO_DTE, cust_bill_ship.SHIPTO_NUM from 3pl_sps_ordering.csos_order_header csos_o_h 
+    --INNER JOIN 3pl_sps_ordering.order_header o_h ON o_h.CSOS_ORDER_NUM = csos_o_h.UNIQUE_TRANS_NUM 
+    --INNER JOIN 3pl_sps_ordering.customer_billto_shipto cust_bill_ship ON cust_bill_ship.CUSTOMER_NUM = o_h.CUSTOMER_NUM 
+    --where csos_o_h.CSOS_ORDER_HDR_STAT = 1 and csos_o_h.PO_NUMBER = o_h.PO_NUM
+    --and csos_o_h.PO_DATE = o_h.PO_DTE and csos_o_h.SHIPTO_NUM = cust_bill_ship.SHIPTO_NUM
+    --and csos_o_h.UNIQUE_TRANS_NUM = o_h.CSOS_ORDER_NUM;
        
 
 csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='1';", live=true};
