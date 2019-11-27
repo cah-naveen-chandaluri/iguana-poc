@@ -16,7 +16,9 @@ function main()
     constants.query_constants()
     constants.frequently_constants()
     constants.csos_addr_details_size()
-
+   archived_table={}
+   error_table={}
+  
     log_file = getLogFile(output_log_path)
     log_file:write("\n",TIME_STAMP.."******* Iguana channel Started Running *******","\n")
 
@@ -62,26 +64,46 @@ function main()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
                                 if pcall(Insertion) then  
-                                    archive_count=archive_count+1  --e is archive directory
+                           
+                           
+                                    --archive_count=archive_count+1  --e is archive directory
+                            
+                                      archived_table[archive_count]= fileName_with_timestamp                                   
+                                      archive_count=archive_count+1
+                                    
                                     log_file:write(TIME_STAMP..filename.." - "..INSERT_SUCCESS,"\n")   --checking
                                     os.rename(input_directory_path..filename, output_archived_path..fileName_with_timestamp)
+                          
                                     log_file:write(TIME_STAMP..filename.." - "..ARC_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                                 else
-                                    error_count=error_count+1  --a if insertion fails data in a
+                                     error_table[error_count]=fileName_with_timestamp 
+                                     error_count=error_count+1  --a if insertion fails data in a
+                                    
+	                                
+                                    
                                     log_file:write(TIME_STAMP..filename.." - "..INSERT_FAIL,"\n")
                                     os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                           
+                          
+                            
+	                                 print(error_table[error_count])
                                     log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                                 end
                             else
-                                error_count=error_count+1 --if db connection fails data in b
+                                
+                                     error_table[error_count]=fileName_with_timestamp 
+                                     error_count=error_count+1--if db connection fails data in b                               
+                         
                                 log_file:write(TIME_STAMP..filename.." - "..DB_CON_ERROR,"\n")
-                                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)                                      
                                 log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                             end
                         else
-                            error_count=error_count+1
+                                     error_table[error_count]=fileName_with_timestamp 
+                                     error_count=error_count+1
+                     
                             log_file:write(TIME_STAMP..filename.." - "..DATA_VALIDATION_FAIL,"\n")  --checking
-                            os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                            os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)                    
                             log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")
                         end -- end for validation
                     else
@@ -90,18 +112,31 @@ function main()
                 end -- end for unable to open file
             else -- else for validation file extension
 
+                error_table[error_count]=fileName_with_timestamp 
                 error_count=error_count+1
+             
                 log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_FAIL,"\n")  --checking
-                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)             
             end -- end for if condition checking whether file is xml or not
             total_count=total_count+1
         end --end for for loop
         log_file:write(TIME_STAMP.."Total files : "..total_count,"\n")
-        log_file:write(TIME_STAMP.."Total files are moved to archive directory : "..archive_count,"\n")
-        log_file:write(TIME_STAMP.."Total files are moved to error directory : "..error_count,"\n")
+      
+          log_file:write(TIME_STAMP.."Total files  moved to archive directory : "..archive_count,"\n")         
+            for i=0,archive_count-1 do         
+                  log_file:write(TIME_STAMP..archived_table[i].." file is moved to archive directory  ","\n")  
+            end
+          
+         
+         log_file:write(TIME_STAMP.."Total files  moved to error directory  "..error_count,"\n")        
+            for i=0,error_count-1 do     
+                  log_file:write(TIME_STAMP..error_table[i].." file is moved to error directory ","\n")  
+            end
+          
     else
         log_file:write(TIME_STAMP.."Not able to create or there is no OrderFile, ArchiveFiles and ErrorFiles folders")
-    end
+         
+   end
 end -- end for main function
 
 -- Validating the file extenstion format

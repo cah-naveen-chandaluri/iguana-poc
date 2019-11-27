@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Order_to_Database_Test1-To-8dFBnJDsDrt98Y"
-      commit_id="5c1b6307e5dd0e15186fd724c03163d821e26807"
-      commit_comment="Import Translators: import">
+      commit_id="1658cb87fe5d29729099c3a4b6d60ee060b540bf"
+      commit_comment="Import Translators: rtyty">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="ec42be2d84db6dd1e6d456698458d000702ab2f2"
-      commit_comment="Verified and Modified all the Logs and their format"
+      commit_id="f82eceb1ae84a83543c0f4893d385d03744ce4e9"
+      commit_comment="commit"
       poll_time="10000">
    </from_mapper>
 </channel>
