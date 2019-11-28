@@ -18,7 +18,7 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Orders_to_db_channel_2-FromHTTP-3wqozcqsEL5Vh9"
-      commit_id="4dcf953f19e76fd5c487d705cb60022273e1d93d"
+      commit_id="8664d07c03f471b1f79e1aa2474eb40946ce5c0d"
       commit_comment="good"
       mapper_url_path="https://spselitestg.cardinalhealth.net/stage_841/ws/DmsWebService"/>
 </channel>
