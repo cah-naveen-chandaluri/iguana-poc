@@ -26,7 +26,7 @@ function main()
             selection_status = true
         else
             selection_status = false
-        end                                  --end if 2
+        end                                --end if 2
         if(#csos_order_header_data>0 and selection_status == true) then   --if 3
             for i=1,#csos_order_header_data,1 do  --for 1
                 print(csos_order_header_data[i].UNIQUE_TRANS_NUM)
@@ -74,8 +74,8 @@ function main()
                                     -- if(csos_order_header_update==nil and order_header_update==nil) then  --if 10
                                     --    log_file:write("Data updation in database is successfull  "..os.date('%x').." at :"..os.date('%X'),"\n")
                                     --    conn_dev:execute{sql=[[COMMIT;]],live=true}
-                                    --   else
-                                    --      conn_dev:execute{sql=[[ROLLBACK;]],live=true}
+                                    -- else
+                                    --    conn_dev:execute{sql=[[ROLLBACK;]],live=true}
                                     UNIQUE_TRANS_NUM=csos_order_header_data[i].UNIQUE_TRANS_NUM
                                     print(UNIQUE_TRANS_NUM)
                                     updation_status = false
