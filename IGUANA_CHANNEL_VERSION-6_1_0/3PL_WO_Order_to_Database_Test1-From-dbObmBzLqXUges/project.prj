@@ -6,10 +6,11 @@
         "DBConnection",
         "Validation",
         "email_authentication",
+        "mail",
         "properties"
     ],
     "OtherDependencies": [],
-    "timestamp": "1574867749",
+    "timestamp": "1575365105",
     "version_info": {
         "build": 0,
         "major": 6,

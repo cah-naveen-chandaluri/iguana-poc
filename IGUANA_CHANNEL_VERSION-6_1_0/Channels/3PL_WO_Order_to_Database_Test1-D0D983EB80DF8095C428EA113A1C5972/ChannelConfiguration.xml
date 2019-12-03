@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Order_to_Database_Test1-To-8dFBnJDsDrt98Y"
-      commit_id="1658cb87fe5d29729099c3a4b6d60ee060b540bf"
-      commit_comment="Import Translators: rtyty">
+      commit_id="d7e90d8af8d888b075edf8b4b0b0db7d46ab0b32"
+      commit_comment="Import Translators: commit">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,7 +17,7 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="f82eceb1ae84a83543c0f4893d385d03744ce4e9"
+      commit_id="029b18a2d1fce706d2e49a4a3b18eb829939c02a"
       commit_comment="commit"
       poll_time="10000">
    </from_mapper>

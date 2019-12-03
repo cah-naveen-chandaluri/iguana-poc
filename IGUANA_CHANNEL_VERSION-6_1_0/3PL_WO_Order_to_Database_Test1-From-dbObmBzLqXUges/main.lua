@@ -2,12 +2,12 @@
 -- Version 1.0
 function main()
 
+
     properties = require("properties")
     Validation = require("Validation")
     constants = require("Constants")
-    email_authentication=require("email_authentication")
-   
-    email_authentication.Email_auth()
+    mail=require("mail")
+
     properties.directory_path()
     properties.db_conn()
     constants.csos_order_header_size()
@@ -16,9 +16,9 @@ function main()
     constants.query_constants()
     constants.frequently_constants()
     constants.csos_addr_details_size()
-   archived_table={}
-   error_table={}
-  
+    archived_table={}
+    error_table={}
+
     log_file = getLogFile(output_log_path)
     log_file:write("\n",TIME_STAMP.."******* Iguana channel Started Running *******","\n")
 
@@ -30,7 +30,7 @@ function main()
         -- Read order files
         total_count,error_count,archive_count=0,0,0
         for filename in file_directory:lines() do
-            log_file:write(TIME_STAMP..filename.." - *** Started processing file ***","\n") 
+            log_file:write(TIME_STAMP..filename.." - *** Started processing file ***","\n")
             order_file=input_directory_path..filename
             fileName_with_timestamp = GetFileName(filename).."_"..TIME_STAMP_FOR_FILE..GetFileExtension(filename)
             -- This is the default value of the column ACTIVE_FLAG in the database
@@ -59,51 +59,57 @@ function main()
 
                             tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
                             tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
-
+                                      
+                     
+             PODATE=tag_OrderSummary.PODate:nodeText()
+             First_replace=string.gsub(PODATE,'T',' ')
+             Second_replace=string.gsub(First_replace,'Z','')
+             New_PODate=tostring(Second_replace)
+             print(New_PODate)
                             ts=os.time()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
-                                if pcall(Insertion) then  
-                           
-                           
+                                if pcall(Insertion) then
+
+
                                     --archive_count=archive_count+1  --e is archive directory
-                            
-                                      archived_table[archive_count]= fileName_with_timestamp                                   
-                                      archive_count=archive_count+1
-                                    
+
+                                    archived_table[archive_count]= fileName_with_timestamp
+                                    archive_count=archive_count+1
+
                                     log_file:write(TIME_STAMP..filename.." - "..INSERT_SUCCESS,"\n")   --checking
                                     os.rename(input_directory_path..filename, output_archived_path..fileName_with_timestamp)
-                          
+
                                     log_file:write(TIME_STAMP..filename.." - "..ARC_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                                 else
-                                     error_table[error_count]=fileName_with_timestamp 
-                                     error_count=error_count+1  --a if insertion fails data in a
-                                    
-	                                
-                                    
+                                    error_table[error_count]=fileName_with_timestamp
+                                    error_count=error_count+1  --a if insertion fails data in a
+
+
+
                                     log_file:write(TIME_STAMP..filename.." - "..INSERT_FAIL,"\n")
                                     os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
-                           
-                          
-                            
-	                                 print(error_table[error_count])
+
+
+
+                                    print(error_table[error_count])
                                     log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                                 end
                             else
-                                
-                                     error_table[error_count]=fileName_with_timestamp 
-                                     error_count=error_count+1--if db connection fails data in b                               
-                         
+
+                                error_table[error_count]=fileName_with_timestamp
+                                error_count=error_count+1--if db connection fails data in b
+
                                 log_file:write(TIME_STAMP..filename.." - "..DB_CON_ERROR,"\n")
-                                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)                                      
+                                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
                                 log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
                             end
                         else
-                                     error_table[error_count]=fileName_with_timestamp 
-                                     error_count=error_count+1
-                     
+                            error_table[error_count]=fileName_with_timestamp
+                            error_count=error_count+1
+
                             log_file:write(TIME_STAMP..filename.." - "..DATA_VALIDATION_FAIL,"\n")  --checking
-                            os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)                    
+                            os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
                             log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")
                         end -- end for validation
                     else
@@ -112,31 +118,33 @@ function main()
                 end -- end for unable to open file
             else -- else for validation file extension
 
-                error_table[error_count]=fileName_with_timestamp 
+                error_table[error_count]=fileName_with_timestamp
                 error_count=error_count+1
-             
+
                 log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_FAIL,"\n")  --checking
-                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)             
+                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
             end -- end for if condition checking whether file is xml or not
             total_count=total_count+1
         end --end for for loop
         log_file:write(TIME_STAMP.."Total files : "..total_count,"\n")
-      
-          log_file:write(TIME_STAMP.."Total files  moved to archive directory : "..archive_count,"\n")         
-            for i=0,archive_count-1 do         
-                  log_file:write(TIME_STAMP..archived_table[i].." file is moved to archive directory  ","\n")  
-            end
-          
-         
-         log_file:write(TIME_STAMP.."Total files  moved to error directory  "..error_count,"\n")        
-            for i=0,error_count-1 do     
-                  log_file:write(TIME_STAMP..error_table[i].." file is moved to error directory ","\n")  
-            end
-          
+
+        log_file:write(TIME_STAMP.."Total files  moved to archive directory : "..archive_count,"\n")
+        for i=0,archive_count-1 do
+            log_file:write(TIME_STAMP..archived_table[i].." file is moved to archive directory  ","\n")
+        end
+
+
+        log_file:write(TIME_STAMP.."Total files  moved to error directory  "..error_count ,"\n")
+        for i=0,error_count-1 do
+            log_file:write(TIME_STAMP..error_table[i].." file is moved to error directory ","\n")
+        end
+        if(error_count>0) then
+            mail.send_email()
+        end
     else
         log_file:write(TIME_STAMP.."Not able to create or there is no OrderFile, ArchiveFiles and ErrorFiles folders")
-         
-   end
+
+    end
 end -- end for main function
 
 -- Validating the file extenstion format
@@ -146,11 +154,11 @@ function GetFileExtension(filename)
 end
 
 function GetFileName(filename)
-   return filename:match("(.+)%..+")
+    return filename:match("(.+)%..+")
 end
 
 function verifyAllDirectories()
-   
+
     result_ArchivedDirectory_Status=os.fs.access(output_archived_path)     --checking directory exist status
     result_ErrorDirectory_Status=os.fs.access(output_error_path)        --checking directory exist status
     result_OrderFileDirectory_Status=os.fs.access(input_directory_path)     --checking directory oder file status
@@ -168,21 +176,21 @@ function verifyAllDirectories()
         log_file:write(TIME_STAMP..ERR_DIR_MISS,"\n") --checking
         os.fs.mkdir(output_error_path)
         log_file:write(TIME_STAMP..ERR_DIR_CREATE,"\n") --checking
-	     result_ErrorDirectory_Status=os.fs.access(output_error_path)
+        result_ErrorDirectory_Status=os.fs.access(output_error_path)
     end
 
-   if(result_OrderFileDirectory_Status==false)   then   -- checking for directory exist or not
+    if(result_OrderFileDirectory_Status==false)   then   -- checking for directory exist or not
         log_file:write(TIME_STAMP..ORD_DIR_MISS,"\n") --checking
-       os.fs.mkdir(input_directory_path)
-       log_file:write(TIME_STAMP..ORD_DIR_CREATE,"\n") --checking
-       result_OrderFileDirectory_Status=os.fs.access(input_directory_path)
-   end
-   
-   if(result_ArchivedDirectory_Status and result_ErrorDirectory_Status and result_OrderFileDirectory_Status) then
-      return true
-   else
-      return false
-   end
+        os.fs.mkdir(input_directory_path)
+        log_file:write(TIME_STAMP..ORD_DIR_CREATE,"\n") --checking
+        result_OrderFileDirectory_Status=os.fs.access(input_directory_path)
+    end
+
+    if(result_ArchivedDirectory_Status and result_ErrorDirectory_Status and result_OrderFileDirectory_Status) then
+        return true
+    else
+        return false
+    end
 end
 
 function Parser()  --function for parsing xml
@@ -203,7 +211,7 @@ function Insertion()  --function for insertion
         conn:quote(tag_OrderSummary.BusinessUnit:nodeText())..", "..
         conn:quote(tag_OrderSummary.NoOfLines:nodeText())..", "..
         conn:quote(tag_OrderSummary.OrderChannel:nodeText())..", "..
-        conn:quote(tag_OrderSummary.PODate:nodeText())..", "..
+        conn:quote(New_PODate)..", "..
         conn:quote(tag_OrderSummary.PONumber:nodeText())..", "..
         conn:quote(tag_OrderSummary.ShipToNumber:nodeText())..", "..
         conn:quote(tag_OrderSummary.UniqueTransactionNumber:nodeText())..", "..
@@ -224,7 +232,7 @@ function Insertion()  --function for insertion
     end
 
     if(tonumber(CSOS_ORD_HDR_NUM_UPDATE_VAL)>=0 and insertion_status == true) then
-        sql_csos_detail_status = nil
+        sql_csos_order_header_status = nil
 
         --insertion is done in csos_addr_details as supplier
 
