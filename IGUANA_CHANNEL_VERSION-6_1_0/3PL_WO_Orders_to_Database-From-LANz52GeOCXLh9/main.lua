@@ -226,7 +226,7 @@ function Insertion()  --function for insertion
     end
 
     if(tonumber(CSOS_ORD_HDR_NUM_UPDATE_VAL)>=0 and insertion_status == true) then
-        sql_csos_detail_status = nil
+        sql_csos_order_header_status = nil
 
         --insertion is done in csos_addr_details as supplier
 
