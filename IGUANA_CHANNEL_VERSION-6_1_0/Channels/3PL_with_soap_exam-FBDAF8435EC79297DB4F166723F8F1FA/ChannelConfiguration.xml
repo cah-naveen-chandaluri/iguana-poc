@@ -18,7 +18,7 @@
    <from_http
       type="mapper"
       guid="3PL_WO_CHANNEL2-FromHTTP-Ahqh6sE5sFRXpy"
-      commit_id="27177d4acb44a6c406bec90054b765521f8b80ab"
+      commit_id="27252fa2f14775be1aacf3214b9860ee9dbe710b"
       commit_comment="commit"
       mapper_url_path="http://localhost:6543/channel?#Channel=3PL_WO_CHANNEL2"/>
 </channel>

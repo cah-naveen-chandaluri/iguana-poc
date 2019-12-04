@@ -2,11 +2,8 @@
 -- Version 1.0
 function main()
 
-
-    properties = require("properties")
-    Validation = require("Validation")
-    constants = require("Constants")
-    mail=require("mail")
+if pcall(luaFiles) then  --  if 1 handling exception for .lua files
+   
 
     properties.directory_path()
     properties.db_conn()
@@ -61,11 +58,11 @@ function main()
                             tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
                                       
                      
-             PODATE=tag_OrderSummary.PODate:nodeText()
-             First_replace=string.gsub(PODATE,'T',' ')
-             Second_replace=string.gsub(First_replace,'Z','')
-             New_PODate=tostring(Second_replace)
-             print(New_PODate)
+        --     PODATE=tag_OrderSummary.PODate:nodeText()
+        --     First_replace=string.gsub(PODATE,'T',' ')
+         --    Second_replace=string.gsub(First_replace,'Z','')
+          --   New_PODate=tostring(Second_replace)
+          --   print(New_PODate)
                             ts=os.time()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
@@ -145,6 +142,12 @@ function main()
         log_file:write(TIME_STAMP.."Not able to create or there is no OrderFile, ArchiveFiles and ErrorFiles folders")
 
     end
+      
+      else
+        --log_file:write(TIME_STAMP.."_".."There is a problem in Iguana folders : ","\n")
+        --mail.send_email() 
+   
+  end
 end -- end for main function
 
 -- Validating the file extenstion format
@@ -211,7 +214,7 @@ function Insertion()  --function for insertion
         conn:quote(tag_OrderSummary.BusinessUnit:nodeText())..", "..
         conn:quote(tag_OrderSummary.NoOfLines:nodeText())..", "..
         conn:quote(tag_OrderSummary.OrderChannel:nodeText())..", "..
-        conn:quote(New_PODate)..", "..
+        conn:quote(tag_OrderSummary.PODate:nodeText())..", "..
         conn:quote(tag_OrderSummary.PONumber:nodeText())..", "..
         conn:quote(tag_OrderSummary.ShipToNumber:nodeText())..", "..
         conn:quote(tag_OrderSummary.UniqueTransactionNumber:nodeText())..", "..
@@ -429,3 +432,12 @@ function validationForOrderData(order_data)
     end --end
     return validateion_status
 end  --end validationForOrderData() function
+
+
+ function luaFiles()
+    --createProcedure=require("CreateProcedure")
+    properties = require("properties")
+    Validation = require("Validation")
+    constants = require("Constants")
+          mail=require("mail")
+end
