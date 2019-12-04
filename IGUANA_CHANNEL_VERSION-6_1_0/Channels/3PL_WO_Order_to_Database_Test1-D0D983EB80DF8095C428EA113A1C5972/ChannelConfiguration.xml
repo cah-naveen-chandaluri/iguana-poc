@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Order_to_Database_Test1-To-8dFBnJDsDrt98Y"
-      commit_id="d7e90d8af8d888b075edf8b4b0b0db7d46ab0b32"
-      commit_comment="Import Translators: commit">
+      commit_id="4f0863173a0ff49639c860889ee8fd94b21dbb90"
+      commit_comment="Import Translators: import the latest update">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="f68e0fa189ce3046bef5faf9b6c39f08773d8bc9"
-      commit_comment="commit"
+      commit_id="3e1c64dec2f26010a52c3d0ae0af6bc54887b0d1"
+      commit_comment="Added Stored Procedure"
       poll_time="10000">
    </from_mapper>
 </channel>

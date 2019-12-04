@@ -1,6 +1,7 @@
 local CreateProcedure =  {}
 dbConnection = require("DBConnection")
-   
+dbConnection.connectdb()
+
 function CreateProcedure.createProcedure()
    
    conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrder',live=true}
@@ -23,8 +24,9 @@ function CreateProcedure.createProcedure()
       VALUES(BUSINESS_UNIT, NO_OF_LINES, ORDER_CHANNEL, PO_DATE, PO_NUMBER, SHIPTO_NUM, UNIQUE_TRANS_NUM, ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
    END]],
       live=true
+      }
    
-conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrderdetails',live=true}
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrderdetails',live=true}
    conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSOrderdetails( 
 	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN BUYER_ITEM_NUM varchar(45) ,
@@ -43,26 +45,23 @@ conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrderdetails',live=true}
       IN ROW_UPDATE_STP timestamp,
       IN ROW_UPDATE_USER_ID varchar(255)
    )
-BEGIN
+      BEGIN
       INSERT INTO csos_order_details(CSOS_ORD_HDR_NUM,BUYER_ITEM_NUM, FORM, LINE_NUM, NAME_OF_ITEM, NATIONAL_DRUG_CDE, QUANTITY,DEA_SCHEDULE, SIZE_OF_PACKAGE,STRENGTH,SUPPLIER_ITEM_NUM,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
       VALUES(CSOS_ORD_HDR_NUM,BUYER_ITEM_NUM, FORM, LINE_NUM, NAME_OF_ITEM, NATIONAL_DRUG_CDE, QUANTITY,DEA_SCHEDULE, SIZE_OF_PACKAGE,STRENGTH,SUPPLIER_ITEM_NUM,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
    END]],
    live=true
-   
          }
-      
-      
-      
-    conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrsupplier',live=true}
+        
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrsupplier',live=true}
    conn_dev:execute{sql=[[CREATE PROCEDURE  AddCSOSaddrsupplier( 
-	  IN CSOS_ORD_HDR_NUM bigint(19),
+	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN ADDR_TYPE varchar(45) ,
       IN ADDR1 varchar(45) ,
       IN CITY varchar(45),
       IN DEA_NUMBER varchar(45),
       IN POSTAL_CDE varchar(45),
-     IN STATE varchar(45), 
-	 IN ACTIVE_FLG char(1),
+      IN STATE varchar(45), 
+	   IN ACTIVE_FLG char(1),
       IN ROW_ADD_STP	timestamp,
       IN ROW_ADD_USER_ID varchar(255),
       IN ROW_UPDATE_STP timestamp,
@@ -70,7 +69,7 @@ BEGIN
    )
 BEGIN
      
-       DECLARE errno INT;
+    DECLARE errno INT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
     GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
@@ -79,22 +78,18 @@ BEGIN
     END;
 
     START TRANSACTION;
-
     
-      INSERT INTO csos_addr_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
-      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
-      VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
-      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
-   commit;
-   END]],live=true
-      
-      
+    INSERT INTO csos_addr_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
+    POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
+    VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
+    POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
+    commit;
+    END]],live=true  
       }
-      
       
    conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrbuyer',live=true}
    conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSaddrbuyer( 
-	  IN CSOS_ORD_HDR_NUM bigint(19),
+	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN ADDR_TYPE varchar(45) ,
       IN ADDR1 varchar(45) ,
       IN ADDR2 varchar(45) ,
@@ -102,8 +97,8 @@ BEGIN
       IN DEA_SCHEDULLE varchar(45),
       IN DEA_NUMBER varchar(45),
       IN POSTAL_CDE varchar(45),
-     IN STATE varchar(45), 
-	 IN ACTIVE_FLG char(1),
+      IN STATE varchar(45), 
+	   IN ACTIVE_FLG char(1),
       IN ROW_ADD_STP	timestamp,
       IN ROW_ADD_USER_ID varchar(255),
       IN ROW_UPDATE_STP timestamp,
@@ -111,7 +106,7 @@ BEGIN
    )
 BEGIN
      
-       DECLARE errno INT;
+    DECLARE errno INT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
     GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
@@ -121,20 +116,13 @@ BEGIN
 
     START TRANSACTION;
 
-    
-      INSERT INTO csos_addr_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY,DEA_SCHEDULLE, DEA_NUMBER,
-      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
-      VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY, DEA_SCHEDULLE, DEA_NUMBER,
-      POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
-   commit;
-   END]],live=true
-      
-      
-      } 
-      
-      
+    INSERT INTO csos_addr_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY,DEA_SCHEDULLE, DEA_NUMBER,
+    POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
+    VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY, DEA_SCHEDULLE, DEA_NUMBER,
+    POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
+    commit;
+    END]],live=true
+      }
 end
-   
-   
    
 return CreateProcedure
