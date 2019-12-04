@@ -2,9 +2,13 @@
 -- Version 1.0
 function main()
 
-if pcall(luaFiles) then  --  if 1 handling exception for .lua files
-   
+    createProcedure=require("CreateProcedure")
+    properties = require("properties")
+    Validation = require("Validation")
+    constants = require("Constants")
+    mail=require("mail")
 
+    createProcedure.createProcedure()
     properties.directory_path()
     properties.db_conn()
     constants.csos_order_header_size()
@@ -56,21 +60,11 @@ if pcall(luaFiles) then  --  if 1 handling exception for .lua files
 
                             tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
                             tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
-                                      
-                     
-        --     PODATE=tag_OrderSummary.PODate:nodeText()
-        --     First_replace=string.gsub(PODATE,'T',' ')
-         --    Second_replace=string.gsub(First_replace,'Z','')
-          --   New_PODate=tostring(Second_replace)
-          --   print(New_PODate)
+
                             ts=os.time()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
                                 if pcall(Insertion) then
-
-
-                                    --archive_count=archive_count+1  --e is archive directory
-
                                     archived_table[archive_count]= fileName_with_timestamp
                                     archive_count=archive_count+1
 
@@ -82,12 +76,8 @@ if pcall(luaFiles) then  --  if 1 handling exception for .lua files
                                     error_table[error_count]=fileName_with_timestamp
                                     error_count=error_count+1  --a if insertion fails data in a
 
-
-
                                     log_file:write(TIME_STAMP..filename.." - "..INSERT_FAIL,"\n")
                                     os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
-
-
 
                                     print(error_table[error_count])
                                     log_file:write(TIME_STAMP..filename.." - "..ERR_DIR_MOV..fileName_with_timestamp,"\n")  --checking
@@ -142,12 +132,8 @@ if pcall(luaFiles) then  --  if 1 handling exception for .lua files
         log_file:write(TIME_STAMP.."Not able to create or there is no OrderFile, ArchiveFiles and ErrorFiles folders")
 
     end
-      
-      else
-        --log_file:write(TIME_STAMP.."_".."There is a problem in Iguana folders : ","\n")
-        --mail.send_email() 
-   
-  end
+
+
 end -- end for main function
 
 -- Validating the file extenstion format
@@ -291,7 +277,6 @@ function Insertion()  --function for insertion
         else
             insertion_status = false
         end
-
     else
         insertion_status = false
     end
@@ -432,12 +417,3 @@ function validationForOrderData(order_data)
     end --end
     return validateion_status
 end  --end validationForOrderData() function
-
-
- function luaFiles()
-    --createProcedure=require("CreateProcedure")
-    properties = require("properties")
-    Validation = require("Validation")
-    constants = require("Constants")
-          mail=require("mail")
-end
