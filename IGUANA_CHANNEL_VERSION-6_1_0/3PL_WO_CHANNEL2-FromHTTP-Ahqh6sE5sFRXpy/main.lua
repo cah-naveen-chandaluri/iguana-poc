@@ -18,15 +18,17 @@ function main()
     if pcall(DBConn) then   --if 2  --handling exception for database connection
 
         csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='"..tostring(CSOS_ORDER_HDR_STAT_VALUE).."';", live=true};
-
+log_file:write(TIME_STAMP.."_".."Extracted data from csos_order_header","\n") 
         if(#csos_order_header_data>0 ) then   --if 3  -- checking for csos_order_header_data size
             print(#csos_order_header_data)
             for i=1,#csos_order_header_data,1 do  --for 1  --initial loop for starting comparision
                 log_file:write(i)
                 print(csos_order_header_data[i].UNIQUE_TRANS_NUM)
                 order_header_data=conn_dev:query{sql="select ELITE_ORDER,ELITE_ORDER_NUM,ORDER_NUM,CUSTOMER_NUM,CSOS_ORDER_NUM,PO_NUM,PO_DTE from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM).."';",live=true};
-                customer_billto_shipto_data=conn_dev:query{sql="select BILLTO_NUM,ORG_CDE,CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..tostring(order_header_data[1].CUSTOMER_NUM).."';",live=true};
-                print(i)
+               log_file:write(TIME_STAMP.."_".."extracted data from order_header","\n") 
+               customer_billto_shipto_data=conn_dev:query{sql="select BILLTO_NUM,ORG_CDE,CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..tostring(order_header_data[1].CUSTOMER_NUM).."';",live=true};
+               log_file:write(TIME_STAMP.."_".."extracted data from customer_billto_shipto","\n") 
+               print(i)
                 print(order_header_data[1].PO_NUM,order_header_data[1].PO_DTE,order_header_data[1].CSOS_ORDER_NUM,customer_billto_shipto_data[1].SHIPTO_NUM)
                 if(#order_header_data>0 and #customer_billto_shipto_data>0) then  --if 4  --checking for order_header_data and customer_billto_shipto_data size
 
@@ -38,15 +40,18 @@ function main()
                         )
                     then  --if 5  --csos_order_header_data and order_header data comparing
                         order_details_data=conn_dev:query{sql="select REQ_QTY,SHIP_UOM_DESC,PROD_NUM from 3pl_sps_ordering.order_detail where ORDER_HDR_NUM='"..tostring(order_header_data[1].ORDER_NUM).."';",live=true};
-                        if(#order_details_data>0) then  --if 6 --checking th size of order_details_data
+                     log_file:write(TIME_STAMP.."_".."extracted data from order_details","\n")    
+                     if(#order_details_data>0) then  --if 6 --checking th size of order_details_data
 
                             prod_data={}
                             for j=1,#order_details_data do  -- for 2  -- loop for getting prod table details on the basis of order_details_data
                                 prod_data[j]=conn_dev:query{sql="select SKU_ITEM_ID,NDC_ID,DEA_SCHEDULE FROM 3pl_sps_ordering.prod where PROD_NUM='"..tostring(order_details_data[j].PROD_NUM).."';",live=true};
                             end  --end for 2
+                        
+                        log_file:write(TIME_STAMP.."_".."extracted data from prod","\n")
                             print(order_details_data[1].PROD_NUM,order_details_data[2].PROD_NUM)
                             csos_order_details_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,QUANTITY,BUYER_ITEM_NUM,NATIONAL_DRUG_CDE,DEA_SCHEDULE,SIZE_OF_PACKAGE FROM 3pl_sps_ordering.csos_order_details where CSOS_ORD_HDR_NUM='"..tostring(csos_order_header_data[i].CSOS_ORD_HDR_NUM).."';",live=true};
-
+log_file:write(TIME_STAMP.."_".."extracted data from csos_order_details","\n")
                             matched_order_details_status=0
 
                             for k=1,#csos_order_details_data do  --for 3  loop for starting details tables comparing
