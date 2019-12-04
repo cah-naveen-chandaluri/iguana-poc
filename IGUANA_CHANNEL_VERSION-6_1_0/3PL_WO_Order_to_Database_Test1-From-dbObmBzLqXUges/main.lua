@@ -114,13 +114,13 @@ function main()
             total_count=total_count+1
         end --end for for loop
         log_file:write(TIME_STAMP.."Total files : "..total_count,"\n")
-
+        -- This loop for generate the logs for archive files count and their file names
         log_file:write(TIME_STAMP.."Total files  moved to archive directory : "..archive_count,"\n")
         for i=0,archive_count-1 do
             log_file:write(TIME_STAMP..archived_table[i].." file is moved to archive directory  ","\n")
         end
-
-
+      
+        -- This loop for generate the logs for error files count and their file names
         log_file:write(TIME_STAMP.."Total files  moved to error directory  "..error_count ,"\n")
         for i=0,error_count-1 do
             log_file:write(TIME_STAMP..error_table[i].." file is moved to error directory ","\n")

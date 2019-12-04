@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="3e1c64dec2f26010a52c3d0ae0af6bc54887b0d1"
-      commit_comment="Added Stored Procedure"
+      commit_id="5be2cd88d7076116eb463dcf755b438a6189bb4a"
+      commit_comment="Added Mail functionality and added comments for error and archived files"
       poll_time="10000">
    </from_mapper>
 </channel>
