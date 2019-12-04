@@ -14,21 +14,21 @@ function main()
     constants.frequently_constants()
 
     log_file = getLogFile(output_log_path)
-    log_file:write(TIME_STAMP.."******* Iguana channel Started Running *******","\n")
+    log_file:write(TIME_STAMP..CHANNEL_STARTED_RUNNING,"\n")
 
 
-    if pcall(DBConn) then   --if 1
-        selection_status = false
-        conn_dev:execute{sql=[[START TRANSACTION;]] ,live=true};
-        csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='1';", live=true};
-                                       --end if 2
-        if(#csos_order_header_data>0) then   --if 3
-            for i=1,#csos_order_header_data,1 do  --for 1
+    if pcall(DBConn) then   --if 2  --handling exception for database connection
+   
+
+        csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='"..tostring(CSOS_ORDER_HDR_STAT_VALUE).."';", live=true};
+                                       
+        if(#csos_order_header_data>0) then   --if 3  -- checking for csos_order_header_data size
+            for i=1,#csos_order_header_data,1 do  --for 1  --initial loop for starting comparision
                 print(csos_order_header_data[i].UNIQUE_TRANS_NUM)
                 order_header_data=conn_dev:query{sql="select ELITE_ORDER,ELITE_ORDER_NUM,ORDER_NUM,CUSTOMER_NUM,CSOS_ORDER_NUM,PO_NUM,PO_DTE from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM).."';",live=true};
                 customer_billto_shipto_data=conn_dev:query{sql="select BILLTO_NUM,ORG_CDE,CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..tostring(order_header_data[1].CUSTOMER_NUM).."';",live=true};
                 print(order_header_data[1].PO_NUM,order_header_data[1].PO_DTE,order_header_data[1].CSOS_ORDER_NUM,customer_billto_shipto_data[1].SHIPTO_NUM)
-                if(#order_header_data>0 and #customer_billto_shipto_data>0) then  --if 4
+                if(#order_header_data>0 and #customer_billto_shipto_data>0) then  --if 4  --checking for order_header_data and customer_billto_shipto_data size
                    
                     print(csos_order_header_data[i].PO_NUMBER,order_header_data[1].PO_NUM,csos_order_header_data[i].UNIQUE_TRANS_NUM,order_header_data[1].CSOS_ORDER_NUM)
                     if(tostring(csos_order_header_data[i].PO_NUMBER)==tostring(order_header_data[1].PO_NUM)
@@ -36,34 +36,34 @@ function main()
                         and tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM)==tostring(order_header_data[1].CSOS_ORDER_NUM) 
                         and tostring(csos_order_header_data[i].SHIPTO_NUM)==tostring(customer_billto_shipto_data[1].SHIPTO_NUM)
                         )
-                    then  --if 5
+                    then  --if 5  --csos_order_header_data and order_header data comparing
                         order_details_data=conn_dev:query{sql="select REQ_QTY,SHIP_UOM_DESC,PROD_NUM from 3pl_sps_ordering.order_detail where ORDER_HDR_NUM='"..tostring(order_header_data[1].ORDER_NUM).."';",live=true};
-                        if(#order_details_data>0) then  --if 6
+                        if(#order_details_data>0) then  --if 6 --checking th size of order_details_data
                            
                             prod_data={}
-                            for j=1,#order_details_data do  -- for 2
+                            for j=1,#order_details_data do  -- for 2  -- loop for getting prod table details on the basis of order_details_data
                                 prod_data[j]=conn_dev:query{sql="select SKU_ITEM_ID,NDC_ID,DEA_SCHEDULE FROM 3pl_sps_ordering.prod where PROD_NUM='"..tostring(order_details_data[j].PROD_NUM).."';",live=true};
                             end  --end for 2
                             print(order_details_data[1].PROD_NUM,order_details_data[2].PROD_NUM)
                             csos_order_details_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,QUANTITY,BUYER_ITEM_NUM,NATIONAL_DRUG_CDE,DEA_SCHEDULE,SIZE_OF_PACKAGE FROM 3pl_sps_ordering.csos_order_details where CSOS_ORD_HDR_NUM='"..tostring(csos_order_header_data[i].CSOS_ORD_HDR_NUM).."';",live=true};
-                            --print(#csos_order_details_data,prod_data[1][1].SKU_ITEM_ID,prod_data[2][1].NDC_ID,order_details_data[1],order_details_data[2])
+                            
                             matched_order_details_status=0
-                            for k=1,#csos_order_details_data do  --for 3
+                            for k=1,#csos_order_details_data do  --for 3  loop for starting details tables comparing
                                 if(tostring(csos_order_details_data[k].QUANTITY)==tostring(order_details_data[k].REQ_QTY) and
                                     tostring(csos_order_details_data[k].SIZE_OF_PACKAGE)==tostring(order_details_data[k].SHIP_UOM_DESC) and
                                     tostring(csos_order_details_data[k].BUYER_ITEM_NUM)==tostring(prod_data[k][1].SKU_ITEM_ID) and
                                     tostring(csos_order_details_data[k].NATIONAL_DRUG_CDE)==tostring(prod_data[k][1].NDC_ID)
                                     and tostring(csos_order_details_data[k].DEA_SCHEDULE)==tostring(prod_data[k][1].DEA_SCHEDULE) )
-                                then  --if 7
+                                then  --if 7  --for comparing the csos_order_details_data and order_details_data
                                     matched_order_details_status=matched_order_details_status+1
                                 end  --end if 7
                             end  --end for 3
                             if(matched_order_details_status==#order_details_data and matched_order_details_status==#csos_order_details_data ) 
-                            then  --if 8
+                            then  --if 8  -- checking the result of comparing
                                 soap.soaprequest()
                                 final_result=soap.getsoapresponsevalues(after_parsing)
                                 print(final_result)
-                                if(final_result=='N') then  --if 9
+                                if(final_result=='N') then  --if 9  -- checking whether we got required result through soap
                                     csos_order_header_update=conn_dev:execute{sql="update 3pl_sps_ordering.csos_order_header set CSOS_ORDER_HDR_STAT ='2' where UNIQUE_TRANS_NUM='"..csos_order_header_data[i].UNIQUE_TRANS_NUM.."' ;", live=true};
                                     order_header_update=conn_dev:execute{sql="update  3pl_sps_ordering.order_header set  ORDER_HDR_STAT_DESC='2' where CSOS_ORDER_NUM='"..csos_order_header_data[i].UNIQUE_TRANS_NUM.."' ;", live=true};
                                     if(csos_order_header_update==nil and order_header_update==nil) then  --if 10 
@@ -77,31 +77,31 @@ function main()
                                     mail.send_email()
                                 end  --end if 9
                             else
-                                conn_dev:execute{sql=[[ROLLBACK;]],live=true}
-                                log_file:write("Data Present in csos_order_details and order_details tables are not equal "..os.date('%x').." at :"..os.date('%X'),"\n")
+                            
+                                log_file:write(TIME_STAMP.."_"..DETAILS_MISS_MATCH,"\n")
                             end -- end if 8
                         else
                            
-                            log_file:write("Data Present in order_details_data is empty  "..os.date('%x').." at :"..os.date('%X'),"\n")
+                            log_file:write(TIME_STAMP.."_"..ORDER_DETAILS_EMPTY,"\n")
                             mail.send_email()
                         end  --end if 6
                     else
-                        log_file:write("Data Present in csos_order_header and order_header tables are not equal "..os.date('%x').." at :"..os.date('%X'),"\n")
+                        log_file:write(TIME_STAMP.."_"..HEADERS_MISS_MATCH,"\n")
                         mail.send_email()
                     end  --end if 5
                 else
-                    log_file:write("Data Present in order_header_data or customer_billto_shipto_data is empty  "..os.date('%x').." at :"..os.date('%X'),"\n")
+                    log_file:write(TIME_STAMP.."_"..ORDER_HEADER_OR_CUST_SHIPTO_EMPTY,"\n")
                   
                     mail.send_email()
                 end   --end if 4
             end  --end for 1
         else
            
-         log_file:write("Data Present in csos_order_header is empty "..os.date('%x').." at :"..os.date('%X'),"\n")
+         log_file:write(TIME_STAMP.."_"..CSOS_ORDER_HEADER_EMPTY,"\n")
          
         end  --end if 3
     else
-        log_file:write("Database connection  is not exist on : "..os.date('%x').." at :"..os.date('%X'),"\n")
+        log_file:write(TIME_STAMP.."_"..DB_CON_ERROR,"\n")
         mail.send_email()
     end  --end if 2
       
@@ -142,4 +142,5 @@ end  --end function DBConn
     Validation = require("Validation")
     constants = require("Constants")
           mail=require("mail")
+   soap=require("file_soap")
 end

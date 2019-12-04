@@ -13,11 +13,11 @@ function main()
     constants.frequently_constants()
 
     log_file = getLogFile(output_log_path)
-    log_file:write(TIME_STAMP.."******* Iguana channel Started Running *******","\n")
+    log_file:write(TIME_STAMP..CHANNEL_STARTED_RUNNING,"\n")
 
     if pcall(DBConn) then   --if 2  --handling exception for database connection
 
-        csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='1';", live=true};
+        csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='"..tostring(CSOS_ORDER_HDR_STAT_VALUE).."';", live=true};
 
         if(#csos_order_header_data>0 ) then   --if 3  -- checking for csos_order_header_data size
             print(#csos_order_header_data)
@@ -72,7 +72,7 @@ function main()
                                     sql_update_status = conn_dev:execute{sql=sql_update, live=true};
                                     if(sql_update_status == nil) then  --if 10 -- verifying updation status
 
-                                        log_file:write(TIME_STAMP.."_".."Data updation in database is successfull","\n")
+                                        log_file:write(TIME_STAMP.."_"..UPDATE_SUCCESS,"\n")
                                         conn_dev:execute{sql=[[COMMIT;]],live=true}
                                     else
 
@@ -83,20 +83,20 @@ function main()
                                 end  --end if 9
                             else
 
-                                log_file:write(TIME_STAMP.."_".."Data Present in csos_order_details and order_details tables are not equal","\n")
+                                log_file:write(TIME_STAMP.."_"..DETAILS_MISS_MATCH,"\n")
                                 mail.send_email()
                             end -- end if 8
                         else
 
-                            log_file:write(TIME_STAMP.."_".."Data Present in order_details_data is empty  ","\n")
+                            log_file:write(TIME_STAMP.."_"..ORDER_DETAILS_EMPTY,"\n")
                             mail.send_email()
                         end  --end if 6
                     else
-                        log_file:write(TIME_STAMP.."_".."Data Present in csos_order_header and order_header tables are not equal ","\n")
+                        log_file:write(TIME_STAMP.."_"..HEADERS_MISS_MATCH,"\n")
                         mail.send_email()
                     end  --end if 5
                 else
-                    log_file:write(TIME_STAMP.."_".."Data Present in order_header_data or customer_billto_shipto_data is empty  ","\n")
+                    log_file:write(TIME_STAMP.."_"..ORDER_HEADER_OR_CUST_SHIPTO_EMPTY,"\n")
 
                     mail.send_email()
                 end   --end if 4
@@ -105,10 +105,10 @@ function main()
             end  --end for 1
         else
 
-            log_file:write(TIME_STAMP.."_".."Data Present in csos_order_header is empty ","\n")
+            log_file:write(TIME_STAMP.."_"..CSOS_ORDER_HEADER_EMPTY,"\n")
         end  --end if 3
     else
-        log_file:write(TIME_STAMP.."_".."Database connection  is not exist on : ","\n")
+        log_file:write(TIME_STAMP.."_"..DB_CON_ERROR,"\n")
         mail.send_email()
     end  --end if 2
   else

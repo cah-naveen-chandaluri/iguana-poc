@@ -73,9 +73,11 @@ function Constants.frequently_constants()
     user="IGUANA_USER"
     supplier="SUPPLIER"
     buyer="BUYER"
+   CSOS_ORDER_HDR_STAT_VALUE='1'
 end
 
 function Constants.log_statements()
+   CHANNEL_STARTED_RUNNING="******* Iguana channel Started Running *******"
     TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
     TIME_STAMP_FOR_FILE=os.date('%Y-%m-%d %H%M%S')
     ARC_DIR_MISS="Archive directory is missing"
@@ -96,6 +98,12 @@ function Constants.log_statements()
     TAGS_AVAILABLE="All tags are available in xml"
     ARC_DIR_MOV="Renamed file name with timestamp and moved file into archived folder - "
     UNABLE_OPEN_FILE="Not able to open file"
+   ORDER_DETAILS_EMPTY="Data Present in order_details_data is empty  "
+   DETAILS_MISS_MATCH="Data Present in csos_order_details and order_details tables are not equal"
+   HEADERS_MISS_MATCH="Data Present in csos_order_header and order_header tables are not equal "
+   ORDER_HEADER_OR_CUST_SHIPTO_EMPTY="Data Present in order_header_data or customer_billto_shipto_data is empty  "
+   UPDATE_SUCCESS="Data updation in database is successfull"
+   CSOS_ORDER_HEADER_EMPTY="Data Present in csos_order_header is empty "
 end
 
 return Constants

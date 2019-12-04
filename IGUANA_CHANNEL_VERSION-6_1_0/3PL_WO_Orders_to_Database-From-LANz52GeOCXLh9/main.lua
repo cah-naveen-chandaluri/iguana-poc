@@ -16,7 +16,7 @@ function main()
         error_table={}
 
         log_file = getLogFile(output_log_path)
-        log_file:write("\n",TIME_STAMP.."******* Iguana channel Started Running *******","\n")
+        log_file:write("\n",TIME_STAMP..CHANNEL_STARTED_RUNNING,"\n")
 
         if pcall(verifyAllDirectories) then
 

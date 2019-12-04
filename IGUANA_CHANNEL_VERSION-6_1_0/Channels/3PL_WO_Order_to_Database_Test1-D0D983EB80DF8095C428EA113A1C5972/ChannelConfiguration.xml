@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="7dd9036768c509d676f11ca427595459e479300b"
-      commit_comment="commit"
+      commit_id="f21e0ad2171b9b0aa2b0af235a33751e5eaec02e"
+      commit_comment="GOOD"
       poll_time="10000">
    </from_mapper>
 </channel>
