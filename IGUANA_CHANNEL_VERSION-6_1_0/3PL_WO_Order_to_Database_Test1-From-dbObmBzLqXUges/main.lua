@@ -2,13 +2,13 @@
 -- Version 1.0
 function main()
 
-    createProcedures=require("CreateProcedure")
+    procedure_create=require("procedure_create")
     properties = require("properties")
     Validation = require("Validation")
     constants = require("Constants")
     mail=require("mail")
 
-    createProcedures.createProcedure()
+    procedure_create.createProcedure()
     properties.directory_path()
     properties.db_conn()
     constants.csos_order_header_size()
