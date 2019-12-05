@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Orders_to_Database-To-fE7mBViHDTx8At"
-      commit_id="69293a458dfdb8eb8f200d3634b7ef52adea18ad"
-      commit_comment="Import Translators: commit">
+      commit_id="0c7bb236c7e905a654fd1d76808e98c5f1274a60"
+      commit_comment="Import Translators: import the channel1">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Orders_to_Database-From-LANz52GeOCXLh9"
-      commit_id="1ca81de868248626f7ab453f34c714eb6fe76248"
-      commit_comment="commit"
+      commit_id="fb2cb3ffee478135f61ac64534875d99c491e33e"
+      commit_comment="removed unwanted data"
       poll_time="60000">
    </from_mapper>
 </channel>

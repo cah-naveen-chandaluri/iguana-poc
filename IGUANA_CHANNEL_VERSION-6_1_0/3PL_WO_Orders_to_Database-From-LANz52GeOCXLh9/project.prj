@@ -2,14 +2,14 @@
     "LocalDependencies": [],
     "LuaDependencies": [
         "Constants",
+        "CreateProcedures",
         "DBConnection",
         "Validation",
         "mail",
-        "procedure_create",
         "properties"
     ],
     "OtherDependencies": [],
-    "timestamp": "1575550470",
+    "timestamp": "1575579144",
     "version_info": {
         "build": 0,
         "major": 6,

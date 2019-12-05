@@ -2,13 +2,13 @@
 -- Version 1.0
 function main()
 
-    procedure_create=require("procedure_create")
+    create_procedures=require("CreateProcedures")
     properties = require("properties")
     Validation = require("Validation")
     constants = require("Constants")
     mail=require("mail")
 
-    procedure_create.createProcedure()
+    create_procedures.createProcedure()
     properties.directory_path()
     properties.db_conn()
     constants.csos_order_header_size()
@@ -392,7 +392,6 @@ function validationForOrderData(order_data)
         for i=1,Size_Of_NoOfLines do
 
             -- validation for csos_order_details
-
             if(order_data.CSOSOrderRequest~=nil and order_data.CSOSOrderRequest.CSOSOrder~=nil and
                 order_data.CSOSOrderRequest.CSOSOrder.Order~=nil and order_data.CSOSOrderRequest.CSOSOrder.Order[i]~=nil and
                 order_data.CSOSOrderRequest.CSOSOrder.Order.OrderItem~=nil and
