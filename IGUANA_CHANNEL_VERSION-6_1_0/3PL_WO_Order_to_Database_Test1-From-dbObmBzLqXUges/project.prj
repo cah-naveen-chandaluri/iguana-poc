@@ -4,13 +4,12 @@
         "Constants",
         "DBConnection",
         "Validation",
-        "email_authentication",
         "mail",
         "procedure_create",
         "properties"
     ],
     "OtherDependencies": [],
-    "timestamp": "1575534190",
+    "timestamp": "1575556556",
     "version_info": {
         "build": 0,
         "major": 6,
