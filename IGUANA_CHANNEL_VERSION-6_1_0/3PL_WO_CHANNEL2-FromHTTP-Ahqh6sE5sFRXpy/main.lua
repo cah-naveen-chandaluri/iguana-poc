@@ -1,5 +1,3 @@
-URL='https://spselitestg.cardinalhealth.net/stage_841/ws/DmsWebService'
-net.http.respond{headers='',body='HELLO',persist=false,code=5}
 function main()
 
     Update=require("StoredProcedures")
@@ -7,7 +5,6 @@ function main()
     constants = require("Constants")
     mail=require("mail")
     soap=require("Soap_Function")
-
 
     properties.directory_path()
     properties.db_conn()
