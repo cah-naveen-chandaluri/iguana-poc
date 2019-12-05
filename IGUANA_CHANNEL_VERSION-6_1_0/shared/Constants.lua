@@ -63,7 +63,7 @@ end
 
 
 
-function Constants.query_constants()
+function Constants.query_constants()  
     SEL_HEAD_MAX='select max(CSOS_ORD_HDR_NUM) from csos_order_header'
     SEL_DETAILS_MAX='select max(CSOS_ORD_HDR_NUM) from csos_order_details'
 end
@@ -76,7 +76,7 @@ function Constants.frequently_constants()
    CSOS_ORDER_HDR_STAT_VALUE='1'
 end
 
-function Constants.log_statements()
+function Constants.log_statements()   --log statements
    CHANNEL_STARTED_RUNNING="******* Iguana channel Started Running *******"
     TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
     TIME_STAMP_FOR_FILE=os.date('%Y-%m-%d %H%M%S')

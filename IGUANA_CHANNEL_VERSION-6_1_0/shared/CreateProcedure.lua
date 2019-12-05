@@ -2,9 +2,9 @@ local CreateProcedure =  {}
 dbConnection = require("DBConnection")
 dbConnection.connectdb()
 
-function CreateProcedure.createProcedure()
+function CreateProcedure.createProcedure()  
    
-   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrder',live=true}
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrder',live=true}  --procedure to insert data into csos_order_header
    conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSOrder( 
       IN BUSINESS_UNIT VARCHAR(255),
       IN NO_OF_LINES	VARCHAR(45),
@@ -26,7 +26,7 @@ function CreateProcedure.createProcedure()
       live=true
       }
    
-   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrderdetails',live=true}
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSOrderdetails',live=true}   --procedure to insert data into csos_order_details
    conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSOrderdetails( 
 	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN BUYER_ITEM_NUM varchar(45) ,
@@ -52,7 +52,7 @@ function CreateProcedure.createProcedure()
    live=true
          }
         
-   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrsupplier',live=true}
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrsupplier',live=true}   --procedure to insert supplier details into csos_addr_details
    conn_dev:execute{sql=[[CREATE PROCEDURE  AddCSOSaddrsupplier( 
 	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN ADDR_TYPE varchar(45) ,
@@ -87,7 +87,7 @@ BEGIN
     END]],live=true  
       }
       
-   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrbuyer',live=true}
+   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS AddCSOSaddrbuyer',live=true}  --procedure to insert buyer details into csos_addr_details
    conn_dev:execute{sql=[[CREATE PROCEDURE AddCSOSaddrbuyer( 
 	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN ADDR_TYPE varchar(45) ,

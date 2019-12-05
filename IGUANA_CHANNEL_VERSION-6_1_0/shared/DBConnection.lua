@@ -1,7 +1,7 @@
 local DBConnection =  {}
 
 function DBConnection.connectdb()
-    if not conn_qa or conn_qa:check() then
+    if not conn_qa or conn_qa:check() then   --QA connection
         if conn_qa and conn_qa:check() then
             conn_qa:close() end
         conn_qa = db.connect{
@@ -13,7 +13,7 @@ function DBConnection.connectdb()
             live = true
         }
     end
-    if not conn_dev or conn_dev:check() then
+    if not conn_dev or conn_dev:check() then  --dev connection
         if conn_dev and conn_dev:check() then
             conn_dev:close() end
         conn_dev = db.connect{

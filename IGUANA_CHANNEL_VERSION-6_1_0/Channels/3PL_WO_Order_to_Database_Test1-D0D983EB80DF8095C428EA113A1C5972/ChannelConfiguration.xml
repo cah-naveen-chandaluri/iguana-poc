@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Order_to_Database_Test1-To-8dFBnJDsDrt98Y"
-      commit_id="4f0863173a0ff49639c860889ee8fd94b21dbb90"
-      commit_comment="Import Translators: import the latest update">
+      commit_id="9ee6888399446f1b8a3007a68702748a8feb4525"
+      commit_comment="Import Translators: bnbm">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="5be2cd88d7076116eb463dcf755b438a6189bb4a"
-      commit_comment="Added Mail functionality and added comments for error and archived files"
+      commit_id="1186360c1c30d78ae695dfeb7f479e3ddddad628"
+      commit_comment="commit"
       poll_time="10000">
    </from_mapper>
 </channel>
