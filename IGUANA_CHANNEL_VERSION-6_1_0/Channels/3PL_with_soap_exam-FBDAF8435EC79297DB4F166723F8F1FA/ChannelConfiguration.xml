@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_CHANNEL2-To-V3K1ukP9o5K8qR"
-      commit_id="f685430888d173d94d3e690862ac3f99ed98b71a"
-      commit_comment="GFJ">
+      commit_id="a49b91ad8889214ef5ee5d6380ae2a39e2c9eb6f"
+      commit_comment="Import Translators: import">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -18,7 +18,7 @@
    <from_http
       type="mapper"
       guid="3PL_WO_CHANNEL2-FromHTTP-Ahqh6sE5sFRXpy"
-      commit_id="99c4672cd9d1cfe8b50c0575d58dcad0303c2893"
+      commit_id="3c6171f8b7bd861dcd725e728e15f36ab3026556"
       commit_comment="commit"
       mapper_url_path="http://localhost:6543/channel?#Channel=3PL_WO_CHANNEL2"/>
 </channel>

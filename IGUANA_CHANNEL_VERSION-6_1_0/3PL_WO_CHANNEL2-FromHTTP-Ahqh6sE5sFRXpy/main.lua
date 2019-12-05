@@ -8,7 +8,7 @@ function main()
     mail=require("mail")
     soap=require("file_soap")
 
-    Update.updateProcedure() -- calling function to create a procedure
+
     properties.directory_path()
     properties.db_conn()
     constants.csos_order_header_size()
@@ -42,7 +42,63 @@ function main()
                         and tostring(csos_order_header_data[i].SHIPTO_NUM)==tostring(customer_billto_shipto_data[1].SHIPTO_NUM)
                         )
                     then  --if 5  --csos_order_header_data and order_header data comparing
-                        after_header_compare(csos_order_header_data,order_header_data,customer_billto_shipto_data)
+                        --after_header_compare(csos_order_header_data,order_header_data,customer_billto_shipto_data)
+                        order_details_data=conn_dev:query{sql="select REQ_QTY,SHIP_UOM_DESC,PROD_NUM from 3pl_sps_ordering.order_detail where ORDER_HDR_NUM='"..tostring(order_header_data[1].ORDER_NUM).."';",live=true};
+                        log_file:write(TIME_STAMP.."_".."extracted data from order_details","\n")
+                        if(#order_details_data>0) then  --if 6 --checking th size of order_details_data
+                            prod_data={}
+                            for j=1,#order_details_data do  -- for 2  -- loop for getting prod table details on the basis of order_details_data
+                                prod_data[j]=conn_dev:query{sql="select SKU_ITEM_ID,NDC_ID,DEA_SCHEDULE FROM 3pl_sps_ordering.prod where PROD_NUM='"..tostring(order_details_data[j].PROD_NUM).."';",live=true};
+                            end  --end for 2
+                            log_file:write(TIME_STAMP.."_".."extracted data from prod","\n")
+                            print(order_details_data[1].PROD_NUM,order_details_data[2].PROD_NUM)
+                            csos_order_details_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,QUANTITY,BUYER_ITEM_NUM,NATIONAL_DRUG_CDE,DEA_SCHEDULE,SIZE_OF_PACKAGE FROM 3pl_sps_ordering.csos_order_details where CSOS_ORD_HDR_NUM='"..tostring(csos_order_header_data[i].CSOS_ORD_HDR_NUM).."';",live=true};
+                            log_file:write(TIME_STAMP.."_".."extracted data from csos_order_details","\n")
+                            matched_order_details_status=0
+                            for k=1,#csos_order_details_data do  --for 3  loop for starting details tables comparing
+                                if(tostring(csos_order_details_data[k].QUANTITY)==tostring(order_details_data[k].REQ_QTY) and
+                                    tostring(csos_order_details_data[k].SIZE_OF_PACKAGE)==tostring(order_details_data[k].SHIP_UOM_DESC) and
+                                    tostring(csos_order_details_data[k].BUYER_ITEM_NUM)==tostring(prod_data[k][1].SKU_ITEM_ID) and
+                                    tostring(csos_order_details_data[k].NATIONAL_DRUG_CDE)==tostring(prod_data[k][1].NDC_ID)
+                                    and tostring(csos_order_details_data[k].DEA_SCHEDULE)==tostring(prod_data[k][1].DEA_SCHEDULE) )
+                            then  --if 7  --for comparing the csos_order_details_data and order_details_data
+                                matched_order_details_status=matched_order_details_status+1
+                            end  --end if 7
+                            end  --end for 3
+                            if(matched_order_details_status==#order_details_data and matched_order_details_status==#csos_order_details_data )
+                            then  --if 8  -- checking the result of comparing
+                                --after_details_compare()  --calling after_details_compare function
+                                soap.soaprequest()--calling soap function
+                                final_result=soap.getsoapresponsevalues(after_parsing)
+                                print(final_result,"****")
+                                if(final_result=='N') then  --if 9  -- checking whether we got required result through soap
+
+                                    -- sp_Update_Procedure(csos_order_header_data) --calling sp_update_procedure function
+                                    Update.updateProcedure() -- calling function to create a procedure
+                                    conn_dev:execute{sql=[[START TRANSACTION;]] ,live=true};
+                                    sql_update = "CALL Update_Procedure("
+                                        ..conn:quote(tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM))..
+                                        ")"
+                                    sql_update_status = conn_dev:execute{sql=sql_update, live=true};
+                                    if(sql_update_status == nil) then  --if 10 -- verifying updation status
+                                        log_file:write(TIME_STAMP.."_"..UPDATE_SUCCESS,"\n")
+                                        conn_dev:execute{sql=[[COMMIT;]],live=true}
+                                    else
+                                        conn_dev:execute{sql=[[ROLLBACK;]],live=true}
+                                    end  --end if 10
+                                else
+                                    mail.send_email()
+                                end  --end if 9
+
+                            else
+                                log_file:write(TIME_STAMP.."_"..DETAILS_MISS_MATCH,"\n")
+                                mail.send_email()
+                            end -- end if 8
+                        else
+                            log_file:write(TIME_STAMP.."_"..ORDER_DETAILS_EMPTY,"\n")
+                            mail.send_email()
+                        end  --end if 6
+
                     else
                         log_file:write(TIME_STAMP.."_"..HEADERS_MISS_MATCH,"\n")
                         mail.send_email()
@@ -62,74 +118,21 @@ function main()
     end  --end if 2
 end
 
-
+--[[
 function after_header_compare(csos_order_header_data,order_header_data,customer_billto_shipto_data) -- calling after header comarision done
 
-    order_details_data=conn_dev:query{sql="select REQ_QTY,SHIP_UOM_DESC,PROD_NUM from 3pl_sps_ordering.order_detail where ORDER_HDR_NUM='"..tostring(order_header_data[1].ORDER_NUM).."';",live=true};
-    log_file:write(TIME_STAMP.."_".."extracted data from order_details","\n")
-    if(#order_details_data>0) then  --if 6 --checking th size of order_details_data
-        prod_data={}
-        for j=1,#order_details_data do  -- for 2  -- loop for getting prod table details on the basis of order_details_data
-            prod_data[j]=conn_dev:query{sql="select SKU_ITEM_ID,NDC_ID,DEA_SCHEDULE FROM 3pl_sps_ordering.prod where PROD_NUM='"..tostring(order_details_data[j].PROD_NUM).."';",live=true};
-        end  --end for 2
-        log_file:write(TIME_STAMP.."_".."extracted data from prod","\n")
-        print(order_details_data[1].PROD_NUM,order_details_data[2].PROD_NUM)
-        csos_order_details_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,QUANTITY,BUYER_ITEM_NUM,NATIONAL_DRUG_CDE,DEA_SCHEDULE,SIZE_OF_PACKAGE FROM 3pl_sps_ordering.csos_order_details where CSOS_ORD_HDR_NUM='"..tostring(csos_order_header_data[i].CSOS_ORD_HDR_NUM).."';",live=true};
-        log_file:write(TIME_STAMP.."_".."extracted data from csos_order_details","\n")
-        matched_order_details_status=0
-        for k=1,#csos_order_details_data do  --for 3  loop for starting details tables comparing
-            if(tostring(csos_order_details_data[k].QUANTITY)==tostring(order_details_data[k].REQ_QTY) and
-                tostring(csos_order_details_data[k].SIZE_OF_PACKAGE)==tostring(order_details_data[k].SHIP_UOM_DESC) and
-                tostring(csos_order_details_data[k].BUYER_ITEM_NUM)==tostring(prod_data[k][1].SKU_ITEM_ID) and
-                tostring(csos_order_details_data[k].NATIONAL_DRUG_CDE)==tostring(prod_data[k][1].NDC_ID)
-                and tostring(csos_order_details_data[k].DEA_SCHEDULE)==tostring(prod_data[k][1].DEA_SCHEDULE) )
-        then  --if 7  --for comparing the csos_order_details_data and order_details_data
-            matched_order_details_status=matched_order_details_status+1
-        end  --end if 7
-        end  --end for 3
-        if(matched_order_details_status==#order_details_data and matched_order_details_status==#csos_order_details_data )
-        then  --if 8  -- checking the result of comparing
-
-            after_details_compare()  --calling after_details_compare function
-
-
-        else
-            log_file:write(TIME_STAMP.."_"..DETAILS_MISS_MATCH,"\n")
-            mail.send_email()
-        end -- end if 8
-    else
-        log_file:write(TIME_STAMP.."_"..ORDER_DETAILS_EMPTY,"\n")
-        mail.send_email()
-    end  --end if 6
 
 end
 
 function after_details_compare()
-    soap.soaprequest()--calling soap function
-    final_result=soap.getsoapresponsevalues(after_parsing)
-    print(final_result,"****")
-    if(final_result=='N') then  --if 9  -- checking whether we got required result through soap
-        sp_Update_Procedure(csos_order_header_data) --calling sp_update_procedure function
-    else
-        mail.send_email()
-    end  --end if 9
+
 end
 
 
 function sp_Update_Procedure(csos_order_header_data)  --function for calling store prcedure
-    conn_dev:execute{sql=[[START TRANSACTION;]] ,live=true};
-    sql_update = "CALL Update_Procedure("
-        ..conn:quote(tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM))..
-        ")"
-    sql_update_status = conn_dev:execute{sql=sql_update, live=true};
-    if(sql_update_status == nil) then  --if 10 -- verifying updation status
-        log_file:write(TIME_STAMP.."_"..UPDATE_SUCCESS,"\n")
-        conn_dev:execute{sql=[[COMMIT;]],live=true}
-    else
-        conn_dev:execute{sql=[[ROLLBACK;]],live=true}
-    end  --end if 10
-end
 
+end
+]]--
 
 function getLogFile(output_log_path)  -- function getLogFile
     result_LogFileDirectory_Status=os.fs.access(output_log_path)

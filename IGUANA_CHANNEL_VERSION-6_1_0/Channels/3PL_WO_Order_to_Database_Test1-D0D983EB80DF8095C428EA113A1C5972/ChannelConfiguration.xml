@@ -7,7 +7,7 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Order_to_Database_Test1-To-8dFBnJDsDrt98Y"
-      commit_id="1001dbf6cd710058e0525a4810e6cdfb3fda27b1"
+      commit_id="9a4083249baa0365c532dcf4d6fb23a649bf64b1"
       commit_comment="Import Translators: import">
       <dequeue_list>
          <dequeue
@@ -17,8 +17,8 @@
    </to_mapper>
    <from_mapper
       guid="3PL_WO_Order_to_Database_Test1-From-dbObmBzLqXUges"
-      commit_id="8a42bb8155f3b9ab52144e4e41949ec03577b5e3"
-      commit_comment="updated with create procedure file"
+      commit_id="9a4083249baa0365c532dcf4d6fb23a649bf64b1"
+      commit_comment="Import Translators: import"
       poll_time="10000">
    </from_mapper>
 </channel>
