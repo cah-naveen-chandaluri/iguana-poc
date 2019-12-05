@@ -2,11 +2,11 @@ URL='https://spselitestg.cardinalhealth.net/stage_841/ws/DmsWebService'
 net.http.respond{headers='',body='HELLO',persist=false,code=5}
 function main()
 
-    Update=require("Update")
+    Update=require("StoredProcedures")
     properties = require("properties")
     constants = require("Constants")
     mail=require("mail")
-    soap=require("file_soap")
+    soap=require("Soap_Function")
 
 
     properties.directory_path()
@@ -22,12 +22,11 @@ function main()
 
     if pcall(DBConn) then   --if 2  --handling exception for database connection
         csos_order_header_data=conn_dev:query{sql="select CSOS_ORD_HDR_NUM,UNIQUE_TRANS_NUM,PO_NUMBER,PO_DATE,SHIPTO_NUM from 3pl_sps_ordering.csos_order_header where CSOS_ORDER_HDR_STAT='"..tostring(CSOS_ORDER_HDR_STAT_VALUE).."';", live=true};
-        log_file:write(TIME_STAMP.."_".."Extracted data from csos_order_header","\n")
+        log_file:write(TIME_STAMP.." Retrieve data from csos_order_header of "..#csos_order_header_data.." transactions ","\n")
         if(#csos_order_header_data>0 ) then   --if 3  -- checking for csos_order_header_data size
             print(#csos_order_header_data)
             for i=1,#csos_order_header_data,1 do  --for 1  --initial loop for starting comparision
-                log_file:write(i)
-                print(csos_order_header_data[i].UNIQUE_TRANS_NUM)
+                log_file:write(TIME_STAMP.." Transaction "..i.." - Unique Transaction Number "..csos_order_header_data[i].UNIQUE_TRANS_NUM)  
                 order_header_data=conn_dev:query{sql="select ELITE_ORDER,ELITE_ORDER_NUM,ORDER_NUM,CUSTOMER_NUM,CSOS_ORDER_NUM,PO_NUM,PO_DTE from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM).."';",live=true};
                 log_file:write(TIME_STAMP.."_".."extracted data from order_header","\n")
                 customer_billto_shipto_data=conn_dev:query{sql="select BILLTO_NUM,ORG_CDE,CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..tostring(order_header_data[1].CUSTOMER_NUM).."';",live=true};
@@ -118,21 +117,7 @@ function main()
     end  --end if 2
 end
 
---[[
-function after_header_compare(csos_order_header_data,order_header_data,customer_billto_shipto_data) -- calling after header comarision done
 
-
-end
-
-function after_details_compare()
-
-end
-
-
-function sp_Update_Procedure(csos_order_header_data)  --function for calling store prcedure
-
-end
-]]--
 
 function getLogFile(output_log_path)  -- function getLogFile
     result_LogFileDirectory_Status=os.fs.access(output_log_path)
