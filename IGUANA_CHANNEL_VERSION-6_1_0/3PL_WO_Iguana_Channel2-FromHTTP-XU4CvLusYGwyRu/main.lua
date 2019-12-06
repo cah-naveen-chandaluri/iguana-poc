@@ -5,7 +5,7 @@ function main()
     Update=require("StoredProcedures")
     properties = require("properties")
     constants = require("Constants")
-    mail=require("mail")
+    mail=require("send_mail")
     soap=require("Soap_Function")
 
     properties.directory_path()

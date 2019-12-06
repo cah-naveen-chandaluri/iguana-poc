@@ -1,6 +1,6 @@
-local mail =  {}
+local send_mail =  {}
 
-function mail.send_email(email_subject,email_body)
+function send_mail.send_email(email_subject,email_body)
       -- Set up the parameters to be used with sending an email
    local smtpparams={
       header = {To = 'naveen.chandaluri@cordlogistics.com'; 
@@ -16,10 +16,10 @@ function mail.send_email(email_subject,email_body)
       -- omit it from the header.
       to = {'naveen.chandaluri@cordlogistics.com'},
       from = 'devinternalsmtpauth.cardinalhealth.net',
-      body = email_body,
+      body = email_body or '',
       use_ssl = 'try',
       --live = true -- uncomment to run in the editor
    } 
   net.smtp.send(smtpparams)
 end
-return mail
+return send_mail

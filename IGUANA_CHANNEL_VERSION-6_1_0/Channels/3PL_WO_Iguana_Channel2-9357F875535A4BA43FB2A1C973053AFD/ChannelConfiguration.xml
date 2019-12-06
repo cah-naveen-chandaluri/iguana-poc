@@ -18,6 +18,6 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
-      commit_id="c4fd477a1d135cfede305e5caa15000ace378853"
-      commit_comment="Updated the latest code"/>
+      commit_id="4b9e7fbf67c593fd91c145494057afe94ae5968b"
+      commit_comment="modified send_mail file name"/>
 </channel>

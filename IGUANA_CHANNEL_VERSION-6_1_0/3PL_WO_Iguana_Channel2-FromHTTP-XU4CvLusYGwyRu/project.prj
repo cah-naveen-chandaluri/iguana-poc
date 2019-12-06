@@ -5,11 +5,11 @@
         "DBConnection",
         "Soap_Function",
         "StoredProcedures",
-        "mail",
-        "properties"
+        "properties",
+        "send_mail"
     ],
     "OtherDependencies": [],
-    "timestamp": "1575648939",
+    "timestamp": "1575673270",
     "version_info": {
         "build": 0,
         "major": 6,
