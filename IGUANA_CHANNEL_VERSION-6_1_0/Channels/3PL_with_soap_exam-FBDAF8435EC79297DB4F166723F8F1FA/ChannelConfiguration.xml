@@ -18,7 +18,7 @@
    <from_http
       type="mapper"
       guid="3PL_WO_CHANNEL2-FromHTTP-Ahqh6sE5sFRXpy"
-      commit_id="907a9aecacb6940a7e4b4761e56549c1be4f2bdb"
-      commit_comment="Modified all the logs format and count of transaction"
+      commit_id="3fc093964d3b7362c3c9fa969794f688e0059a5c"
+      commit_comment="Added logs for the transaction count"
       mapper_url_path="http://localhost:6543/channel?#Channel=3PL_WO_CHANNEL2"/>
 </channel>

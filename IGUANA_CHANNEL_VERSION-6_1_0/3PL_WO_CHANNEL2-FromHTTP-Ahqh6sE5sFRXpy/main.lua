@@ -113,16 +113,20 @@ function main()
                 end   --end if 4
                 log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." is completed ****","\n")
             end  --end for 1
+            log_file:write(TIME_STAMP.."Total transactions : "..#csos_order_header_data,"\n")
+            log_file:write(TIME_STAMP.."Total transactions are completed : "..transaction_completed,"\n")
             if(transaction_not_completed > 0) then
+               log_file:write(TIME_STAMP.."Total transactions are not completed : "..transaction_not_completed,"\n")
 	            mail.send_email()
             end
-        else
+       else
             log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM..CSOS_ORDER_HEADER_EMPTY,"\n")
         end  --end if 3
     else
         log_file:write(TIME_STAMP.."_"..DB_CON_ERROR,"\n")
         mail.send_email()
     end  --end if 2
+    log_file:write(TIME_STAMP.."*** Iguana channel 2 is stopped ***","\n")
 end
 
 function getLogFile(output_log_path)  -- function getLogFile
