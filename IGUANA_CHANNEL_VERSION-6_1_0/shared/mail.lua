@@ -1,12 +1,12 @@
 local mail =  {}
 
-function mail.send_email()
+function mail.send_email(email_subject,email_body)
       -- Set up the parameters to be used with sending an email
    local smtpparams={
       header = {To = 'naveen.chandaluri@cordlogistics.com'; 
                 From = 'devinternalsmtpauth.cardinalhealth.net'; 
                 Date = '';
-                Subject = 'Test Subject';},
+                Subject = email_subject },
       username = 'devinternalsmtpauth.cardinalhealth.net',
       password = '8ChAhR#HKLdzr4d',
       server = 'smtp://devinternalsmtpauth.cardinalhealth.net:25', 
@@ -16,7 +16,7 @@ function mail.send_email()
       -- omit it from the header.
       to = {'naveen.chandaluri@cordlogistics.com'},
       from = 'devinternalsmtpauth.cardinalhealth.net',
-      body = 'This is the test body of the email',
+      body = email_body,
       use_ssl = 'try',
       --live = true -- uncomment to run in the editor
    } 

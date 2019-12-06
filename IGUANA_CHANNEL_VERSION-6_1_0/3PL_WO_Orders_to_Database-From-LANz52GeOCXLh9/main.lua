@@ -122,11 +122,14 @@ function main()
       
         -- This loop for generate the logs for error files count and their file names
         log_file:write(TIME_STAMP.."Total files  moved to error directory  "..error_count ,"\n")
+        local error_table_list_temp = ''
         for i=0,error_count-1 do
             log_file:write(TIME_STAMP..error_table[i].." file is moved to error directory ","\n")
+            error_table_list_temp = error_table_list_temp..error_table[i]..'\z\n'
         end
         if(error_count>0) then
-            mail.send_email()
+            mail.send_email("3PL WO Iguana Channel1 - Error files and Not updated in the DB", "Hi All,".."\n\n"..
+            "Below are the list of error files in the Iguana Channel 1 \n"..error_table_list_temp.."\n\n".."Thanks,\n 3PL WO Iguana Team")
         end
     else
         log_file:write(TIME_STAMP.."Not able to create or there is no OrderFile, ArchiveFiles and ErrorFiles folders")
