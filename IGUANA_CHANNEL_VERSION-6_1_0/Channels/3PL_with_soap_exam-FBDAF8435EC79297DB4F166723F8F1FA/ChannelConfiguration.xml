@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_CHANNEL2-To-V3K1ukP9o5K8qR"
-      commit_id="7e23a20a11f2b6c65d399f17f8c5662296177300"
-      commit_comment="Import Translators: import the iguana channel 1">
+      commit_id="76cecb74a1fe94ce6324c9cee03f8a68f93b49b5"
+      commit_comment="Import Translators: import">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -18,7 +18,7 @@
    <from_http
       type="mapper"
       guid="3PL_WO_CHANNEL2-FromHTTP-Ahqh6sE5sFRXpy"
-      commit_id="396311333da4f2cf3e6a41204d0f8d38ddd01973"
-      commit_comment="Updated the soap function"
+      commit_id="907a9aecacb6940a7e4b4761e56549c1be4f2bdb"
+      commit_comment="Modified all the logs format and count of transaction"
       mapper_url_path="http://localhost:6543/channel?#Channel=3PL_WO_CHANNEL2"/>
 </channel>
