@@ -1,0 +1,23 @@
+<channel
+   name="3PL_WO_Iguana_Channel2"
+   guid="9357F875535A4BA43FB2A1C973053AFD"
+   description=""
+   start_automatically="false"
+   logging_level="1"
+   use_message_filter="false">
+   <to_mapper
+      guid="3PL_WO_Iguana_Channel2-To-KeL7w9lNiRaUkR"
+      commit_id="45a86f30f8c94c27fb0af6206073c015b40ccadd"
+      commit_comment="Use blank">
+      <dequeue_list>
+         <dequeue
+            source_name="self"
+            dequeue_guid="0AA86D01605E355586277667F377B625"/>
+      </dequeue_list>
+   </to_mapper>
+   <from_http
+      type="mapper"
+      guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
+      commit_id="c4fd477a1d135cfede305e5caa15000ace378853"
+      commit_comment="Updated the latest code"/>
+</channel>
