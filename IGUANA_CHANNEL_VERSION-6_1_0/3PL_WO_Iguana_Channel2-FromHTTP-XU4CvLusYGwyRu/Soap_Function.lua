@@ -21,7 +21,7 @@ function Soap_Function.getsoapresponsestatus(soapResponse)
     local onhold_result=soapResponse["soap:Envelope"]["soap:Body"]["ns2:updateResponse"]["return"].transactions.data["DmsOrd-Update-OrderHoldWebordering"].DmsOrdHoldWebordering.Line.OnHold:nodeText()
    
     local status_result = false
-    if(status_code==0 and status_description=="Successful" and transaction_code==0 and transaction_description=="Successful" 
+    if(status_code=='0' and status_description=="Successful" and transaction_code=='0' and transaction_description=="Successful" 
       and onhold_result=='N') then
       return true
     else

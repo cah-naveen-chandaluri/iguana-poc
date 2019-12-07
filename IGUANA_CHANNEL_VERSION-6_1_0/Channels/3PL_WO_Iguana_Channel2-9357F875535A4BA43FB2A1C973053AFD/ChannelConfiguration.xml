@@ -18,6 +18,6 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
-      commit_id="0b53b570dd2fd95096130b4a53c86e8b5fdd9a87"
-      commit_comment="Changed the folder directory"/>
+      commit_id="16b548bc1b3c6fe8e933967124b1346033b640d3"
+      commit_comment="Changed the if condition in soap function"/>
 </channel>
