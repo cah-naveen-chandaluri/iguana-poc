@@ -105,6 +105,7 @@ function Constants.log_statements()   --log statements
    UPDATE_SUCCESS="CSOS Order header and details status is updated in the database"
    CSOS_ORD_HRD_AND_DETAILS_SQL_NOT_UPDATE_FAILURE="CSOS Order header and details status is not updated in the database"
    CSOS_ORDER_HEADER_EMPTY="There is no data in the status of 1 in the csos_order_header"
+   SEQ_CODE_ELITE_EMPTY="There is no seq code reterived from the ord_hold table through elite db"
 end
 
 return Constants

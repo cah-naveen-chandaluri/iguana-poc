@@ -34,9 +34,10 @@ function main()
                     log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Extracted data from customer_billto_shipto","\n")
 	                 SEQ_CODE = conn_Elite_stg:query{sql="select seq from prod_841_d.ord_hold where ord_id = '"..tostring(order_header_data[1].ELITE_ORDER_NUM).."'",live=true};
                     --SEQ_CODE= 1
-                    if(tostring(csos_order_header_data[i].PO_NUMBER)==tostring(order_header_data[1].PO_NUM)
-                       -- and tostring(csos_order_header_data[i].PO_DATE)==tostring(order_header_data[1].PO_DTE)
-                        and tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM)==tostring(order_header_data[1].CSOS_ORDER_NUM)
+                    if(#SEQ_CODE > 0) then
+                       if(tostring(csos_order_header_data[i].PO_NUMBER)==tostring(order_header_data[1].PO_NUM)
+                         -- and tostring(csos_order_header_data[i].PO_DATE)==tostring(order_header_data[1].PO_DTE)
+                          and tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM)==tostring(order_header_data[1].CSOS_ORDER_NUM)
                         and tostring(csos_order_header_data[i].SHIPTO_NUM)==tostring(customer_billto_shipto_data[1].SHIPTO_NUM)
                         and tostring(customer_billto_shipto_data[1].ORG_CDE) ~= nil and tostring(customer_billto_shipto_data[1].BILLTO_NUM) ~= nil)
                     then  --if 5  --csos_order_header_data and order_header data comparing
@@ -112,6 +113,10 @@ function main()
                         log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM..HEADERS_MISS_MATCH,"\n")
                         transaction_not_completed = transaction_not_completed + 1
                     end  --end if 5
+                   else
+                       log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM..SEQ_CODE_ELITE_EMPTY,"\n")
+                       transaction_not_completed = transaction_not_completed + 1
+                   end -- end if seq_code
                 else
                     log_file:write(TIME_STAMP..CSOS_ORDER_HEADER_EMPTY,"\n")
                     transaction_not_completed = transaction_not_completed + 1

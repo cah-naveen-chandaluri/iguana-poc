@@ -18,6 +18,6 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
-      commit_id="21d5e039b94441276a1c64254a546fe0cf8669ee"
-      commit_comment="Modified the soap response"/>
+      commit_id="00f8cdd24b494a0ab74f95d40e031d4e8a38c885"
+      commit_comment="Added seq_code condition"/>
 </channel>
