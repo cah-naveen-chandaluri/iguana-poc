@@ -18,6 +18,6 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
-      commit_id="6bc4e67d9be3eef3afa9b9bffd30c1365fa013ea"
-      commit_comment="Added server input path"/>
+      commit_id="0b53b570dd2fd95096130b4a53c86e8b5fdd9a87"
+      commit_comment="Changed the folder directory"/>
 </channel>
