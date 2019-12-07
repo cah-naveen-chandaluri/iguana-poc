@@ -1,15 +1,15 @@
 {
-    "LocalDependencies": [],
-    "LuaDependencies": [
-        "Constants",
-        "CreateProcedures",
-        "DBConnection",
-        "Validation",
-        "mail",
-        "properties"
+    "LocalDependencies": [
+        "Constants.lua",
+        "CreateProcedures.lua",
+        "DBConnection.lua",
+        "Validation.lua",
+        "mail.lua",
+        "properties.lua"
     ],
+    "LuaDependencies": [],
     "OtherDependencies": [],
-    "timestamp": "1575672905",
+    "timestamp": "1575744634",
     "version_info": {
         "build": 0,
         "major": 6,
