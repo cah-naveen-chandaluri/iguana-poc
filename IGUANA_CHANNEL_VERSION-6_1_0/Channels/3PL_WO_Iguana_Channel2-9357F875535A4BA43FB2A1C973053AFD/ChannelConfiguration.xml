@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Iguana_Channel2-To-KeL7w9lNiRaUkR"
-      commit_id="45a86f30f8c94c27fb0af6206073c015b40ccadd"
-      commit_comment="Use blank">
+      commit_id="388093137ee75030115b6e9347551c4a745446e2"
+      commit_comment="Import Translators: import both the channels">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -18,6 +18,6 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
-      commit_id="4b9e7fbf67c593fd91c145494057afe94ae5968b"
-      commit_comment="modified send_mail file name"/>
+      commit_id="21d5e039b94441276a1c64254a546fe0cf8669ee"
+      commit_comment="Modified the soap response"/>
 </channel>

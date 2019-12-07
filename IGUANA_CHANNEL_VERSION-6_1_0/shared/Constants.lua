@@ -73,7 +73,7 @@ function Constants.frequently_constants()
     user="IGUANA_USER"
     supplier="SUPPLIER"
     buyer="BUYER"
-   CSOS_ORDER_HDR_STAT_VALUE='1'
+   CSOS_ORDER_HDR_STAT_VALUE='2'
 end
 
 function Constants.log_statements()   --log statements

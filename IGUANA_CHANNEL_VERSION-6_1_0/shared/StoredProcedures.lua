@@ -1,8 +1,12 @@
 local StoredProcedures =  {}
+properties = require("properties")
+    
 function StoredProcedures.updateProcedure()   --creting update procedure
-   
-   conn_dev:execute{sql='DROP PROCEDURE IF EXISTS Update_Procedure',live=true}
-   conn_dev:execute{sql=[[CREATE PROCEDURE Update_Procedure( 
+   properties.directory_path()
+   properties.db_conn()
+    
+   conn:execute{sql='DROP PROCEDURE IF EXISTS Update_Procedure',live=true}
+   conn:execute{sql=[[CREATE PROCEDURE Update_Procedure( 
     IN UNIQUE_TRANS_NU varchar(45)
    )
       BEGIN
