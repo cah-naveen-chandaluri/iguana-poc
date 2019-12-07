@@ -33,13 +33,14 @@ function main()
         for filename in file_directory:lines() do
             log_file:write(TIME_STAMP..filename.." - *** Started processing file ***","\n")
             order_file=input_directory_path..filename
-            fileName_with_timestamp = GetFileName(filename).."_"..TIME_STAMP_FOR_FILE..GetFileExtension(filename)
             -- This is the default value of the column ACTIVE_FLAG in the database
             ACTIVE_FLG=active_flg_val
             ROW_ADD_USER_ID=user
             ROW_UPDATE_USER_ID=user
 
             if(GetFileExtension(order_file) == '.xml') then -- Validation file extension
+                fileName_with_timestamp = GetFileName(filename).."_"..TIME_STAMP_FOR_FILE..GetFileExtension(filename)
+          
                 log_file:write(TIME_STAMP..filename..XML_FILE_TEST_SUCCESS,"\n")  --checking
                 -- Open order file
                 open_order_file = io.open(order_file, "r")
@@ -104,12 +105,12 @@ function main()
                     end
                 end -- end for unable to open file
             else -- else for validation file extension
-
-                error_table[error_count]=fileName_with_timestamp
-                error_count=error_count+1
-
-                log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_FAIL,"\n")  --checking
-                os.rename(input_directory_path..filename, output_error_path..fileName_with_timestamp)
+                if(GetFileExtension(filename) ~= nil) then
+                     error_table[error_count]=GetFileName(filename).."_"..TIME_STAMP_FOR_FILE..GetFileExtension(filename)
+                     error_count=error_count+1
+                     log_file:write(TIME_STAMP..filename..":"..XML_FILE_TEST_FAIL,"\n")  --checking
+                     os.rename(input_directory_path..filename, output_error_path..GetFileName(filename).."_"..TIME_STAMP_FOR_FILE..GetFileExtension(filename))
+                end
             end -- end for if condition checking whether file is xml or not
             total_count=total_count+1
         end --end for for loop
