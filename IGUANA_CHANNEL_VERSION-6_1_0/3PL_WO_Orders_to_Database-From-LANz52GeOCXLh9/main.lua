@@ -61,7 +61,7 @@ function main()
 
                             tag_OrderSummary=order_data.CSOSOrderRequest.CSOSOrder.OrderSummary
                             tag_order=order_data.CSOSOrderRequest.CSOSOrder.Order
-
+                     
                             ts=os.time()
                             DATE_VALUE=os.date('%Y-%m-%d %H:%M:%S',ts)
                             if pcall(Verify_DBConn) then
@@ -233,6 +233,7 @@ function Insertion()  --function for insertion
             conn:quote(CSOS_ORD_HDR_NUM_UPDATE_VAL)..", "..
             conn:quote(supplier)..", "..
             conn:quote(tag_OrderSummary.Supplier.Address1:nodeText())..", "..
+            conn:quote(tag_OrderSummary.Supplier.Address2:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.City:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.DEANumber:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.PostalCode:nodeText())..", "..
@@ -253,12 +254,11 @@ function Insertion()  --function for insertion
     else
         insertion_status = false
     end
-
+       
     if(tonumber(CSOS_ORD_HDR_NUM_UPDATE_VAL)>=0 and insertion_status == true) then
         sql_csos_addr_supplier_status = nil
 
         -- insertion is done into csos_addr_details as buyer
-
         sql_csos_addr_buyer = "CALL AddCSOSaddrbuyer ("..
             conn:quote(CSOS_ORD_HDR_NUM_UPDATE_VAL)..", "..
             conn:quote(buyer)..", "..
@@ -377,6 +377,8 @@ function validationForOrderData(order_data)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.DEANumber,DEA_NUMBER)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Name,NAME)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address1,ADDR1)
+        --print(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address2:nodeText())
+         
         --and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address2,ADDR2)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.City,CITY)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.State,STATE)
