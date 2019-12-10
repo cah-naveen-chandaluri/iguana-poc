@@ -245,6 +245,8 @@ function Insertion()  --function for insertion
             conn:quote(ROW_UPDATE_USER_ID)..
             ")"
         sql_csos_addr_supplier_status = conn:execute{sql=sql_csos_addr_supplier, live=true};
+        print(sql_csos_addr_supplier_status)
+        print(insertion_status)
         if(sql_csos_addr_supplier_status == nil) then
             insertion_status = true
         else
@@ -254,7 +256,7 @@ function Insertion()  --function for insertion
     else
         insertion_status = false
     end
-       
+    print(tonumber(CSOS_ORD_HDR_NUM_UPDATE_VAL),    insertion_status)
     if(tonumber(CSOS_ORD_HDR_NUM_UPDATE_VAL)>=0 and insertion_status == true) then
         sql_csos_addr_supplier_status = nil
 
@@ -275,7 +277,7 @@ function Insertion()  --function for insertion
             conn:quote( DATE_VALUE)..", "..
             conn:quote(ROW_UPDATE_USER_ID)..
             ")"
-        sql_csos_addr_buyer_status = conn:execute{sql=sql_csos_addr_buyer, live=true};
+        sql_csos_addr_buyer_status = conn:query{sql=sql_csos_addr_buyer, live=true};
         if(sql_csos_addr_buyer_status == nil) then
             insertion_status = true
         else
@@ -371,15 +373,14 @@ function validationForOrderData(order_data)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.NoOfLines,NO_OF_LINES)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.Name,NAME)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.Address1,ADDR1)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.Address2,ADDR2)        
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.City,CITY)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.State,STATE)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.PostalCode,POSTAL_CDE)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Supplier.DEANumber,DEA_NUMBER)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Name,NAME)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address1,ADDR1)
-        --print(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address2:nodeText())
-         
-        --and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address2,ADDR2)
+        and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.Address2,ADDR2)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.City,CITY)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.State,STATE)
         and Validation.validate_value(order_data.CSOSOrderRequest.CSOSOrder.OrderSummary.Buyer.PostalCode,POSTAL_CDE)

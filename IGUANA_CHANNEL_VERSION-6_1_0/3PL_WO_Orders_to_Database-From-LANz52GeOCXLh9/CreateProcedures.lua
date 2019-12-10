@@ -61,6 +61,7 @@ function CreateProcedures.createProcedure()
 	   IN CSOS_ORD_HDR_NUM bigint(19),
       IN ADDR_TYPE varchar(45) ,
       IN ADDR1 varchar(45) ,
+      IN ADDR2 varchar(45) ,
       IN CITY varchar(45),
       IN DEA_NUMBER varchar(45),
       IN POSTAL_CDE varchar(45),
@@ -72,9 +73,9 @@ function CreateProcedures.createProcedure()
       IN ROW_UPDATE_USER_ID varchar(255)
    )
 BEGIN
-     INSERT INTO csos_addr_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
+     INSERT INTO csos_addr_details(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1,ADDR2, CITY, DEA_NUMBER,
     POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID) 
-    VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, CITY, DEA_NUMBER,
+    VALUES(CSOS_ORD_HDR_NUM,ADDR_TYPE, ADDR1, ADDR2, CITY, DEA_NUMBER,
     POSTAL_CDE, STATE,ACTIVE_FLG, ROW_ADD_STP, ROW_ADD_USER_ID, ROW_UPDATE_STP, ROW_UPDATE_USER_ID );
     END]],live=true  
       }
