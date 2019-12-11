@@ -37,7 +37,7 @@ function DBConnection.connectdb()
             live = true
         }
     end
-   if not conn_Elite_stg or conn_Elite_stg:check() then  --dev connection
+  --[[if not conn_Elite_stg or conn_Elite_stg:check() then  --dev connection
         if conn_Elite_stg and conn_Elite_stg:check() then
             conn_Elite_stg:close() end
         conn_Elite_stg = db.connect{
@@ -48,6 +48,6 @@ function DBConnection.connectdb()
             use_unicode = true,
             live = true
         }
-    end
+    end]]--
 end
 return DBConnection

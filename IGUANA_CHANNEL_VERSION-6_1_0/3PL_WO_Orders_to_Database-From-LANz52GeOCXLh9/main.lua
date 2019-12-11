@@ -236,6 +236,7 @@ function Insertion()  --function for insertion
             conn:quote(tag_OrderSummary.Supplier.Address2:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.City:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.DEANumber:nodeText())..", "..
+            conn:quote(tag_OrderSummary.Supplier.Name:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.PostalCode:nodeText())..", "..
             conn:quote(tag_OrderSummary.Supplier.State:nodeText())..", "..
             conn:quote(ACTIVE_FLG)..", "..
@@ -269,6 +270,7 @@ function Insertion()  --function for insertion
             conn:quote(tag_OrderSummary.Buyer.City:nodeText())..", "..
             conn:quote(tag_OrderSummary.Buyer.DEASchedule:nodeText())..", "..
             conn:quote(tag_OrderSummary.Buyer.DEANumber:nodeText())..", "..
+            conn:quote(tag_OrderSummary.Buyer.Name:nodeText())..", "..
             conn:quote(tag_OrderSummary.Buyer.PostalCode:nodeText())..", "..
             conn:quote(tag_OrderSummary.Buyer.State:nodeText())..", "..
             conn:quote(ACTIVE_FLG)..", "..
