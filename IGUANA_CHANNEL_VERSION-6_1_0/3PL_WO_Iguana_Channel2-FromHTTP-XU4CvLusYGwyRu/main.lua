@@ -27,14 +27,14 @@ function main()
                 log_file:write(TIME_STAMP.."Transaction "..i.." - Unique Transaction Number "..csos_order_header_data[i].UNIQUE_TRANS_NUM,"\n")  
                 order_header_data=conn:query{sql="select ELITE_ORDER,ELITE_ORDER_NUM,ORDER_NUM,CUSTOMER_NUM,CSOS_ORDER_NUM,PO_NUM,PO_DTE from 3pl_sps_ordering.order_header where CSOS_ORDER_NUM='"..tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM).."';",live=true};
                 --if (order_header_data[1].ELITE_ORDER_NUM ~= nil)
-                    
-                customer_billto_shipto_data=conn:query{sql="select BILLTO_NUM,ORG_CDE,CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..tostring(order_header_data[1].CUSTOMER_NUM).."';",live=true};
-                if(#order_header_data>0 and #customer_billto_shipto_data>0) then  --if 4  --checking for order_header_data and customer_billto_shipto_data size
-                    log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Extracted data from order_header","\n")
-                    log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Extracted data from customer_billto_shipto","\n")
-	                 SEQ_CODE = conn_Elite_stg:query{sql="select seq from prod_841_d.ord_hold where ord_id = '"..tostring(order_header_data[1].ELITE_ORDER_NUM).."'",live=true};
+                log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Extracted data from order_header","\n")
+                        
+                if(#order_header_data>0) then  --if 4  --checking for order_header_data and customer_billto_shipto_data size
+                    customer_billto_shipto_data=conn:query{sql="select BILLTO_NUM,ORG_CDE,CUSTOMER_NUM,SHIPTO_NUM FROM 3pl_sps_ordering.customer_billto_shipto WHERE CUSTOMER_NUM='"..tostring(order_header_data[1].CUSTOMER_NUM).."';",live=true};   
+                    SEQ_CODE = conn_Elite_stg:query{sql="select seq from prod_841_d.ord_hold where ord_id = '"..tostring(order_header_data[1].ELITE_ORDER_NUM).."'",live=true};
+                    log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Extracted data from customer_billto_shipto and seq code","\n")
                     --SEQ_CODE= 1
-                    if(#SEQ_CODE > 0) then
+                    if(#SEQ_CODE > 0 and #customer_billto_shipto_data>0) then
                        if(tostring(csos_order_header_data[i].PO_NUMBER)==tostring(order_header_data[1].PO_NUM)
                          -- and tostring(csos_order_header_data[i].PO_DATE)==tostring(order_header_data[1].PO_DTE)
                           and tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM)==tostring(order_header_data[1].CSOS_ORDER_NUM)
@@ -70,14 +70,18 @@ function main()
                             then  --if 8  -- checking the result of comparing
                                 log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Matched order_details","\n")
                                 soap.soaprequest()
-                                status_result=soap.getsoapresponsestatus(parsing)--calling soap function
+                                status_result=soap.getsoapresponsestatus(soapResponse)--calling soap function
                                 
                                 if(status_result == true) then  --if 9  -- checking whether we got required result through soap
                                     log_file:write(TIME_STAMP..csos_order_header_data[i].UNIQUE_TRANS_NUM.." - Response from the soap is 'N'","\n")
                                     Update.updateProcedure() -- calling function to create a procedure
                                     conn:execute{sql=[[START TRANSACTION;]] ,live=true};
+                                    print(tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM),CURRENT_DATE)
+                                   
                                     sql_update = "CALL Update_Procedure("
-                                        ..conn:quote(tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM))..
+                                        ..conn:quote(tostring(csos_order_header_data[i].UNIQUE_TRANS_NUM))..", "..
+                                    conn:quote(SYSTEM_DATE)..", "..
+                                    conn:quote(DEFAULT_USER)..
                                         ")"
                                     sql_update_status = conn:execute{sql=sql_update, live=true};
                                     if(sql_update_status == nil) then  --if 10 -- verifying updation status

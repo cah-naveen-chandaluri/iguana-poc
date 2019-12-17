@@ -33,7 +33,6 @@ function Soap_Function.getsoapresponsestatus(soapResponse)
 end
 
 function Soap_Function.validationSoapResponse(soapResponse)
-    
    if(soapResponse~=nil and soapResponse["soap:Envelope"]~=nil and soapResponse["soap:Envelope"]["soap:Body"] ~= nil
       and soapResponse["soap:Envelope"]["soap:Body"]["ns2:updateResponse"] ~=nil 
       and soapResponse["soap:Envelope"]["soap:Body"]["ns2:updateResponse"]["return"] ~= nil

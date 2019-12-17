@@ -7,8 +7,8 @@
    use_message_filter="false">
    <to_mapper
       guid="3PL_WO_Iguana_Channel2-To-KeL7w9lNiRaUkR"
-      commit_id="388093137ee75030115b6e9347551c4a745446e2"
-      commit_comment="Import Translators: import both the channels">
+      commit_id="bd884ca99f9c5ad5af43f81e481f1a17dce9df2c"
+      commit_comment="Import Translators: import">
       <dequeue_list>
          <dequeue
             source_name="self"
@@ -18,6 +18,6 @@
    <from_http
       type="mapper"
       guid="3PL_WO_Iguana_Channel2-FromHTTP-XU4CvLusYGwyRu"
-      commit_id="16b548bc1b3c6fe8e933967124b1346033b640d3"
-      commit_comment="Changed the if condition in soap function"/>
+      commit_id="52da3abc1a3802a7629cd6b14c55e45ccbd448bf"
+      commit_comment="updated stored procedure"/>
 </channel>

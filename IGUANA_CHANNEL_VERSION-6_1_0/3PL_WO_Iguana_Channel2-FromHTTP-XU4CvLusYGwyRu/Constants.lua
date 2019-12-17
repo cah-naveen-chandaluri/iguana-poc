@@ -70,16 +70,22 @@ end
 
 function Constants.frequently_constants()
     active_flg_val="YES"
-    user="IGUANA_USER"
+    DEFAULT_USER="IGUANA_USER"
     supplier="SUPPLIER"
     buyer="BUYER"
-   CSOS_ORDER_HDR_STAT_VALUE='2'
+    CSOS_ORDER_HDR_STAT_VALUE='1'
 end
 
 function Constants.log_statements()   --log statements
    CHANNEL_STARTED_RUNNING="******* Iguana channel Started Running *******"
+ 
+
+    SYSTEM_DATE=os.date('%Y-%m-%d %H:%M:%S',os.time()) 
+ 
+
     TIME_STAMP=os.date('%x').." "..os.date('%X').." - "
     TIME_STAMP_FOR_FILE=os.date('%Y-%m-%d %H%M%S')
+    CURRENT_DATE=os.date('%Y-%m-%d %H:%M:%S',os.time())
     ARC_DIR_MISS="Archive directory is missing"
     ARC_DIR_CREATE="Archive directory is created"
     DB_CON_ERROR="Database connection failed"
